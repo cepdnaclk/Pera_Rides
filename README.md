@@ -1,5 +1,5 @@
 ___
-# Pera Rides
+# Pera Rides _Make you easy_
 ___
 
 # eYY-3yp-project-template
