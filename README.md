@@ -14,6 +14,4 @@ At the Department of Computer Engineering, our team is creating PeraRide, a comp
 ![image](https://img.freepik.com/premium-vector/city-bicycle-sharing-system-isolated-white_169241-5557.jpg?w=996)
 
 
-### Page Theme
 
-A custom theme integrated with this GitHub Page, which is based on [github.com/cepdnaclk/eYY-project-theme](https://github.com/cepdnaclk/eYY-project-theme). If you like to remove this default theme, you can remove the file, _docs/\_config.yml_ and use HTML based website.
