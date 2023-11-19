@@ -68,8 +68,8 @@ What was achieved, future developments, commercialization plans
 
 ## Links
 
-- [Project Repository](https://github.com/cepdnaclk/e19-3yp-Pera-Ride){:target="_blank"}
-- [Project Page](https://cepdnaclk.github.io/e19-3yp-Pera-Ride/){:target="_blank"}
+- [Project Repository](https://github.com/cepdnaclk/e19-3yp-Pera-Ride)
+- [Project Page](https://cepdnaclk.github.io/e19-3yp-Pera-Ride/)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
