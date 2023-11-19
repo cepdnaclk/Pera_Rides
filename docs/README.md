@@ -3,8 +3,8 @@ layout: home
 permalink: index.html
 
 # Please update this with your repository name and project title
-repository-name: eYY-3yp-project-template
-title: Project Template
+repository-name: e19-3yp-Pera-Ride
+title: Pera Ride
 ---
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
@@ -14,9 +14,11 @@ title: Project Template
 ---
 
 ## Team
--  eNumber, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
+-  E/19/495, A.G.Dulshan Chamuditha, [email](e19495@eng.pdn.ac.lk)
+-  E/19/405, T.M.R.S.Thennakoon, [email](e19405@eng.pdn.ac.lk)
+-  E/19/465, R.M.S.Dilshan, [email](e19465@eng.pdn.ac.lk)
+-  E/19/227, M.P.J.Madushanka, [email](e19227@eng.pdn.ac.lk)
+-  E/19/091, P.A.M.Dissanayake, [email](e19091@eng.pdn.ac.lk)
 
 <!-- Image (photo/drawing of the final hardware) should be here -->
 
@@ -35,7 +37,9 @@ title: Project Template
 
 ## Introduction
 
-Description of the real world problem and solution, impact
+Bicycle use for regular transportation is promoted by many large cities worldwide as a way to combat growing automobile congestion and the air pollution that results from it. Riding a bicycle provides city inhabitants with additional health benefits by increasing physical activity in addition to addressing the primary difficulties already discussed. Similar needs have been identified in Sri Lankan cities and universities, where thousands of residents regularly need to commute short- to medium-distances.
+
+At the Department of Computer Engineering, our team is creating PeraRide, a comprehensive automated bicycle sharing system that will allow subscribers who are the students of the university to easily check out and return bikes within the university area  
 
 
 ## Solution Architecture
@@ -64,8 +68,8 @@ What was achieved, future developments, commercialization plans
 
 ## Links
 
-- [Project Repository](https://github.com/cepdnaclk/{{ page.repository-name }}){:target="_blank"}
-- [Project Page](https://cepdnaclk.github.io/{{ page.repository-name}}){:target="_blank"}
+- [Project Repository](https://github.com/cepdnaclk/{{ page.e19-3yp-Pera-Ride }}){:target="_blank"}
+- [Project Page](https://cepdnaclk.github.io/{{ page.e19-3yp-Pera-Ride}}){:target="_blank"}
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
