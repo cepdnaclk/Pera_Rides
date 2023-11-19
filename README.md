@@ -10,8 +10,8 @@ At the Department of Computer Engineering, our team is creating PeraRide, a comp
 
 
 
-![image](https://www.google.co.uk/url?sa=i&url=https%3A%2F%2Fwww.anylogic.com%2Fblog%2Fdimensioning-of-bike-sharing-systems-in-the-city-of-leon-gua%2F&psig=AOvVaw2lbh-wdqndv1ZGX0jXJTJt&ust=1700506737913000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCOipkPib0YIDFQAAAAAdAAAAABAE)
-![image](https://www.google.co.uk/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Fpremium-vector%2Fcity-bicycle-sharing-system-isolated-white_26757330.htm&psig=AOvVaw2lbh-wdqndv1ZGX0jXJTJt&ust=1700506737913000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCOipkPib0YIDFQAAAAAdAAAAABAJ)
+![image](https://www.anylogic.com/upload/blog/c67/c671ba340460d0018a250d6c17fe8ad1.jpg)
+![image](https://img.freepik.com/premium-vector/city-bicycle-sharing-system-isolated-white_169241-5557.jpg?w=996)
 
 
 ### Page Theme
