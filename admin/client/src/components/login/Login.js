@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
 import "./Login.css";
 import LOGIN_IMG from "../../assests/pera_ride.jpg";
+import { useRef } from "react";
 
 const Login = () => {
+  const usernameRef = useRef();
+  const passwordRef = useRef();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="login-main-div">
       <div className="login-sub-div">
@@ -19,7 +27,7 @@ const Login = () => {
             height={120}
           />
         </div>
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleSubmit}>
           <input
             className="login-input"
             type="text"
@@ -27,6 +35,7 @@ const Login = () => {
             id="admin-username"
             placeholder="username..."
             required
+            ref={usernameRef}
           />
           <input
             className="login-input"
@@ -37,6 +46,7 @@ const Login = () => {
             required
             autoComplete="new-password"
             autoCorrect="off"
+            ref={passwordRef}
           />
           <button type="submit" className="login-btn">
             login
