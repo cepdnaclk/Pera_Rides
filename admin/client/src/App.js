@@ -4,12 +4,15 @@ import Reset from "./components/reset/Reset";
 import NewPassword from "./components/newpassword/NewPassword";
 import PageNotFound from "./components/pageNotFound/PageNotFound";
 import HomePage from "./components/homepage/HomePage";
+import { useContext } from "react";
+import { Context } from "./context/Context";
 
 function App() {
+  const { admin } = useContext(Context);
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<HomePage />} />
+        <Route exact path="/" element={admin ? <HomePage /> : <Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/newpassword" element={<NewPassword />} />
