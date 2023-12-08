@@ -102,13 +102,29 @@
     letter-spacing: 3px;
     text-transform: uppercase;
     font-size: 14px;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .reset-btn:hover{
     background-color: #fff;
     color: #333;
 }
+.reset-btn:hover .Link{
+    cursor: pointer;
+    transition: all 1s;
+    color: #333;
+}
+
+.reset-btn > .Link {
+    /* background-color: yellow; */
+    width: 100%;
+    height: 100%;
+    color: #fff;
+} 
+.reset-btn > .Link:hover {
+    color: #333;
+} 
+
 
 .reset-forgot{
     background-color: rgba(0, 0, 0, 0.7);

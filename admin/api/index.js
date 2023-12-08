@@ -22,7 +22,11 @@ mongoose
   .catch((err) => console.log(err));
 ////////////////////////////////
 
+// rotes for admin login, password reset, register admin
 app.use("/api/", require("./routes/login"));
+
+// routes for generate OTP
+app.use("/api/", require("./routes/generateOTP"));
 
 // app listening to port
 app.listen(PORT, () => {

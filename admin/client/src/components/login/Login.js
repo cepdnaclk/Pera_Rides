@@ -7,7 +7,6 @@ import axios from "axios";
 
 const Login = () => {
   const { isFetching, dispatch } = useContext(Context);
-
   const usernameRef = useRef();
   const passwordRef = useRef();
 
@@ -26,6 +25,21 @@ const Login = () => {
       console.log(`Error: ${err.message}`);
     }
   };
+
+  // const handleOTPgenerate = async () => {
+  //   alert("OTP has been sent successfully!");
+  //   try {
+  //     const response = await axios.get("/generateOTP");
+  //     if (!response) {
+  //       console.log("Error with generating OTP, please try again!");
+  //     }
+  //     const OTP = response.data; // string
+  //     console.log(OTP);
+  //     dispatch({ type: "GENERATE_OTP", payload: OTP });
+  //   } catch (err) {
+  //     console.log(`Error: ${err.message}`);
+  //   }
+  // };
 
   return (
     <div className="login-main-div">
