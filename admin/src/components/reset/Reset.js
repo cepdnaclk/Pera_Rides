@@ -9,7 +9,7 @@ const Reset = () => {
         <div className="reset-title">
           <h1 className="h1">OTP Validation</h1>
           <p className="p">
-            Enter 5-digit OTP <br /> sent to admin's email.
+            Enter 5-digit OTP <br /> sent to an admin's email.
           </p>
         </div>
         <div className="reset-img-container">
