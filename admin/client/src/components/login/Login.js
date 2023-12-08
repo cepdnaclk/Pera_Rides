@@ -1,14 +1,30 @@
 import { Link } from "react-router-dom";
 import "./Login.css";
 import LOGIN_IMG from "../../assests/pera_ride.jpg";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { Context } from "../../context/Context";
+import axios from "axios";
 
 const Login = () => {
+  const { isFetching, dispatch } = useContext(Context);
+
   const usernameRef = useRef();
   const passwordRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch({ type: "LOGIN_START" });
+    try {
+      const response = await axios.post("/login", {
+        username: usernameRef.current.value,
+        password: passwordRef.current.value,
+      });
+      console.log(response);
+      dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE" });
+      console.log(`Error: ${err.message}`);
+    }
   };
 
   return (
@@ -48,7 +64,7 @@ const Login = () => {
             autoCorrect="off"
             ref={passwordRef}
           />
-          <button type="submit" className="login-btn">
+          <button type="submit" className="login-btn" disabled={isFetching}>
             login
           </button>
         </form>
