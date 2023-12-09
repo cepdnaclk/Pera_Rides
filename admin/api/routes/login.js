@@ -43,9 +43,7 @@ router.post("/resetpassword", async (req, res) => {
   const admin = await Admin.findOne({ username: "admin" });
   if (!admin) return res.status(404).json("Admin  not found!");
   admin.password = hashedNewPassword;
-  // const newAdmin = { password: newPassword, ...others };
   await admin.save();
-  // await Admin.findByIdAndDelete(admin.id);
   res.status(200).json("Password updated successfully");
 });
 
