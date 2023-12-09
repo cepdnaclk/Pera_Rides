@@ -1,33 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import LOGIN_IMG from "../../assests/pera_ride.jpg";
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { Context } from "../../context/Context";
 import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { isFetching, dispatch } = useContext(Context);
   const usernameRef = useRef();
   const passwordRef = useRef();
-  const [isError, setIsError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsError(false);
     dispatch({ type: "LOGIN_START" });
     try {
       const response = await axios.post("/login", {
         username: usernameRef.current.value,
         password: passwordRef.current.value,
       });
-      console.log(response);
+      // console.log(response);
       dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
+      navigate("/");
     } catch (err) {
-      setIsError(true);
       usernameRef.current.value = "";
       passwordRef.current.value = "";
-      isError && alert("something went wrong! please try again.");
       dispatch({ type: "LOGIN_FAILURE" });
+      alert("Something went wrong! please try again.");
       console.log(`Error: ${err.message}`);
     }
   };

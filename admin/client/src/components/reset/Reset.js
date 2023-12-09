@@ -21,6 +21,7 @@ const Reset = () => {
       otpRef.current.value = null;
       navigate("/newpassword");
     } catch (err) {
+      otpRef.current.value = null;
       !isOTPcorrect && alert("Invalid OTP");
       setIsOTPcorrrect(false);
     }
