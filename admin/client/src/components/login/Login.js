@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Login.css";
 import LOGIN_IMG from "../../assests/pera_ride.jpg";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { Context } from "../../context/Context";
 import axios from "axios";
 
@@ -9,9 +9,11 @@ const Login = () => {
   const { isFetching, dispatch } = useContext(Context);
   const usernameRef = useRef();
   const passwordRef = useRef();
+  const [isError, setIsError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsError(false);
     dispatch({ type: "LOGIN_START" });
     try {
       const response = await axios.post("/login", {
@@ -21,25 +23,26 @@ const Login = () => {
       console.log(response);
       dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
     } catch (err) {
+      setIsError(true);
+      usernameRef.current.value = "";
+      passwordRef.current.value = "";
+      isError && alert("something went wrong! please try again.");
       dispatch({ type: "LOGIN_FAILURE" });
       console.log(`Error: ${err.message}`);
     }
   };
 
-  // const handleOTPgenerate = async () => {
-  //   alert("OTP has been sent successfully!");
-  //   try {
-  //     const response = await axios.get("/generateOTP");
-  //     if (!response) {
-  //       console.log("Error with generating OTP, please try again!");
-  //     }
-  //     const OTP = response.data; // string
-  //     console.log(OTP);
-  //     dispatch({ type: "GENERATE_OTP", payload: OTP });
-  //   } catch (err) {
-  //     console.log(`Error: ${err.message}`);
-  //   }
-  // };
+  const handleOTPgenerate = async () => {
+    alert("OTP has been sent successfully!");
+    try {
+      const response = await axios.get("/generateOTP");
+      if (!response) {
+        console.log("Error with generating OTP, please try again!");
+      }
+    } catch (err) {
+      console.log(`Error: ${err.message}`);
+    }
+  };
 
   return (
     <div className="login-main-div">
@@ -84,7 +87,11 @@ const Login = () => {
         </form>
         <div className="login-forgot">
           Forgot Password?{" "}
-          <Link to="/reset" className="Link login-link">
+          <Link
+            onClick={handleOTPgenerate}
+            to="/reset"
+            className="Link login-link"
+          >
             Reset.
           </Link>
         </div>

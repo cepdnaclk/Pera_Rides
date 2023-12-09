@@ -2,8 +2,17 @@ const router = require("express").Router();
 const generateOTP = require("otp-generator");
 const nodemailer = require("nodemailer");
 const AdminSchema = require("../models/Admin");
+const bcrypt = require("bcrypt");
+
+const OTPprops = {
+  value: null,
+  isVerified: false,
+};
 
 router.get("/generateOTP", async (req, res) => {
+  OTPprops.isVerified = false;
+  OTPprops.value = null;
+
   const OTP = generateOTP.generate(6, {
     lowerCaseAlphabets: false,
     upperCaseAlphabets: false,
@@ -13,6 +22,7 @@ router.get("/generateOTP", async (req, res) => {
   try {
     const admin = await AdminSchema.findOne({ username: "admin" });
     if (!admin) return res.status(404).json("Admin not found in the server!");
+
     // console.log(admin.email);
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -44,14 +54,22 @@ router.get("/generateOTP", async (req, res) => {
       }
     };
     sendMail(transporter, mailOptions);
-    res.status(201).json(OTP);
+
+    OTPprops.value = OTP;
+    res.status(201).json("OTP has been sent successfully!");
   } catch (err) {
     console.log(`Error: ${err.message}`);
   }
 });
 
 // verify OTP
-router.get("/verifyOTP", (req, res) => {});
+router.post("/verifyOTP", async (req, res) => {
+  const userOTP = await req.body.userOtp;
+  if (userOTP !== OTPprops.value) return res.status(401).json("OTP not valid!");
+  OTPprops.isVerified = true;
+  OTPprops.value = null;
+  res.status(200).json({ response: true });
+});
 
 // redirect to password reset page when OTP is correct
 router.get("/redirect", (req, res) => {});
