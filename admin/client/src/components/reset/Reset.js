@@ -1,17 +1,41 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Reset.css";
 import OTP_IMG from "../../assests/otp-img.jpg";
-import { useRef, useState, useContext } from "react";
-import { Context } from "../../context/Context";
+import { useRef, useState } from "react";
+import axios from "axios";
 
 const Reset = () => {
   const otpRef = useRef();
   const [isOTPcorrect, setIsOTPcorrrect] = useState(false);
-  const { otp } = useContext(Context);
+  const navigate = useNavigate();
 
-  const handleOTPequality = () => {
-    setIsOTPcorrrect(true);
-    console.log(otp);
+  const handleOTPverify = async (e) => {
+    e.preventDefault();
+    setIsOTPcorrrect(false);
+    try {
+      const response = await axios.post("/verifyOTP/", {
+        userOtp: otpRef.current.value,
+      });
+      const isVerified = response.data.response;
+      setIsOTPcorrrect(isVerified);
+      otpRef.current.value = null;
+      navigate("/newpassword");
+    } catch (err) {
+      !isOTPcorrect && alert("Invalid OTP");
+      setIsOTPcorrrect(false);
+    }
+  };
+
+  const handleRegenrateOTP = async () => {
+    alert("OTP has been sent successfully!");
+    try {
+      const response = await axios.get("/generateOTP");
+      if (!response) {
+        console.log("Error with generating OTP, please try again!");
+      }
+    } catch (err) {
+      console.log(`Error: ${err.message}`);
+    }
   };
 
   return (
@@ -30,9 +54,10 @@ const Reset = () => {
             className="reset-img"
             width={120}
             height={120}
+            loading="lazy"
           />
         </div>
-        <form className="reset-form">
+        <form className="reset-form" onSubmit={handleOTPverify}>
           <input
             className="reset-input"
             type="text"
@@ -43,17 +68,14 @@ const Reset = () => {
             ref={otpRef}
           />
           <button type="submit" className="reset-btn">
-            <Link
-              onClick={handleOTPequality}
-              className="Link"
-              to={isOTPcorrect ? "/newpassword" : ""}
-            >
-              reset
-            </Link>
+            reset
           </button>
         </form>
         <div className="reset-forgot">
-          Don't get OTP? <Link className="Link reset-link">Resend.</Link>
+          Don't get OTP?{" "}
+          <span onClick={handleRegenrateOTP} className="Link reset-link">
+            Resend.
+          </span>
         </div>
       </div>
     </div>
