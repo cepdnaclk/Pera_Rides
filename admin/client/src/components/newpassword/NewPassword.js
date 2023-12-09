@@ -1,8 +1,36 @@
 // import { Link } from "react-router-dom";
 import "./NewPassword.css";
 import PASSWORD_IMG from "../../assests/password-img.jpg";
+import { useRef } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const NewPassword = () => {
+  const navigate = useNavigate();
+  const passwordRef = useRef();
+  const resetPasswordRef = useRef();
+
+  const handlePasswordReset = async (e) => {
+    e.preventDefault();
+    if (passwordRef.current.value !== resetPasswordRef.current.value) {
+      alert("Two passwords must be match!");
+      passwordRef.current.value = null;
+      resetPasswordRef.current.value = null;
+    } else {
+      // const response = await axios.post("/resetpassword", {
+      //   newpassword: passwordRef.current.value,
+      // });
+      // alert("Password updated successfully!");
+      // navigate("/login");
+      // console.log(response);
+      await axios.post("/resetpassword", {
+        newpassword: passwordRef.current.value,
+      });
+      alert("Password updated successfully!");
+      navigate("/login");
+    }
+  };
+
   return (
     <div className="password-main-div">
       <div className="password-sub-div">
@@ -19,7 +47,7 @@ const NewPassword = () => {
             height={120}
           />
         </div>
-        <form className="password-form">
+        <form className="password-form" onSubmit={handlePasswordReset}>
           <input
             className="password-input"
             type="password"
@@ -29,6 +57,7 @@ const NewPassword = () => {
             required
             autoComplete="new-password"
             autoCorrect="off"
+            ref={passwordRef}
           />
           <input
             className="password-input"
@@ -39,6 +68,7 @@ const NewPassword = () => {
             required
             autoComplete="new-password"
             autoCorrect="off"
+            ref={resetPasswordRef}
           />
           <button type="submit" className="password-btn">
             save

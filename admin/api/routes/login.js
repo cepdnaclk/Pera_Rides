@@ -37,6 +37,16 @@ router.post("/login", async (req, res) => {
 });
 
 // reset password
-router.post("/resetpassword", async (req, res) => {});
+router.post("/resetpassword", async (req, res) => {
+  const newPassword = req.body.newpassword;
+  const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+  const admin = await Admin.findOne({ username: "admin" });
+  if (!admin) return res.status(404).json("Admin  not found!");
+  admin.password = hashedNewPassword;
+  // const newAdmin = { password: newPassword, ...others };
+  await admin.save();
+  // await Admin.findByIdAndDelete(admin.id);
+  res.status(200).json("Password updated successfully");
+});
 
 module.exports = router;
