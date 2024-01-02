@@ -15,7 +15,7 @@ export default function LoginScreen() {
         {/* lights */}
         <View className="flex-row justify-around w-full absolute">
             <Animated.Image 
-                entering={FadeInUp.delay(200).duration(1000).springify()} 
+                entering={FadeInUp.delay(200).duration(1000).springify().damping(3)} 
                 source={require('../assets/images/bicycle2.png')} 
                 className="h-[200] w-[250]" 
             />

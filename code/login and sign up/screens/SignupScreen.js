@@ -15,7 +15,7 @@ export default function SignupScreen() {
       {/* bicycles */}
       <View className="flex-row justify-around w-full absolute">
         <Animated.Image 
-            entering={FadeInUp.delay(200).duration(1000).springify()} 
+            entering={FadeInUp.delay(200).duration(1000).springify().damping(3)} 
             source={require('../assets/images/bicycle2.png')} 
             className="h-[200] w-[250]"
         />
@@ -39,13 +39,13 @@ export default function SignupScreen() {
         </View>
 
         {/* form */}
-        <View className="flex items-center mx-5 space-y-4">
+        <View className="flex items-center mx-5 space-y-1">
             <Animated.View 
                 entering={FadeInDown.duration(1000).springify()} 
                 className="bg-black/5 p-5 rounded-2xl w-full">
                 <TextInput
                     placeholder="Username"
-                    placeholderTextColor={'gray'}
+                    placeholderTextColor={'black'}
                 />
             </Animated.View>
             <Animated.View 
@@ -53,15 +53,24 @@ export default function SignupScreen() {
                 className="bg-black/5 p-5 rounded-2xl w-full">
                 <TextInput
                     placeholder="Email"
-                    placeholderTextColor={'gray'}
+                    placeholderTextColor={'black'}
                 />
             </Animated.View>
             <Animated.View 
                 entering={FadeInDown.delay(400).duration(1000).springify()} 
                 className="bg-black/5 p-5 rounded-2xl w-full mb-3">
                 <TextInput
+                    placeholder="phone number"
+                    placeholderTextColor={'black'}
+                    secureTextEntry
+                />
+            </Animated.View>
+            <Animated.View 
+                entering={FadeInDown.delay(600).duration(1000).springify()} 
+                className="bg-black/5 p-5 rounded-2xl w-full mb-3">
+                <TextInput
                     placeholder="Password"
-                    placeholderTextColor={'gray'}
+                    placeholderTextColor={'black'}
                     secureTextEntry
                 />
             </Animated.View>
