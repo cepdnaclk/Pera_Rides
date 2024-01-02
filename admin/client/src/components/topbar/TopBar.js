@@ -1,19 +1,73 @@
 import { useContext } from "react";
-import "./TopBar.css";
-import { Context } from "../../context/Context";
+import { Box, IconButton, useTheme } from "@mui/material";
+import { ColorModeContext, tokens } from "../../theme";
+import InputBase from "@mui/material/InputBase";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import SearchIcon from "@mui/icons-material/Search";
+import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../Redux/features/modal/modalSlice";
+
+const TopbarMainDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  background-color: ${(props) => props.color};
+  border-radius: 5px;
+`;
 
 const TopBar = () => {
-  const { dispatch } = useContext(Context);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const colorMode = useContext(ColorModeContext);
+  const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    dispatch({ type: "LOGOUT" });
-  };
   return (
-    <div className="top-bar">
-      <li className="li" onClick={handleLogout}>
-        logout
-      </li>
-    </div>
+    <TopbarMainDiv>
+      {/* SEARCH BAR */}
+      <SearchContainer color={colors.primary[400]}>
+        <InputBase sx={{ marginLeft: 2, flex: 1 }} placeholder="Search" />
+        <IconButton type="button" sx={{ padding: 1 }}>
+          <SearchIcon />
+        </IconButton>
+      </SearchContainer>
+
+      {/* OTHER ICONS */}
+      <Box display="flex">
+        <IconButton
+          onClick={colorMode.toggleColorMode}
+          title={
+            theme.palette.mode === "dark"
+              ? "Go to light mode"
+              : "Go to dark mode"
+          }
+        >
+          {theme.palette.mode === "dark" ? (
+            <DarkModeOutlinedIcon />
+          ) : (
+            <LightModeOutlinedIcon />
+          )}
+        </IconButton>
+        <IconButton title="notifications">
+          <NotificationsOutlinedIcon />
+        </IconButton>
+        <IconButton title="settings">
+          <SettingsOutlinedIcon />
+        </IconButton>
+        <IconButton title="logout" onClick={() => dispatch(openModal())}>
+          <PersonOutlinedIcon />
+        </IconButton>
+      </Box>
+    </TopbarMainDiv>
   );
 };
 

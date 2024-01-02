@@ -1,0 +1,136 @@
+.reset-main-div{
+    width: 100%;
+    height: 100vh;
+    background-color: #bed5dd;
+    background: url("../../assests/otp-back3.jpeg") no-repeat center center/ cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.reset-sub-div{
+    width: 30%;
+    height: 80vh;
+    border-radius: 20px;
+    border: 2px solid #fff;
+    box-shadow: 5px 5px 15px -4px #fff;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 1s;
+}
+.reset-sub-div:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.reset-title {
+    border-radius: 20px 20px 0 0 ;
+}
+.reset-title > .h1{
+    font-family: var(--POPPINS-FF);
+    border-radius: 20px 20px 0 0 ;
+    padding: 20px 0;
+    text-align: center;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    color: #fff;
+    font-size: 30px;
+}
+.reset-title > .p{
+    font-family: var(--VARELA-ROUND-FF);
+    background-color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    line-height: 25px;
+    padding: 5px 0;
+    color: #fff;
+    letter-spacing: 2px;
+}
+
+.reset-img-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 0;
+    width: 100%;
+    height: 150px;
+}
+
+.reset-img{
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    border: 2px solid #fff;
+}
+
+.reset-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px 10px 20px;
+    padding-top: 0;
+}
+
+.reset-input{
+    padding: 10px;
+    font-family: var(--VARELA-ROUND-FF);
+    border: none;
+    border-bottom: 2px solid #fff;
+    outline: none;
+    width: 80%;
+    height: 30px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.reset-input::placeholder{
+    font-size: 14px;
+    color: #f5f5f5;
+}
+
+.reset-btn{
+    width: 80%;
+    height: 30px;
+    padding: 7px 0;
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: whitesmoke;
+    transition: all 1s;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.reset-btn:hover{
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+}
+
+
+
+
+
+.reset-forgot{
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    color: #fff;
+}
+
+.reset-forgot > .reset-link{
+    margin-left: 5px;
+    color: #6495ed;
+}
+
+.reset-forgot > .reset-link:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
