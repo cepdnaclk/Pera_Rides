@@ -1,7 +1,9 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { closeModal } from "../../Redux/features/modal/modalSlice";
+import { logout } from "../../Redux/features/admin/adminSlice";
 import { useNavigate } from "react-router-dom";
+import { PURGE } from "redux-persist";
 
 const ModalMain = styled.div`
   width: 100%;
@@ -78,8 +80,9 @@ const Modal = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch({ type: "persist/PURGE", result: () => null });
     dispatch(closeModal());
+    dispatch(logout());
+    dispatch({ type: PURGE, key: "persist:root", result: () => null });
     navigate("/login");
   };
 

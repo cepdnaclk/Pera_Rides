@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { Box, IconButton, useTheme } from "@mui/material";
+// import { useState } from "react";
+import { IconButton, useTheme } from "@mui/material";
 import {
   HomeOutlined,
   PeopleOutlined,
@@ -13,7 +13,7 @@ import {
   HelpOutlined,
 } from "@mui/icons-material";
 import { tokens } from "../../theme";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import IM from "../../assests/ff.jpg";
 
 /* STYLED COMPONENTS */
@@ -121,8 +121,8 @@ const MenuItemWord = styled.div`
 const SidebarMenu = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Dashboard");
+  // const [isCollapsed, setIsCollapsed] = useState(false);
+  // const [selected, setSelected] = useState("Dashboard");
 
   return (
     <SidebarMainDiv color={colors.primary[400]}>

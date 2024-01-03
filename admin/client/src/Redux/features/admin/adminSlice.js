@@ -25,6 +25,10 @@ const adminSlice = createSlice({
       state.isError = true;
     },
 
+    logout: (state) => {
+      state.currentAdmin = null;
+    },
+
     extraReducers: (builder) => {
       builder.addCase(PURGE, (state) => {
         // Clear relevant state when PURGE action is dispatched

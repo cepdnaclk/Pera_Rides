@@ -25,9 +25,26 @@ function App() {
               path="/"
               element={currentAdmin ? <HomePage /> : <Navigate to="/login" />}
             />
-            <Route path="/login" element={<Login />} />
-            <Route path="/reset" element={<Reset />} />
-            <Route path="/newpassword" element={<NewPassword />} />
+            <Route
+              path="/login"
+              element={currentAdmin ? <Navigate to="/" /> : <Login />}
+            />
+            <Route
+              path="/reset"
+              element={currentAdmin ? <Navigate to="/" /> : <Reset />}
+            />
+            <Route
+              path="/newpassword"
+              element={
+                !currentAdmin ? (
+                  <Navigate to="/login" />
+                ) : currentAdmin ? (
+                  <Navigate to="/" />
+                ) : (
+                  <NewPassword />
+                )
+              }
+            />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </div>
