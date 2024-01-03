@@ -29,7 +29,10 @@ export default function HomeScreen() {
                     }}
                 >
                     Pera Ride...
-                    <TouchableOpacity onPress={()=> navigation.push('Notifications')}>
+                    <TouchableOpacity onPress={()=> navigation.push('QrScanner')}>
+                        <Icon name="bell" size={30} color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> navigation.push('QrScanner')}>
                         <Icon name="bell" size={30} color="white" />
                     </TouchableOpacity>
                     
