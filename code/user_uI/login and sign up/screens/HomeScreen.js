@@ -15,38 +15,40 @@ export default function HomeScreen() {
         <StatusBar style="light" />
         <Image className="h-full w-full absolute" source={require('../assets/images/back.png')} />
 
-        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20, marginRight: 0, marginTop: 40, }}>Welcome to</Text>
-        {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>  */}
+        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 25, marginRight: 0, marginTop: 40, }}>Welcome to</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}> 
         <Animated.Text 
                     entering={FadeInUp.duration(1000).springify()}
                     
                     style={{
                     color: 'green',
                     fontWeight: 'bold',
-                    fontSize: 25,
-                    marginRight: 150,
+                    fontSize: 30,
+                    marginRight: 10,
                     marginTop: 10, // Adjust spacing between icon and text as needed
                     }}
                 >
-                    Pera Ride...
+                    Pera Ride...                    .
+                    {/* <View style={{ width: 10 }} />  */}
                     <TouchableOpacity onPress={()=> navigation.push('QrScanner')}>
-                        <Icon name="bell" size={30} color="white" />
+                        <Icon name="qrcode" size={30} color="white" />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=> navigation.push('QrScanner')}>
+                    <View style={{ width: 20 }} /> 
+                    <TouchableOpacity onPress={()=> navigation.push('Notifications')}>
                         <Icon name="bell" size={30} color="white" />
                     </TouchableOpacity>
                     
         </Animated.Text>
         
        
-        {/* </View> */}
+        </View>
         <Animated.Text 
                 entering={FadeInUp.duration(2000).springify()} 
                 style={{
                 color: 'white',
                 fontWeight: 'bold',
                 fontSize: 15,
-                marginRight: 50, // Adjust spacing between icon and text as needed
+                marginTop: 50, // Adjust spacing between icon and text as needed
                 }}
             >
                 Account balance: Rs 1000
@@ -90,7 +92,7 @@ export default function HomeScreen() {
 
 
             {/* form */}
-            <View className="flex items-center mx-5 space-y-4">
+            {/* <View className="flex items-center mx-5 space-y-4">
                 <Animated.View 
                     entering={FadeInDown.duration(1000).springify()} 
                     className="bg-black/5 p-5 rounded-2xl w-full">
@@ -109,7 +111,7 @@ export default function HomeScreen() {
                         placeholderTextColor={'gray'}
                         secureTextEntry
                     />
-                </Animated.View>
+                </Animated.View> */}
 
                 <Animated.View 
                     className="w-full" 
@@ -131,6 +133,6 @@ export default function HomeScreen() {
                 </Animated.View>
             </View>
         </View>
-     </View>
+     //</View>
   )
 }
