@@ -4,10 +4,26 @@ import { tokens } from "../../theme";
 import { mockDataUsers } from "../../data/mockData";
 import HeaderTitle from "../../components/headerTitle/HeaderTitle";
 import styled from "styled-components";
-
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 const MainUsersGrid = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+const BtnsContainer = styled.div``;
+const Button = styled.button`
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background-color: ${(props) => props.color};
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 3px;
+  border: none;
+  outline: none;
 `;
 
 const Users = () => {
@@ -30,6 +46,23 @@ const Users = () => {
       field: "email",
       headerName: "Email",
       flex: 1,
+    },
+    {
+      field: "balance",
+      headerName: "Balance",
+    },
+    {
+      field: "manage",
+      headerName: "Delete",
+      renderCell: () => {
+        return (
+          <BtnsContainer>
+            <Button color={theme.palette.mode === "dark" ? "red" : "teal"}>
+              <DeleteOutlineOutlinedIcon />
+            </Button>
+          </BtnsContainer>
+        );
+      },
     },
   ];
 
