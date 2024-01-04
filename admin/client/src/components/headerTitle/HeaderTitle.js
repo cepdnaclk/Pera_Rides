@@ -16,6 +16,7 @@ const HeaderTitleMain = styled.div`
 const HeadetTitleText = styled.span`
   font-size: ${(props) => (props.size === "big" ? "20px" : "12px")};
   color: ${(props) => props.color};
+  letter-spacing: 1px;
   text-transform: ${(props) =>
     props.size === "big" ? "uppercase" : "lowercase"};
 `;

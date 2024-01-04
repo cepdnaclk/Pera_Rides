@@ -14,7 +14,7 @@ const ModalMain = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.5);
   transition: all 1s;
 `;
 
@@ -22,13 +22,10 @@ const ModalContainer = styled.div`
   width: 450px;
   height: 150px;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: lightgray;
   border: 1px solid #fff;
   transition: all 1s;
   box-shadow: 0px 0px 8px rgba(255, 255, 255, 1);
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
 `;
 
 const ModalQuestion = styled.p`
@@ -43,7 +40,7 @@ const ModalQuestion = styled.p`
   font-weight: bold;
   letter-spacing: 1px;
   padding-bottom: 5px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 1);
 `;
 
 const ModalBtnContainer = styled.div`
