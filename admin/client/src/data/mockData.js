@@ -5,6 +5,7 @@ export const mockDataUsers = [
     email: "john@gmail.com",
     password: "123",
     phone: "0779700576",
+    balance: "100.00",
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export const mockDataUsers = [
     email: "jane@gmail.com",
     password: "123",
     phone: "0779700576",
+    balance: "100.00",
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ export const mockDataUsers = [
     email: "peter@gmail.com",
     password: "123",
     phone: "0779700576",
+    balance: "100.00",
   },
   {
     id: 4,
@@ -26,6 +29,7 @@ export const mockDataUsers = [
     email: "kali@gmail.com",
     password: "123",
     phone: "0779700576",
+    balance: "100.00",
   },
   {
     id: 5,
@@ -33,6 +37,7 @@ export const mockDataUsers = [
     email: "randy@gmail.com",
     password: "123",
     phone: "0779700576",
+    balance: "100.00",
   },
   {
     id: 6,
@@ -40,6 +45,7 @@ export const mockDataUsers = [
     email: "mia@gmail.com",
     password: "123",
     phone: "0779700576",
+    balance: "100.00",
   },
   {
     id: 7,
@@ -47,6 +53,7 @@ export const mockDataUsers = [
     email: "kalifa@gmail.com",
     password: "123",
     phone: "0779700576",
+    balance: "100.00",
   },
   {
     id: 8,
@@ -54,6 +61,7 @@ export const mockDataUsers = [
     email: "render@gmail.com",
     password: "123",
     phone: "0779700576",
+    balance: "100.00",
   },
   {
     id: 9,
@@ -61,6 +69,7 @@ export const mockDataUsers = [
     email: "react@gmail.com",
     password: "123",
     phone: "0779700576",
+    balance: "100.00",
   },
   {
     id: 10,
@@ -68,5 +77,6 @@ export const mockDataUsers = [
     email: "node@gmail.com",
     password: "123",
     phone: "0779700576",
+    balance: "100.00",
   },
 ];

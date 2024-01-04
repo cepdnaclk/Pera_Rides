@@ -41,12 +41,12 @@ const HomePage = () => {
   const {
     dashboard,
     manageUsers,
-    addUser,
-    calender,
-    faq,
-    barChart,
-    pieChar,
-    LineChart,
+    // addUser,
+    // calender,
+    // faq,
+    // barChart,
+    // pieChar,
+    // LineChart,
   } = useSelector((store) => store.component);
 
   const { isOpen } = useSelector((store) => store.modal);
