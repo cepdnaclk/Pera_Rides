@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import adminReducer from "./features/admin/adminSlice";
 import modalReducer from "./features/modal/modalSlice";
+import componentReducer from "./features/comp_inside_homepage/componentSlice";
 
 import {
   persistStore,
@@ -25,6 +26,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   admin: adminReducer,
   modal: modalReducer,
+  component: componentReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

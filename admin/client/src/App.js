@@ -4,8 +4,6 @@ import Reset from "./pages/reset/Reset";
 import NewPassword from "./pages/newpassword/NewPassword";
 import PageNotFound from "./pages/pageNotFound/PageNotFound";
 import HomePage from "./pages/homepage/HomePage";
-// import { useContext } from "react";
-// import { Context } from "./context/Context";
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";

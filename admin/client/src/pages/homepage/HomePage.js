@@ -4,6 +4,8 @@ import Modal from "../../components/modal/Modal";
 import { useSelector } from "react-redux";
 import SidebarMenu from "../../components/sidebar/SidebarMenu";
 import styled from "styled-components";
+import Dashboard from "../../components/dashboard/Dashboard";
+import Users from "../users/Users";
 
 const HomepageMainDiv = styled.div`
   width: 100%;
@@ -27,9 +29,26 @@ const SideBarContainer = styled.div`
 const OthesContainer = styled.div`
   flex: 10;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  /* background-color: gray; */
 `;
 
 const HomePage = () => {
+  const {
+    dashboard,
+    manageUsers,
+    addUser,
+    calender,
+    faq,
+    barChart,
+    pieChar,
+    LineChart,
+  } = useSelector((store) => store.component);
+
   const { isOpen } = useSelector((store) => store.modal);
   return (
     <HomepageMainDiv>
@@ -38,6 +57,8 @@ const HomePage = () => {
       </SideBarContainer>
       <OthesContainer>
         <TopBar />
+        {dashboard && <Dashboard />}
+        {manageUsers && <Users />}
       </OthesContainer>
       {isOpen && <Modal />}
     </HomepageMainDiv>
