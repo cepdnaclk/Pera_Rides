@@ -54,15 +54,25 @@ const Calendar = () => {
   return (
     <CalendarMain>
       <HeaderTitle title={"calendar"} desc={"manage your days and events"} />
-      <Box display="flex" justifyContent="space-between">
+      <Box display="flex" justifyContent="space-between" marginTop={"20px"}>
         {/* calendar sidebar */}
         <Box
           flex="1 1 20%"
           backgroundColor={colors.primary[400]}
-          padding="15px"
+          paddingLeft="10px"
           borderRadius="4px"
+          sx={{
+            marginTop: "10px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            overflowY: "scroll",
+            maxHeight: "75vh",
+          }}
         >
-          <Typography variant="h5">Events</Typography>
+          <Typography variant="h5" alignSelf={"flex-start"} paddingTop={"10px"}>
+            Events
+          </Typography>
           <List>
             {currentEvents?.map((event) => (
               <ListItem
@@ -77,17 +87,60 @@ const Calendar = () => {
                   primary={event.title}
                   secondary={
                     <Typography>
-                      {FullCalendar.formatDate(event.start, {
+                      {/* {FullCalendar.formatDate(event.start, {
                         year: "numeric",
                         month: "short",
                         day: "numeric",
-                      })}
+                      })} */}
                     </Typography>
                   }
                 />
               </ListItem>
             ))}
           </List>
+        </Box>
+
+        {/* calendar */}
+        <Box
+          sx={{
+            flex: "1 1 100%",
+            margin: "0 15px",
+          }}
+        >
+          <FullCalendar
+            height="75vh"
+            plugins={[
+              dayGridPlugin,
+              timeGridPlugin,
+              listPlugin,
+              interactionPlugin,
+            ]}
+            headerToolbar={{
+              left: "prev,next today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+            }}
+            initialView="dayGridMonth"
+            editable={true}
+            selectable={true}
+            selectMirror={true}
+            dayMaxEvents={true}
+            select={handleDateClick}
+            eventClick={handleEventClick}
+            eventsSet={(events) => setCurrentEvents(events)}
+            initialEvents={[
+              {
+                id: "123",
+                title: "All-day event",
+                date: "2024-01-01",
+              },
+              {
+                id: "1234",
+                title: "Timed event",
+                date: "2024-01-02",
+              },
+            ]}
+          />
         </Box>
       </Box>
     </CalendarMain>
