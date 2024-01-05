@@ -6,6 +6,8 @@ import SidebarMenu from "../../components/sidebar/SidebarMenu";
 import styled from "styled-components";
 import Dashboard from "../../components/dashboard/Dashboard";
 import Users from "../users/Users";
+import Adduser from "../adduser/Adduser";
+import Calendar from "../calendar/Calendar";
 
 const HomepageMainDiv = styled.div`
   width: 100%;
@@ -41,8 +43,8 @@ const HomePage = () => {
   const {
     dashboard,
     manageUsers,
-    // addUser,
-    // calender,
+    addUser,
+    calender,
     // faq,
     // barChart,
     // pieChar,
@@ -59,6 +61,8 @@ const HomePage = () => {
         <TopBar />
         {dashboard && <Dashboard />}
         {manageUsers && <Users />}
+        {addUser && <Adduser />}
+        {calender && <Calendar />}
       </OthesContainer>
       {isOpen && <Modal />}
     </HomepageMainDiv>
