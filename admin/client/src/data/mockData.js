@@ -118,3 +118,36 @@ export const mockDataSales = [
     sales: "300",
   },
 ];
+
+export const mockDataPie = [
+  {
+    id: "May",
+    label: "May",
+    value: 342,
+    color: "hsl(284, 70%, 50%)",
+  },
+  {
+    id: "June",
+    label: "June",
+    value: 220,
+    color: "hsl(239, 70%, 50%)",
+  },
+  {
+    id: "July",
+    label: "July",
+    value: 76,
+    color: "hsl(188, 70%, 50%)",
+  },
+  {
+    id: "August",
+    label: "August",
+    value: 224,
+    color: "hsl(107, 70%, 50%)",
+  },
+  {
+    id: "September",
+    label: "September",
+    value: 316,
+    color: "hsl(127, 70%, 50%)",
+  },
+];
