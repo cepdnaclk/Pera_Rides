@@ -9,6 +9,7 @@ import Users from "../users/Users";
 import Adduser from "../adduser/Adduser";
 import Calendar from "../calendar/Calendar";
 import BarChartView from "../BarChartView/BarChartView";
+import PieChartView from "../pieChartView/PieChartView";
 
 const HomepageMainDiv = styled.div`
   width: 100%;
@@ -48,7 +49,7 @@ const HomePage = () => {
     calender,
     // faq,
     barChart,
-    // pieChar,
+    pieChar,
     // LineChart,
   } = useSelector((store) => store.component);
 
@@ -65,6 +66,7 @@ const HomePage = () => {
         {addUser && <Adduser />}
         {calender && <Calendar />}
         {barChart && <BarChartView />}
+        {pieChar && <PieChartView />}
       </OthesContainer>
       {isOpen && <Modal />}
     </HomepageMainDiv>

@@ -190,15 +190,15 @@ const SidebarMenu = () => {
             <BarChartOutlined />
           </IconButton>
         </MenuItemIcon>
-        <MenuItemWord>Bar Chart</MenuItemWord>
+        <MenuItemWord>Revenue</MenuItemWord>
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>
-          <IconButton onClick={() => dispatch(setComponent("pieChart"))}>
+          <IconButton onClick={() => dispatch(setComponent("pieChar"))}>
             <PieChartOutlined />
           </IconButton>
         </MenuItemIcon>
-        <MenuItemWord>Pie Chart</MenuItemWord>
+        <MenuItemWord>Enrollment</MenuItemWord>
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>
