@@ -8,6 +8,7 @@ import Dashboard from "../../components/dashboard/Dashboard";
 import Users from "../users/Users";
 import Adduser from "../adduser/Adduser";
 import Calendar from "../calendar/Calendar";
+import BarChartView from "../BarChartView/BarChartView";
 
 const HomepageMainDiv = styled.div`
   width: 100%;
@@ -46,7 +47,7 @@ const HomePage = () => {
     addUser,
     calender,
     // faq,
-    // barChart,
+    barChart,
     // pieChar,
     // LineChart,
   } = useSelector((store) => store.component);
@@ -63,6 +64,7 @@ const HomePage = () => {
         {manageUsers && <Users />}
         {addUser && <Adduser />}
         {calender && <Calendar />}
+        {barChart && <BarChartView />}
       </OthesContainer>
       {isOpen && <Modal />}
     </HomepageMainDiv>
