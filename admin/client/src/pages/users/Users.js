@@ -8,6 +8,7 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 const MainUsersGrid = styled.div`
   width: 100%;
   height: 100%;
+  padding-left: 30px;
 `;
 
 const BtnsContainer = styled.div``;
@@ -68,9 +69,9 @@ const Users = () => {
 
   return (
     <MainUsersGrid>
-      <HeaderTitle title="USERS" subtitle="Managing the Team Members" />
+      <HeaderTitle title="USERS" desc="Supervising user management" />
       <Box
-        m="0px 0 0 0"
+        m="20px 0 0 0"
         height="75vh"
         width="95%"
         sx={{

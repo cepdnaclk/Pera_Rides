@@ -8,6 +8,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const AddUserMain = styled.div`
   width: 100%;
   height: 100%;
+  padding-left: 30px;
 `;
 
 const FormContainer = styled.div`
