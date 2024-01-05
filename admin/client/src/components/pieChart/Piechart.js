@@ -26,7 +26,7 @@ const Piechart = () => {
       arcLinkLabelsSkipAngle={10}
       arcLinkLabelsTextColor={colors.gray[100]}
       arcLinkLabelsThickness={2}
-      arcLinkLabelsColor={{ from: "color" }}
+      arcLinkLabelsColor={colors.greenAccent[500]}
       enableArcLabels={false}
       arcLabelsSkipAngle={10}
       arcLabelsTextColor={{
@@ -53,56 +53,6 @@ const Piechart = () => {
           spacing: 10,
         },
       ]}
-      fill={[
-        {
-          match: {
-            id: "ruby",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "c",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "go",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "python",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "scala",
-          },
-          id: "lines",
-        },
-        {
-          match: {
-            id: "lisp",
-          },
-          id: "lines",
-        },
-        {
-          match: {
-            id: "elixir",
-          },
-          id: "lines",
-        },
-        {
-          match: {
-            id: "javascript",
-          },
-          id: "lines",
-        },
-      ]}
       legends={[
         {
           anchor: "bottom",
@@ -113,7 +63,7 @@ const Piechart = () => {
           itemsSpacing: 0,
           itemWidth: 100,
           itemHeight: 18,
-          itemTextColor: "#999",
+          itemTextColor: colors.gray[100],
           itemDirection: "left-to-right",
           itemOpacity: 1,
           symbolSize: 18,
@@ -153,6 +103,11 @@ const Piechart = () => {
         legends: {
           text: {
             fill: colors.gray[100],
+          },
+        },
+        tooltip: {
+          container: {
+            color: colors.primary[400], // Set your desired color here
           },
         },
       }}
