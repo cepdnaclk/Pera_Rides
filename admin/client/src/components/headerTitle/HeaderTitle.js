@@ -13,7 +13,7 @@ const HeaderTitleMain = styled.div`
   padding: 30px 10px 10px;
 `;
 
-const HeadetTitleText = styled.span`
+const HeadetTitleText = styled.p`
   font-size: ${(props) => (props.size === "big" ? "20px" : "12px")};
   color: ${(props) => props.color};
   letter-spacing: 1px;
