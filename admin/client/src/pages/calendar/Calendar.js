@@ -2,6 +2,7 @@ import styled from "styled-components";
 import HeaderTitle from "../../components/headerTitle/HeaderTitle";
 import { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
+import { formatDate } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
@@ -53,7 +54,10 @@ const Calendar = () => {
 
   return (
     <CalendarMain>
-      <HeaderTitle title={"calendar"} desc={"manage your days and events"} />
+      <HeaderTitle
+        title={"calendar"}
+        desc={"manage your days and events ( click on the date to add event )"}
+      />
       <Box display="flex" justifyContent="space-between" marginTop={"20px"}>
         {/* calendar sidebar */}
         <Box
@@ -78,6 +82,7 @@ const Calendar = () => {
               <ListItem
                 key={event.id}
                 sx={{
+                  color: colors.primary[500],
                   backgroundColor: colors.greenAccent[500],
                   margin: "10px 0",
                   borderRadius: "2px",
@@ -87,11 +92,11 @@ const Calendar = () => {
                   primary={event.title}
                   secondary={
                     <Typography>
-                      {/* {FullCalendar.formatDate(event.start, {
+                      {formatDate(event.start, {
                         year: "numeric",
                         month: "short",
                         day: "numeric",
-                      })} */}
+                      })}
                     </Typography>
                   }
                 />
@@ -105,6 +110,10 @@ const Calendar = () => {
           sx={{
             flex: "1 1 100%",
             margin: "0 15px",
+            color:
+              theme.palette.mode === "dark"
+                ? colors.greenAccent[600]
+                : colors.primary[500],
           }}
         >
           <FullCalendar
