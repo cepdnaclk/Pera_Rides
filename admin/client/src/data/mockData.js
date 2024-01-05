@@ -4,7 +4,7 @@ export const mockDataUsers = [
     username: "John",
     email: "john@gmail.com",
     password: "123",
-    phone: "0779700576",
+    phone: "0756397856",
     balance: "100.00",
   },
   {
@@ -12,7 +12,7 @@ export const mockDataUsers = [
     username: "Jane",
     email: "jane@gmail.com",
     password: "123",
-    phone: "0779700576",
+    phone: "0756397856",
     balance: "100.00",
   },
   {
@@ -20,7 +20,7 @@ export const mockDataUsers = [
     username: "Peter",
     email: "peter@gmail.com",
     password: "123",
-    phone: "0779700576",
+    phone: "0756397856",
     balance: "100.00",
   },
   {
@@ -28,7 +28,7 @@ export const mockDataUsers = [
     username: "Kali",
     email: "kali@gmail.com",
     password: "123",
-    phone: "0779700576",
+    phone: "0756397856",
     balance: "100.00",
   },
   {
@@ -36,7 +36,7 @@ export const mockDataUsers = [
     username: "Randy",
     email: "randy@gmail.com",
     password: "123",
-    phone: "0779700576",
+    phone: "0756397856",
     balance: "100.00",
   },
   {
@@ -44,7 +44,7 @@ export const mockDataUsers = [
     username: "Mia",
     email: "mia@gmail.com",
     password: "123",
-    phone: "0779700576",
+    phone: "0756397856",
     balance: "100.00",
   },
   {
@@ -52,7 +52,7 @@ export const mockDataUsers = [
     username: "Kalifa",
     email: "kalifa@gmail.com",
     password: "123",
-    phone: "0779700576",
+    phone: "0756397856",
     balance: "100.00",
   },
   {
@@ -60,7 +60,7 @@ export const mockDataUsers = [
     username: "Render",
     email: "render@gmail.com",
     password: "123",
-    phone: "0779700576",
+    phone: "0756397856",
     balance: "100.00",
   },
   {
@@ -68,7 +68,7 @@ export const mockDataUsers = [
     username: "React",
     email: "react@gmail.com",
     password: "123",
-    phone: "0779700576",
+    phone: "0756397856",
     balance: "100.00",
   },
   {
@@ -76,7 +76,7 @@ export const mockDataUsers = [
     username: "Node",
     email: "node@gmail.com",
     password: "123",
-    phone: "0779700576",
+    phone: "0756397856",
     balance: "100.00",
   },
 ];
