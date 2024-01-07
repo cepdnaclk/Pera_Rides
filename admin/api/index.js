@@ -23,13 +23,13 @@ mongoose
 ////////////////////////////////
 
 // rotes for admin login, password reset, register admin
-app.use("/api/", require("./routes/login"));
+app.use("/api/", require("./routes/adminRoutes/login"));
 
 // routes for generate OTP
 app.use("/api/", require("./routes/generateOTP"));
 
-// user
-app.use("/api/", require("./routes/user"));
+// admin routes related to user
+app.use("/api/", require("./routes/adminRoutes/user"));
 
 // app listening to port
 app.listen(PORT, () => {
