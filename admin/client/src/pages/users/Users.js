@@ -5,9 +5,10 @@ import { tokens } from "../../theme";
 import HeaderTitle from "../../components/headerTitle/HeaderTitle";
 import styled from "styled-components";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
+import { deletUser } from "../../Redux/features/users/usersSlice";
 ////////////////////////////////
 
 const MainUsersGrid = styled.div`
@@ -77,8 +78,9 @@ const SaveBtn = styled.button`
 `;
 
 const Users = () => {
+  const dispatch = useDispatch();
   const { allUsers } = useSelector((store) => store.users);
-  const [userData, setUserData] = useState(allUsers);
+  const [userData, setUserData] = useState(allUsers || []);
   const handleUserBalanceUpdate = async (value, userId) => {
     // console.log("value: ", value);
     // console.log("Id: ", userId);
@@ -92,13 +94,14 @@ const Users = () => {
       console.log(err);
     }
   };
+
   const handleDeleteUser = async (userId) => {
     const ans = window.confirm("Do you really wants to delete this user?");
     if (ans) {
       try {
+        dispatch(deletUser(userId));
         const newUsers = userData.filter((user) => user._id !== userId);
         setUserData(newUsers);
-        // console.log(newUsers);
         const response = await axios.delete(`/user/delete/${userId}`);
         console.log(response);
       } catch (err) {
