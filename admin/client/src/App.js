@@ -4,16 +4,21 @@ import Reset from "./pages/reset/Reset";
 import NewPassword from "./pages/newpassword/NewPassword";
 import PageNotFound from "./pages/pageNotFound/PageNotFound";
 import HomePage from "./pages/homepage/HomePage";
-// import { useContext } from "react";
-// import { Context } from "./context/Context";
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsersDB } from "./Redux/features/users/usersSlice";
+import { useEffect } from "react";
 
 function App() {
   const [theme, colorMode] = useMode();
-
+  const dispatch = useDispatch();
   const { currentAdmin } = useSelector((store) => store.admin);
+
+  useEffect(() => {
+    dispatch(getAllUsersDB());
+  }, [dispatch]);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -25,9 +30,26 @@ function App() {
               path="/"
               element={currentAdmin ? <HomePage /> : <Navigate to="/login" />}
             />
-            <Route path="/login" element={<Login />} />
-            <Route path="/reset" element={<Reset />} />
-            <Route path="/newpassword" element={<NewPassword />} />
+            <Route
+              path="/login"
+              element={currentAdmin ? <Navigate to="/" /> : <Login />}
+            />
+            <Route
+              path="/reset"
+              element={currentAdmin ? <Navigate to="/" /> : <Reset />}
+            />
+            <Route
+              path="/newpassword"
+              element={
+                !currentAdmin ? (
+                  <Navigate to="/login" />
+                ) : currentAdmin ? (
+                  <Navigate to="/" />
+                ) : (
+                  <NewPassword />
+                )
+              }
+            />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </div>

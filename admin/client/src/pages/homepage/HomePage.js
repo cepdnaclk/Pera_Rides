@@ -1,9 +1,15 @@
-import "./HomePage.css";
 import TopBar from "../../components/topbar/TopBar";
 import Modal from "../../components/modal/Modal";
 import { useSelector } from "react-redux";
 import SidebarMenu from "../../components/sidebar/SidebarMenu";
 import styled from "styled-components";
+import Dashboard from "../../components/dashboard/Dashboard";
+import Users from "../users/Users";
+import Adduser from "../adduser/Adduser";
+import Calendar from "../calendar/Calendar";
+import BarChartView from "../BarChartView/BarChartView";
+import PieChartView from "../pieChartView/PieChartView";
+import LineChartView from "../lineChartView/LineChartView";
 
 const HomepageMainDiv = styled.div`
   width: 100%;
@@ -27,9 +33,26 @@ const SideBarContainer = styled.div`
 const OthesContainer = styled.div`
   flex: 10;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  /* background-color: gray; */
 `;
 
 const HomePage = () => {
+  const {
+    dashboard,
+    manageUsers,
+    addUser,
+    calender,
+    // faq,
+    barChart,
+    pieChar,
+    lineChart,
+  } = useSelector((store) => store.component);
+
   const { isOpen } = useSelector((store) => store.modal);
   return (
     <HomepageMainDiv>
@@ -38,6 +61,13 @@ const HomePage = () => {
       </SideBarContainer>
       <OthesContainer>
         <TopBar />
+        {dashboard && <Dashboard />}
+        {manageUsers && <Users />}
+        {addUser && <Adduser />}
+        {calender && <Calendar />}
+        {barChart && <BarChartView />}
+        {pieChar && <PieChartView />}
+        {lineChart && <LineChartView />}
       </OthesContainer>
       {isOpen && <Modal />}
     </HomepageMainDiv>

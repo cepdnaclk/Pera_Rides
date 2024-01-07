@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { Box, IconButton, useTheme } from "@mui/material";
+import { IconButton, useTheme } from "@mui/material";
 import {
   HomeOutlined,
   PeopleOutlined,
@@ -13,8 +12,9 @@ import {
   HelpOutlined,
 } from "@mui/icons-material";
 import { tokens } from "../../theme";
-import { Link } from "react-router-dom";
 import IM from "../../assests/ff.jpg";
+import { useDispatch } from "react-redux";
+import { setComponent } from "../../Redux/features/comp_inside_homepage/componentSlice";
 
 /* STYLED COMPONENTS */
 const SidebarMainDiv = styled.div`
@@ -98,6 +98,10 @@ const MenuItem = styled.div`
   align-items: center;
   justify-content: center;
   margin: 10px 0;
+
+  &:hover {
+    color: #4cceac;
+  }
 `;
 
 const MenuItemIcon = styled.div`
@@ -121,8 +125,7 @@ const MenuItemWord = styled.div`
 const SidebarMenu = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Dashboard");
+  const dispatch = useDispatch();
 
   return (
     <SidebarMainDiv color={colors.primary[400]}>
@@ -143,7 +146,7 @@ const SidebarMenu = () => {
       </SideBArImageContainer>
       <MenuItem>
         <MenuItemIcon>
-          <IconButton>
+          <IconButton onClick={() => dispatch(setComponent("dashboard"))}>
             <HomeOutlined />
           </IconButton>
         </MenuItemIcon>
@@ -151,7 +154,7 @@ const SidebarMenu = () => {
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>
-          <IconButton>
+          <IconButton onClick={() => dispatch(setComponent("manageUsers"))}>
             <PeopleOutlined />
           </IconButton>
         </MenuItemIcon>
@@ -159,7 +162,7 @@ const SidebarMenu = () => {
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>
-          <IconButton>
+          <IconButton onClick={() => dispatch(setComponent("addUser"))}>
             <PersonOutlined />
           </IconButton>
         </MenuItemIcon>
@@ -167,7 +170,7 @@ const SidebarMenu = () => {
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>
-          <IconButton>
+          <IconButton onClick={() => dispatch(setComponent("calender"))}>
             <CalendarTodayOutlined />
           </IconButton>
         </MenuItemIcon>
@@ -175,7 +178,7 @@ const SidebarMenu = () => {
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>
-          <IconButton>
+          <IconButton onClick={() => dispatch(setComponent("faq"))}>
             <HelpOutlined />
           </IconButton>
         </MenuItemIcon>
@@ -183,23 +186,23 @@ const SidebarMenu = () => {
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>
-          <IconButton>
+          <IconButton onClick={() => dispatch(setComponent("barChart"))}>
             <BarChartOutlined />
           </IconButton>
         </MenuItemIcon>
-        <MenuItemWord>Bar Chart</MenuItemWord>
+        <MenuItemWord>Revenue</MenuItemWord>
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>
-          <IconButton>
+          <IconButton onClick={() => dispatch(setComponent("pieChar"))}>
             <PieChartOutlined />
           </IconButton>
         </MenuItemIcon>
-        <MenuItemWord>Pie Chart</MenuItemWord>
+        <MenuItemWord>Enrollment</MenuItemWord>
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>
-          <IconButton>
+          <IconButton onClick={() => dispatch(setComponent("lineChart"))}>
             <TimelineOutlined />
           </IconButton>
         </MenuItemIcon>

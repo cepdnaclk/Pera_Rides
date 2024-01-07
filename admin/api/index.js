@@ -28,6 +28,9 @@ app.use("/api/", require("./routes/login"));
 // routes for generate OTP
 app.use("/api/", require("./routes/generateOTP"));
 
+// user
+app.use("/api/", require("./routes/user"));
+
 // app listening to port
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

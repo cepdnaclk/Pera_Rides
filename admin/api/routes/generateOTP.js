@@ -71,6 +71,4 @@ router.post("/verifyOTP", async (req, res) => {
   res.status(200).json({ response: true });
 });
 
-// redirect to password reset page when OTP is correct
-router.get("/redirect", (req, res) => {});
 module.exports = router;

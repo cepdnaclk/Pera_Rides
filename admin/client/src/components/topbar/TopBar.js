@@ -13,10 +13,13 @@ import { useDispatch } from "react-redux";
 import { openModal } from "../../Redux/features/modal/modalSlice";
 
 const TopbarMainDiv = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px;
+  /* background-color: ${(props) => props.color}; */
+  /* background-color: green; */
 `;
 
 const SearchContainer = styled.div`
@@ -32,7 +35,7 @@ const TopBar = () => {
   const dispatch = useDispatch();
 
   return (
-    <TopbarMainDiv>
+    <TopbarMainDiv color={colors.primary[500]}>
       {/* SEARCH BAR */}
       <SearchContainer color={colors.primary[400]}>
         <InputBase sx={{ marginLeft: 2, flex: 1 }} placeholder="Search" />
