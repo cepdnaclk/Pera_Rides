@@ -6,12 +6,19 @@ import PageNotFound from "./pages/pageNotFound/PageNotFound";
 import HomePage from "./pages/homepage/HomePage";
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsersDB } from "./Redux/features/users/usersSlice";
+import { useEffect } from "react";
 
 function App() {
   const [theme, colorMode] = useMode();
-
+  const dispatch = useDispatch();
   const { currentAdmin } = useSelector((store) => store.admin);
+
+  useEffect(() => {
+    dispatch(getAllUsersDB());
+  }, [dispatch]);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>

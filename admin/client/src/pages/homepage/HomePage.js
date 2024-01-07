@@ -1,4 +1,3 @@
-import "./HomePage.css";
 import TopBar from "../../components/topbar/TopBar";
 import Modal from "../../components/modal/Modal";
 import { useSelector } from "react-redux";
