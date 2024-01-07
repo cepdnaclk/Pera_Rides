@@ -34,7 +34,7 @@ const usersSlice = createSlice({
     builder.addCase(getAllUsersDB.fulfilled, (state, action) => {
       state.isLoading = false;
       state.allUsers = action.payload;
-      console.log(action.payload);
+      // console.log(action.payload);
     });
 
     builder.addCase(getAllUsersDB.rejected, (state) => {

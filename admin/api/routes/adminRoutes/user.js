@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const User = require("../models/User");
+const User = require("../../models/User");
 
+// register user
 router.post("/user/register", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -55,6 +56,20 @@ router.patch("/user/balance/:userId", async (req, res) => {
     // const { password, ...others } = updatedUser._doc;
     // res.status(200).json(others);
     res.status(200).json("User balance updated successfully!");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// delete user
+router.delete("/user/delete/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  if (!userId) return res.status(400).json("User Id required!");
+  try {
+    const foundUser = await User.findById(userId);
+    if (!foundUser) return res.status(404).json("User not found!");
+    await User.findByIdAndDelete(userId);
+    res.status(200).json("User has been deleted successfully");
   } catch (err) {
     res.status(500).json(err);
   }

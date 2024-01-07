@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Admin = require("../models/Admin");
+const Admin = require("../../models/Admin");
 const bcrypt = require("bcrypt");
 
 // register
@@ -20,13 +20,14 @@ router.post("/register", async (req, res) => {
 
 // login route for admin
 router.post("/login", async (req, res) => {
+  const userName = req.body.username;
+  const passWord = req.body.password;
+  if (!passWord || !userName)
+    return res.status(400).json("Username and Password required!");
   try {
-    const realAdmin = await Admin.findOne({ username: req.body.username });
+    const realAdmin = await Admin.findOne({ username: userName });
     if (!realAdmin) return res.status(404).json("Wrong Credentials!");
-    const validated = await bcrypt.compare(
-      req.body.password,
-      realAdmin.password
-    );
+    const validated = await bcrypt.compare(passWord, realAdmin.password);
     if (!validated) return res.status(401).json("Wrong Credentials!");
 
     const { password, ...others } = realAdmin._doc;
@@ -39,6 +40,7 @@ router.post("/login", async (req, res) => {
 // reset password
 router.post("/resetpassword", async (req, res) => {
   const newPassword = req.body.newpassword;
+  if (!newPassword) return res.status(400).json("New password required");
   const hashedNewPassword = await bcrypt.hash(newPassword, 10);
   const admin = await Admin.findOne({ username: "admin" });
   if (!admin) return res.status(404).json("Admin  not found!");
