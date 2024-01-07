@@ -88,7 +88,7 @@ export default function SignupScreen() {
                 className="flex-row justify-center">
 
                 <Text>Already have an account? </Text>
-                <TouchableOpacity onPress={()=> navigation.push('Home')}>
+                <TouchableOpacity onPress={()=> navigation.push('Homepage')}>
                     <Text className="text-sky-600">Login</Text>
                 </TouchableOpacity>
 
