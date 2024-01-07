@@ -14,11 +14,11 @@ function App() {
   const [theme, colorMode] = useMode();
   const dispatch = useDispatch();
   const { currentAdmin } = useSelector((store) => store.admin);
-  const { allUsers } = useSelector((store) => store.users);
+  // const { allUsers } = useSelector((store) => store.users);
 
   useEffect(() => {
     dispatch(getAllUsersDB());
-  }, [dispatch, allUsers]);
+  }, [dispatch]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>

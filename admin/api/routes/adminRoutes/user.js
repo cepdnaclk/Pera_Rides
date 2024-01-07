@@ -19,7 +19,8 @@ router.post("/user/register", async (req, res) => {
   });
   try {
     const savedUser = await newUser.save();
-    res.status(200).json(savedUser);
+    const { password, ...others } = savedUser._doc;
+    res.status(200).json(others);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -29,6 +30,8 @@ router.post("/user/register", async (req, res) => {
 router.get("/users", async (req, res) => {
   try {
     const allUsersInDb = await User.find();
+    if (allUsersInDb.length === 0)
+      res.status(404).json("There are no registered users!");
     if (!allUsersInDb)
       return res.status(404).json("There are no registered users!");
     let allUsers = [];
