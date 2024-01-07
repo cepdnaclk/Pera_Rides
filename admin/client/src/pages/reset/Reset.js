@@ -3,8 +3,12 @@ import "./Reset.css";
 import OTP_IMG from "../../assests/otp-img.jpg";
 import { useRef, useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { validate, notValidate } from "../../Redux/features/otp/OtpSlice";
+///////////////////////////////
 
 const Reset = () => {
+  const dispatch = useDispatch();
   const otpRef = useRef();
   const [isOTPcorrect, setIsOTPcorrrect] = useState(false);
   const navigate = useNavigate();
@@ -20,7 +24,9 @@ const Reset = () => {
       setIsOTPcorrrect(isVerified);
       otpRef.current.value = null;
       navigate("/newpassword");
+      dispatch(validate());
     } catch (err) {
+      dispatch(notValidate());
       otpRef.current.value = null;
       !isOTPcorrect && alert("Invalid OTP");
       setIsOTPcorrrect(false);

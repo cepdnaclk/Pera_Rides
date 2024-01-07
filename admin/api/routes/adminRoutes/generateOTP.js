@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const generateOTP = require("otp-generator");
 const nodemailer = require("nodemailer");
-const AdminSchema = require("../models/Admin");
-const bcrypt = require("bcrypt");
+const AdminSchema = require("../../models/Admin");
 
 const OTPprops = {
   value: null,
@@ -54,7 +53,6 @@ router.get("/generateOTP", async (req, res) => {
       }
     };
     sendMail(transporter, mailOptions);
-
     OTPprops.value = OTP;
     res.status(201).json("OTP has been sent successfully!");
   } catch (err) {

@@ -14,7 +14,7 @@ function App() {
   const [theme, colorMode] = useMode();
   const dispatch = useDispatch();
   const { currentAdmin } = useSelector((store) => store.admin);
-  // const { allUsers } = useSelector((store) => store.users);
+  const { validated } = useSelector((store) => store.otp);
 
   useEffect(() => {
     dispatch(getAllUsersDB());
@@ -42,10 +42,10 @@ function App() {
             <Route
               path="/newpassword"
               element={
-                !currentAdmin ? (
-                  <Navigate to="/login" />
-                ) : currentAdmin ? (
+                currentAdmin ? (
                   <Navigate to="/" />
+                ) : !validated ? (
+                  <Navigate to="/login" />
                 ) : (
                   <NewPassword />
                 )
