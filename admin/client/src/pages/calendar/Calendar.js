@@ -70,7 +70,7 @@ const Calendar = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            overflowY: "scroll",
+            overflowY: "auto",
             maxHeight: "75vh",
           }}
         >
