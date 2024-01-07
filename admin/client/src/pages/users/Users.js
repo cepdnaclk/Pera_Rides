@@ -7,6 +7,9 @@ import styled from "styled-components";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import axios from "axios";
+////////////////////////////////
+
 const MainUsersGrid = styled.div`
   width: 100%;
   height: 100%;
@@ -44,7 +47,7 @@ const StyledDiv = styled.div`
   overflow-x: auto;
 
   &::-webkit-scrollbar {
-    height: 3px;
+    height: 5px;
   }
 `;
 
@@ -56,10 +59,41 @@ const StyledHeader = styled.div`
   padding-left: ${(props) => props.padding};
 `;
 
+const SaveBtn = styled.button`
+  padding: 3px 5px;
+  margin-left: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 3px;
+  background-color: #000;
+  color: #fff;
+  font-weight: bolder;
+  transition: all 1s;
+  font-size: 12px;
+  &:hover {
+    background-color: #088178;
+  }
+`;
+
 const Users = () => {
   const { allUsers } = useSelector((store) => store.users);
 
   const [userData, setUserData] = useState(allUsers);
+
+  const handleUserBalanceUpdate = async (value, userId) => {
+    // console.log("value: ", value);
+    // console.log("Id: ", userId);
+    try {
+      const response = await axios.patch(`/user/balance/${userId}`, {
+        balance: value,
+      });
+      console.log(response.data);
+      alert("User balance updated successfully!");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -129,10 +163,18 @@ const Users = () => {
       field: "balance",
       headerName: "Balance",
       flex: 1,
+      editable: true,
       renderCell: (params) => {
         return (
           <StyledDiv>
             <span> {params.value} </span>
+            <SaveBtn
+              onClick={() =>
+                handleUserBalanceUpdate(params.value, params.row._id)
+              }
+            >
+              save
+            </SaveBtn>
           </StyledDiv>
         );
       },
