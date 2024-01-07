@@ -29,7 +29,9 @@ const usersSlice = createSlice({
       state.allUsers = newUsers;
     },
     addNewUser: (state, action) => {
-      state.allUsers.push(action.payload);
+      if (action.payload) {
+        state.allUsers.push(action.payload);
+      }
     },
   },
   extraReducers: (builder) => {

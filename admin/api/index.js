@@ -26,10 +26,13 @@ mongoose
 app.use("/api/", require("./routes/adminRoutes/login"));
 
 // routes for generate OTP
-app.use("/api/", require("./routes/generateOTP"));
+app.use("/api/", require("./routes/adminRoutes/generateOTP"));
 
 // admin routes related to user
 app.use("/api/", require("./routes/adminRoutes/user"));
+
+// user routes and also admin's user register route included here
+app.use("/api/", require("./routes/commonForAdmin&User/commonUserRoutes"));
 
 // app listening to port
 app.listen(PORT, () => {
