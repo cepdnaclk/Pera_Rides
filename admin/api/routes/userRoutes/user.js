@@ -2,15 +2,24 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../../models/User");
+const generateOTP = require("otp-generator");
+const { sendOTPEmail } = require("../../controllers/sendEmail");
 
-// register user
+OTPprops = {
+  value: null,
+  isVerified: false,
+};
+
+let userEmail = null;
+
+// register user and send OTP to email
 router.post("/user/register", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
   const phone = req.body.phone;
-
-  if (!username || !password || !email) {
+  userEmail = req.body.email;
+  if (!username || !password || !email || !phone) {
     return res.status(400).json("Not provided all information.");
   }
 
@@ -25,10 +34,46 @@ router.post("/user/register", async (req, res) => {
     try {
       const savedUser = await newUser.save();
       const { password, ...others } = savedUser._doc;
+      const OTP = generateOTP.generate(6, {
+        lowerCaseAlphabets: false,
+        upperCaseAlphabets: false,
+        specialChars: false,
+      });
+
+      try {
+        await sendOTPEmail(email, OTP);
+        OTPprops.value = OTP;
+        return res.status(200).json("OTP has been sent successfully!");
+      } catch (err) {
+        res.status(500).json(err);
+      }
+
       res.status(200).json(others);
     } catch (err) {
       res.status(500).json(err);
     }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// verify OTP
+router.patch("/user/verifyOTP", async (req, res) => {
+  const receivedOtp = await req.body.otp;
+  if (receivedOtp !== OTPprops.value) {
+    return res.status(401).json("OTP not valid!");
+  }
+  OTPprops.isVerified = true;
+  OTPprops.value = null;
+
+  try {
+    const foundUser = await User.findOne({ email: userEmail });
+    if (!foundUser) return res.status(404).json("User not found!");
+    foundUser.verified = true;
+    const savedUser = await foundUser.save();
+    // const { password, ...others } = savedUser._doc;
+    res.status(200).json("User verified successfully!");
+    userEmail = null;
   } catch (err) {
     res.status(500).json(err);
   }
@@ -56,6 +101,9 @@ router.post("/user/login", async (req, res) => {
       return res.status(400).json("Wrong Credentials!");
     }
 
+    const isVerified = foundUser.verified;
+    if (!isVerified) return res.status(403).json("User not verified!");
+
     const { password, ...others } = foundUser._doc;
     res.status(200).json(others);
   } catch (err) {
@@ -80,6 +128,26 @@ router.put("/user/update/:userId", async (req, res) => {
     return res.status(200).json(updatedUser);
   } catch (err) {
     res.status(500).json(err.message);
+  }
+});
+
+// QR scanning
+router.post("/user/qr/verify", async (req, res) => {
+  const userId = req.body.id;
+  const qrValue = req.body.qr;
+  try {
+    const foundUser = await User.findById(userId);
+    if (!foundUser) {
+      return res.status(404).json("User not found");
+    }
+    const balance = foundUser.balance;
+    if (balance >= 20) {
+      res.status(200).json({ balance: true, qr: qrValue });
+    } else {
+      res.status(400).json("Your account balance is low!");
+    }
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 

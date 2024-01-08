@@ -40,12 +40,12 @@ router.patch("/user/balance/:userId", async (req, res) => {
 });
 
 // register user
-router.post("/user/register", async (req, res) => {
+router.post("/admin/user/register", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
   const phone = req.body.phone;
-
+  const verified = true;
   if (!username || !password || !email) {
     return res.status(400).json("Not provided all information.");
   }
@@ -57,6 +57,7 @@ router.post("/user/register", async (req, res) => {
       password: hashedPW,
       email,
       phone,
+      verified,
     });
     try {
       const savedUser = await newUser.save();
