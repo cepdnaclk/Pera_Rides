@@ -5,9 +5,10 @@ import { tokens } from "../../theme";
 import HeaderTitle from "../../components/headerTitle/HeaderTitle";
 import styled from "styled-components";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
+import { deletUser } from "../../Redux/features/users/usersSlice";
 ////////////////////////////////
 
 const MainUsersGrid = styled.div`
@@ -61,7 +62,7 @@ const StyledHeader = styled.div`
 
 const SaveBtn = styled.button`
   padding: 3px 5px;
-  margin-left: 5px;
+  margin-left: 15px;
   border: none;
   outline: none;
   cursor: pointer;
@@ -77,10 +78,9 @@ const SaveBtn = styled.button`
 `;
 
 const Users = () => {
+  const dispatch = useDispatch();
   const { allUsers } = useSelector((store) => store.users);
-
-  const [userData, setUserData] = useState(allUsers);
-
+  const [userData, setUserData] = useState(allUsers || []);
   const handleUserBalanceUpdate = async (value, userId) => {
     // console.log("value: ", value);
     // console.log("Id: ", userId);
@@ -92,6 +92,21 @@ const Users = () => {
       alert("User balance updated successfully!");
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const handleDeleteUser = async (userId) => {
+    const ans = window.confirm("Do you really wants to delete this user?");
+    if (ans) {
+      try {
+        const response = await axios.delete(`/user/delete/${userId}`);
+        dispatch(deletUser(userId));
+        const newUsers = userData.filter((user) => user._id !== userId);
+        setUserData(newUsers);
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -167,7 +182,13 @@ const Users = () => {
       renderCell: (params) => {
         return (
           <StyledDiv>
-            <span> {params.value} </span>
+            <span
+              title="Double click to update balance"
+              style={{ cursor: "pointer" }}
+            >
+              {" "}
+              {params.value}{" "}
+            </span>
             <SaveBtn
               onClick={() =>
                 handleUserBalanceUpdate(params.value, params.row._id)
@@ -185,10 +206,13 @@ const Users = () => {
     {
       field: "manage",
       headerName: "Delete",
-      renderCell: () => {
+      renderCell: (params) => {
         return (
           <BtnsContainer>
-            <Button color={theme.palette.mode === "dark" ? "red" : "teal"}>
+            <Button
+              color={theme.palette.mode === "dark" ? "red" : "teal"}
+              onClick={() => handleDeleteUser(params.row._id)}
+            >
               <DeleteOutlineOutlinedIcon />
             </Button>
           </BtnsContainer>
@@ -202,7 +226,10 @@ const Users = () => {
 
   return (
     <MainUsersGrid>
-      <HeaderTitle title="USERS" desc="Supervising user management" />
+      <HeaderTitle
+        title="USERS"
+        desc="Supervising user management ( double click on the balance to edit )"
+      />
       <Box
         m="20px 0 0 0"
         height="75vh"

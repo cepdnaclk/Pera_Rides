@@ -39,7 +39,7 @@ const Login = () => {
   const handleOTPgenerate = async () => {
     alert("OTP has been sent successfully!");
     try {
-      const response = await axios.get("/generateOTP");
+      const response = await axios.get("/admin/generateOtp");
       if (!response) {
         console.log("Error with generating OTP, please try again!");
       }

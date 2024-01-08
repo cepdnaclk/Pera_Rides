@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-// const API_URL = "http://localhost:5000/api/users";
 
 export const getAllUsersDB = createAsyncThunk(
   "/users/getUsers",
@@ -24,7 +23,16 @@ const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    getUsers: (state, action) => {},
+    deletUser: (state, action) => {
+      const userId = action.payload;
+      const newUsers = state.allUsers.filter((user) => user._id !== userId);
+      state.allUsers = newUsers;
+    },
+    addNewUser: (state, action) => {
+      if (action.payload) {
+        state.allUsers.push(action.payload);
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllUsersDB.pending, (state) => {
@@ -34,7 +42,7 @@ const usersSlice = createSlice({
     builder.addCase(getAllUsersDB.fulfilled, (state, action) => {
       state.isLoading = false;
       state.allUsers = action.payload;
-      console.log(action.payload);
+      // console.log(action.payload);
     });
 
     builder.addCase(getAllUsersDB.rejected, (state) => {
@@ -44,5 +52,5 @@ const usersSlice = createSlice({
   },
 });
 
-export const { getUsers } = usersSlice.actions;
+export const { deletUser, addNewUser } = usersSlice.actions;
 export default usersSlice.reducer;
