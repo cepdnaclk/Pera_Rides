@@ -5,7 +5,7 @@ const initialState = {
   manageUsers: false,
   addUser: false,
   calender: false,
-  faq: false,
+  pay: false,
   barChart: false,
   pieChar: false,
   lineChart: false,
