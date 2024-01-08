@@ -25,14 +25,17 @@ mongoose
 // rotes for admin login, password reset, register admin
 app.use("/api/", require("./routes/adminRoutes/login"));
 
-// routes for generate OTP
-app.use("/api/", require("./routes/adminRoutes/generateOTP"));
+// otp routes for admin
+app.use("/api/", require("./routes/adminRoutes/otp"));
 
 // admin routes related to user
 app.use("/api/", require("./routes/adminRoutes/user"));
 
-// user routes and also admin's user register route included here
-app.use("/api/", require("./routes/commonForAdmin&User/commonUserRoutes"));
+// other user CRUD routes except registration
+app.use("/api/", require("./routes/userRoutes/user"));
+
+// user otp routes
+app.use("/api/", require("./routes/userRoutes/otpUser"));
 
 // app listening to port
 app.listen(PORT, () => {
