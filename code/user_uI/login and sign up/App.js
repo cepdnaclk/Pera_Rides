@@ -16,6 +16,8 @@ import Aboutus from './screens/Aboutus';
 import Money from './screens/Money';
 import Rateapp from './screens/Rateapp';
 import Profile from './screens/Profile';
+import OTPVerification from './screens/OTPVerification';
+import OTPsend from './screens/OTPsend';
 
 
 const Stack = createNativeStackNavigator();
@@ -36,6 +38,8 @@ function App() {
         <Stack.Screen name="Money" component={Money} />
         <Stack.Screen name="Rateapp" component={Rateapp} />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="OTPVerification" component={OTPVerification} />
+        <Stack.Screen name="OTPsend" component={OTPsend} />
       </Stack.Navigator>
     </NavigationContainer>
   );

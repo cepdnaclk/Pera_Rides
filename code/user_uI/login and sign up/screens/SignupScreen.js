@@ -2,6 +2,7 @@ import { View, Text, Image, SafeAreaView, TextInput, TouchableOpacity, Pressable
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { useNavigation } from '@react-navigation/native'
+import { createSlice, configureStore } from '@reduxjs/toolkit'
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
 
 
@@ -64,7 +65,7 @@ export default function SignupScreen() {
                 <TextInput
                     placeholder="Phone number"
                     placeholderTextColor={'gray'}
-                    secureTextEntry
+                  
                 />
             </Animated.View>
             <Animated.View 
@@ -88,7 +89,7 @@ export default function SignupScreen() {
                 className="flex-row justify-center">
 
                 <Text>Already have an account? </Text>
-                <TouchableOpacity onPress={()=> navigation.push('Homepage')}>
+                <TouchableOpacity onPress={()=> navigation.push('OTPsend')}>
                     <Text className="text-sky-600">Login</Text>
                 </TouchableOpacity>
 
