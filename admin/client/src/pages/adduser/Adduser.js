@@ -63,13 +63,13 @@ const Adduser = () => {
   const handleFormSubmit = async (e) => {
     if (e.password === e.confirmPassword) {
       try {
-        const response = await axios.post("/user/register", {
+        const response = await axios.post("/admin/user/register", {
           username: e.username,
           password: e.password,
           email: e.email,
           phone: e.phone,
         });
-        alert("User added successfully");
+        alert("User added successfully.");
         dispatch(addNewUser(response.data));
       } catch (err) {
         alert(err.message);
