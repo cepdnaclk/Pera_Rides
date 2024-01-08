@@ -17,8 +17,8 @@ const Reset = () => {
     e.preventDefault();
     setIsOTPcorrrect(false);
     try {
-      const response = await axios.post("/verifyOTP/", {
-        userOtp: otpRef.current.value,
+      const response = await axios.post("/admin/verifyOTP", {
+        otp: otpRef.current.value,
       });
       const isVerified = response.data.response;
       setIsOTPcorrrect(isVerified);
@@ -36,7 +36,7 @@ const Reset = () => {
   const handleRegenrateOTP = async () => {
     alert("OTP has been sent successfully!");
     try {
-      const response = await axios.get("/generateOTP");
+      const response = await axios.get("/admin/generateOtp");
       if (!response) {
         console.log("Error with generating OTP, please try again!");
       }

@@ -99,10 +99,10 @@ const Users = () => {
     const ans = window.confirm("Do you really wants to delete this user?");
     if (ans) {
       try {
+        const response = await axios.delete(`/user/delete/${userId}`);
         dispatch(deletUser(userId));
         const newUsers = userData.filter((user) => user._id !== userId);
         setUserData(newUsers);
-        const response = await axios.delete(`/user/delete/${userId}`);
         console.log(response);
       } catch (err) {
         console.log(err);
@@ -226,7 +226,10 @@ const Users = () => {
 
   return (
     <MainUsersGrid>
-      <HeaderTitle title="USERS" desc="Supervising user management" />
+      <HeaderTitle
+        title="USERS"
+        desc="Supervising user management ( double click on the balance to edit )"
+      />
       <Box
         m="20px 0 0 0"
         height="75vh"
