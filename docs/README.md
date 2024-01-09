@@ -49,17 +49,18 @@ At the Department of Computer Engineering, our team is creating PeraRide, a comp
 
 ## Solution Architecture
 
-High level diagram 
+## High level diagram 
 ![Alt text](images/Highlevelarchi.png)
 
-Dataflow
+## Dataflow
 ![Alt text](images/Dataflow.png)
-
 
 
 ## Hardware and Software Designs
 
-Detailed designs with many sub-sections
+## Lock System of the bicycle
+
+![Alt text](images/Lock.png)
 
 ## Testing
 
