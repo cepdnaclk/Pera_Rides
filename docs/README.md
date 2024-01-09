@@ -52,6 +52,11 @@ At the Department of Computer Engineering, our team is creating PeraRide, a comp
 High level diagram 
 ![PeraRide Image](Highlevelarchi.jpg)
 
+Dataflow
+![PeraRide Image](Dataflow.jpg)
+
+
+
 ## Hardware and Software Designs
 
 Detailed designs with many sub-sections
