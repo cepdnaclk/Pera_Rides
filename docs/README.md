@@ -64,7 +64,7 @@ At the Department of Computer Engineering, our team is creating PeraRide, a comp
 
 ## Testing
 
-Testing done on hardware and software, detailed + summarized results
+Testing done on hardware and software, detailed
 
 ## Detailed budget
 
