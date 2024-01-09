@@ -41,7 +41,8 @@ Bicycle use for regular transportation is promoted by many large cities worldwid
 
 At the Department of Computer Engineering, our team is creating PeraRide, a comprehensive automated bicycle sharing system that will allow subscribers who are the students of the university to easily check out and return bikes within the university area  
 
-Uploading invideo-ai-480 Pera Ride_ Revolutionizing Transport 2024-01-09 (1).mp4…
+[![Video](https://img.youtube.com/vi/2gkQerGHnDg/0.jpg)](https://youtu.be/2gkQerGHnDg)
+
 
 
 
