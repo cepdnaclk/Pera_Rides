@@ -64,7 +64,15 @@ At the Department of Computer Engineering, our team is creating PeraRide, a comp
 
 ## Testing
 
-Testing done on hardware and software, detailed
+FrontEnd Testing
+- Jest 
+- React 
+
+BackEnd Testing
+- Unit Testing
+- Api Testing
+
+![Alt text](images/React.png)
 
 ## Detailed budget
 
