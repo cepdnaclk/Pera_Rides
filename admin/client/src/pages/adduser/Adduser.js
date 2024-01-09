@@ -1,10 +1,17 @@
 import styled from "styled-components";
 import HeaderTitle from "../../components/headerTitle/HeaderTitle";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, IconButton } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import InputAdornment from "@mui/material/InputAdornment";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addNewUser } from "../../Redux/features/users/usersSlice";
+//////////////////////////////////////////////////////////
 const AddUserMain = styled.div`
   width: 100%;
   height: 100%;
@@ -52,10 +59,29 @@ const userVallidationSchema = yup.object().shape({
 
 const Adduser = () => {
   const isMobile = useMediaQuery("(min-width: 600px)");
-
-  const handleFormSubmit = () => {
-    console.log("submitted");
+  const dispatch = useDispatch();
+  const handleFormSubmit = async (e) => {
+    if (e.password === e.confirmPassword) {
+      try {
+        const response = await axios.post("/admin/user/register", {
+          username: e.username,
+          password: e.password,
+          email: e.email,
+          phone: e.phone,
+        });
+        alert("User added successfully.");
+        dispatch(addNewUser(response.data));
+      } catch (err) {
+        alert(err.message);
+        console.log(err);
+      }
+    } else {
+      alert("Two passwords must be match!");
+    }
   };
+
+  const [seePassword, setSeePassword] = useState(false);
+  const [seeConfirmPassword, setSeeConfirmPassword] = useState(false);
 
   return (
     <AddUserMain>
@@ -119,7 +145,7 @@ const Adduser = () => {
                   fullWidth
                   required
                   variant="filled"
-                  type="password"
+                  type={seePassword ? "text" : "password"}
                   label="Password"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -128,12 +154,30 @@ const Adduser = () => {
                   error={!!touched.password && !!errors.password}
                   helperText={touched.password && errors.password}
                   sx={{ gridColumn: "span 4" }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => {
+                            setSeePassword(!seePassword);
+                          }}
+                          edge="end"
+                        >
+                          {seePassword ? (
+                            <VisibilityOffIcon />
+                          ) : (
+                            <VisibilityIcon />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
                 <TextField
                   fullWidth
                   required
                   variant="filled"
-                  type="password"
+                  type={seeConfirmPassword ? "text" : "password"}
                   label="Confirm Password"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -142,6 +186,24 @@ const Adduser = () => {
                   error={!!touched.confirmPassword && !!errors.confirmPassword}
                   helperText={touched.confirmPassword && errors.confirmPassword}
                   sx={{ gridColumn: "span 4" }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() =>
+                            setSeeConfirmPassword(!seeConfirmPassword)
+                          }
+                          edge="end"
+                        >
+                          {seeConfirmPassword ? (
+                            <VisibilityOffIcon />
+                          ) : (
+                            <VisibilityIcon />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
                 <TextField
                   fullWidth

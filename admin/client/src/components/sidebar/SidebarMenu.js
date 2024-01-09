@@ -9,7 +9,7 @@ import {
   TimelineOutlined,
   MenuOutlined,
   CalendarTodayOutlined,
-  HelpOutlined,
+  Paid,
 } from "@mui/icons-material";
 import { tokens } from "../../theme";
 import IM from "../../assests/ff.jpg";
@@ -178,11 +178,11 @@ const SidebarMenu = () => {
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>
-          <IconButton onClick={() => dispatch(setComponent("faq"))}>
-            <HelpOutlined />
+          <IconButton onClick={() => dispatch(setComponent("pay"))}>
+            <Paid />
           </IconButton>
         </MenuItemIcon>
-        <MenuItemWord>FAQ</MenuItemWord>
+        <MenuItemWord>User Payments</MenuItemWord>
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>

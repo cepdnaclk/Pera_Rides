@@ -3,8 +3,12 @@ import "./Reset.css";
 import OTP_IMG from "../../assests/otp-img.jpg";
 import { useRef, useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { validate, notValidate } from "../../Redux/features/otp/OtpSlice";
+///////////////////////////////
 
 const Reset = () => {
+  const dispatch = useDispatch();
   const otpRef = useRef();
   const [isOTPcorrect, setIsOTPcorrrect] = useState(false);
   const navigate = useNavigate();
@@ -13,14 +17,16 @@ const Reset = () => {
     e.preventDefault();
     setIsOTPcorrrect(false);
     try {
-      const response = await axios.post("/verifyOTP/", {
-        userOtp: otpRef.current.value,
+      const response = await axios.post("/admin/verifyOTP", {
+        otp: otpRef.current.value,
       });
       const isVerified = response.data.response;
       setIsOTPcorrrect(isVerified);
       otpRef.current.value = null;
       navigate("/newpassword");
+      dispatch(validate());
     } catch (err) {
+      dispatch(notValidate());
       otpRef.current.value = null;
       !isOTPcorrect && alert("Invalid OTP");
       setIsOTPcorrrect(false);
@@ -30,7 +36,7 @@ const Reset = () => {
   const handleRegenrateOTP = async () => {
     alert("OTP has been sent successfully!");
     try {
-      const response = await axios.get("/generateOTP");
+      const response = await axios.get("/admin/generateOtp");
       if (!response) {
         console.log("Error with generating OTP, please try again!");
       }
