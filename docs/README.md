@@ -50,10 +50,10 @@ At the Department of Computer Engineering, our team is creating PeraRide, a comp
 ## Solution Architecture
 
 High level diagram 
-![PeraRide Image](C:\Users\jeewajith\Desktop\Bicycle App\e19-3yp-Pera-Ride\docs\images\Highlevelarchi.jpg)
+![Alt text](images/Highlevelarchi.png)
 
 Dataflow
-![PeraRide Image](Dataflow.jpg)
+![Alt text](images/Dataflow.png)
 
 
 
