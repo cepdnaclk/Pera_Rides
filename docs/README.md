@@ -84,7 +84,7 @@ All items and costs
 
 ## Conclusion
 
-What was achieved, future developments, commercialization plans
+We are going to demonstrate our project using two bicycles with two stations near 'Akbhar' hostel and 'Wus' premises.
 
 ## Links
 
