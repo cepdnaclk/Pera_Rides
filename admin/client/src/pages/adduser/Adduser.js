@@ -8,9 +8,9 @@ import InputAdornment from "@mui/material/InputAdornment";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addNewUser } from "../../Redux/features/users/usersSlice";
+import apiConnection from "../../apiConnection";
 //////////////////////////////////////////////////////////
 const AddUserMain = styled.div`
   width: 100%;
@@ -63,7 +63,7 @@ const Adduser = () => {
   const handleFormSubmit = async (e) => {
     if (e.password === e.confirmPassword) {
       try {
-        const response = await axios.post("/admin/user/register", {
+        const response = await apiConnection.post("/admin/user/register", {
           username: e.username,
           password: e.password,
           email: e.email,
