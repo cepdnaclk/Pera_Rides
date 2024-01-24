@@ -4,6 +4,7 @@ import { closeModal } from "../../Redux/features/modal/modalSlice";
 import { logout } from "../../Redux/features/admin/adminSlice";
 import { useNavigate } from "react-router-dom";
 import { PURGE } from "redux-persist";
+import { setComponent } from "../../Redux/features/comp_inside_homepage/componentSlice";
 
 const ModalMain = styled.div`
   width: 100%;
@@ -16,6 +17,7 @@ const ModalMain = styled.div`
   justify-content: center;
   background-color: rgba(255, 255, 255, 0.5);
   transition: all 1s;
+  z-index: 999;
 `;
 
 const ModalContainer = styled.div`
@@ -79,6 +81,7 @@ const Modal = () => {
   const handleLogout = () => {
     dispatch(closeModal());
     dispatch(logout());
+    dispatch(setComponent("dashboard"));
     dispatch({ type: PURGE, key: "persist:root", result: () => null });
     navigate("/login");
   };

@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-
+import apiConnection from "../../../apiConnection";
 export const getAllUsersDB = createAsyncThunk(
   "/users/getUsers",
   async (name, thunkAPI) => {
     try {
-      const response = await axios.get("/users");
+      const response = await apiConnection.get("/users");
       return response.data;
     } catch (err) {
       console.log(err);

@@ -2,13 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import LOGIN_IMG from "../../assests/pera_ride.jpg";
 import { useRef } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginStart,
   loginSuccess,
   loginFailure,
 } from "../../Redux/features/admin/adminSlice";
+
+import apiConnection from "../../apiConnection";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const response = await axios.post("/login", {
+      const response = await apiConnection.post("/login", {
         username: usernameRef.current.value,
         password: passwordRef.current.value,
       });
@@ -39,7 +40,7 @@ const Login = () => {
   const handleOTPgenerate = async () => {
     alert("OTP has been sent successfully!");
     try {
-      const response = await axios.get("/admin/generateOtp");
+      const response = await apiConnection.get("/admin/generateOtp");
       if (!response) {
         console.log("Error with generating OTP, please try again!");
       }

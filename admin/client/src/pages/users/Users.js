@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
 import { deletUser } from "../../Redux/features/users/usersSlice";
+import apiConnection from "../../apiConnection";
 ////////////////////////////////
 
 const MainUsersGrid = styled.div`
@@ -99,7 +100,7 @@ const Users = () => {
     const ans = window.confirm("Do you really wants to delete this user?");
     if (ans) {
       try {
-        const response = await axios.delete(`/user/delete/${userId}`);
+        const response = await apiConnection.delete(`/user/delete/${userId}`);
         dispatch(deletUser(userId));
         const newUsers = userData.filter((user) => user._id !== userId);
         setUserData(newUsers);

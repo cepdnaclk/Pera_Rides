@@ -10,6 +10,7 @@ import Calendar from "../calendar/Calendar";
 import BarChartView from "../BarChartView/BarChartView";
 import PieChartView from "../pieChartView/PieChartView";
 import LineChartView from "../lineChartView/LineChartView";
+import PayView from "../payView/PayView";
 
 const HomepageMainDiv = styled.div`
   width: 100%;
@@ -47,7 +48,7 @@ const HomePage = () => {
     manageUsers,
     addUser,
     calender,
-    // faq,
+    pay,
     barChart,
     pieChar,
     lineChart,
@@ -68,6 +69,7 @@ const HomePage = () => {
         {barChart && <BarChartView />}
         {pieChar && <PieChartView />}
         {lineChart && <LineChartView />}
+        {pay && <PayView />}
       </OthesContainer>
       {isOpen && <Modal />}
     </HomepageMainDiv>

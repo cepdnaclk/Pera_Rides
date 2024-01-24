@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import "./Reset.css";
 import OTP_IMG from "../../assests/otp-img.jpg";
 import { useRef, useState } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { validate, notValidate } from "../../Redux/features/otp/OtpSlice";
+import apiConnection from "../../apiConnection";
 ///////////////////////////////
 
 const Reset = () => {
@@ -17,7 +17,7 @@ const Reset = () => {
     e.preventDefault();
     setIsOTPcorrrect(false);
     try {
-      const response = await axios.post("/admin/verifyOTP", {
+      const response = await apiConnection.post("/admin/verifyOTP", {
         otp: otpRef.current.value,
       });
       const isVerified = response.data.response;
@@ -36,7 +36,7 @@ const Reset = () => {
   const handleRegenrateOTP = async () => {
     alert("OTP has been sent successfully!");
     try {
-      const response = await axios.get("/admin/generateOtp");
+      const response = await apiConnection.get("/admin/generateOtp");
       if (!response) {
         console.log("Error with generating OTP, please try again!");
       }
