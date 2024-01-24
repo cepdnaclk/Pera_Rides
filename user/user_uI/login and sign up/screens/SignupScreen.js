@@ -93,7 +93,7 @@
 
 import axios from 'axios';
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, Image,Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
@@ -104,6 +104,23 @@ export default function SignupScreen() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [OTP, setOTP] = useState('');
+
+  const pressHandler = () => {
+    onPress=()=>console.log("success")
+    // onPress=()=>navigation.push('OTPVerification')
+    Alert.alert("Details","Check your email after sending OTP",[
+    {text:"OK", onPress:()=>{console.log("OTP sent");
+                  //  navigation.push('OTPVerification');
+                   
+                  }
+                },
+
+    // {text:"Resend OTP", onPress: ()=>navigation.push('OTPVerification')},
+  
+    ]);
+  }
+
 
 const handleSignUp = async () => {
   try {
@@ -195,9 +212,26 @@ const handleSignUp = async () => {
               style={{ color: 'gray' }}
             />
           </View>
+          <Animated.View entering={FadeInDown.delay(800).duration(1000).springify()} style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+            <Text>Verifiy Your Account</Text>
+            <TouchableOpacity onPress={() => { pressHandler(); console.log("OTP sent"); }} style={{ backgroundColor: '#3D85C6', padding: 9, borderRadius: 20, marginBottom: 10 }}>
+              <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 10 }}>Send OTP</Text>
+            </TouchableOpacity>
+
+            {/* <Text>Check your email</Text> */}
+          </Animated.View>
+
+          <View style={{ backgroundColor: 'rgba(0,0,0,0.05)', padding: 10, borderRadius: 20, marginBottom: 10 }}>
+            <TextInput
+              placeholder="Type OTP Here"
+              value={OTP}
+              onChangeText={setOTP}
+              style={{ color: 'gray' }}
+            />
+          </View>
 
           <Animated.View entering={FadeInDown.delay(600).duration(1000).springify()}>
-            <TouchableOpacity onPress={() => handleSignUp()} style={{ backgroundColor: '#4ECDC4', padding: 10, borderRadius: 20, marginBottom: 10 }}>
+            <TouchableOpacity onPress={() => handleSignUp()} style={{ backgroundColor: '#3D85C6', padding: 10, borderRadius: 20, marginBottom: 10 }}>
               <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 20 }}>SignUp</Text>
             </TouchableOpacity>
           </Animated.View>
