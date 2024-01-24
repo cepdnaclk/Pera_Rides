@@ -1,5 +1,5 @@
 import { View, Text, Image, SafeAreaView, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar'
 import { useNavigation } from '@react-navigation/native'
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
@@ -7,6 +7,37 @@ import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated'
 
 export default function OTPVerification () {
     const navigation = useNavigation();
+    const [otp, setOtp] = useState('');
+    const handleVerification = async () => {
+        try {
+          const response = await fetch('http://192.168.8.160:5000/api/user/verifyOTP', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              otp,
+            }),
+          });
+      
+          if (!response.ok) {
+             navigation.push('Homepage');
+            throw new Error('Otp is Wrong');
+          }else{
+          navigation.push('Homepage');
+
+          }
+
+      
+          const data = await response.json();
+
+        } catch (error) {
+          console.error('Error:', error);
+          // Handle errors here
+        }
+      };
+      
+    
   return (
     <View className="bg-white h-full w-full">
         <StatusBar style="light" />
@@ -53,18 +84,19 @@ export default function OTPVerification () {
                     entering={FadeInDown.delay(200).duration(1000).springify()} 
                     className="bg-black/5 p-5 rounded-2xl w-full mb-3">
 
-                    <TextInput
-                        placeholder="Enter OTP"
-                        placeholderTextColor={'gray'}
-                        // secureTextEntry
-                    />
+                <TextInput
+              placeholder="Enter OTP"
+              placeholderTextColor={'gray'}
+              value={otp}
+              onChangeText={setOtp}
+            />
                 </Animated.View>
 
                 <Animated.View 
                     className="w-full" 
                     entering={FadeInDown.delay(400).duration(1000).springify()}>
 
-                    <TouchableOpacity onPress={()=> navigation.push('Homepage')} className="w-full bg-sky-400 p-3 rounded-2xl mb-3">
+                    <TouchableOpacity onPress={handleVerification} className="w-full bg-sky-400 p-3 rounded-2xl mb-3">
                         <Text className="text-xl font-bold text-white text-center">Submit</Text>
                     </TouchableOpacity>
                 </Animated.View>
@@ -74,7 +106,7 @@ export default function OTPVerification () {
                     className="flex-row justify-center">
 
                     <Text>Don't recived OTP yet? </Text>
-                    <TouchableOpacity onPress={()=> navigation.push('OTPsend')}>
+                    <TouchableOpacity onPress={()=> navigation.push('Homepage')}>
                         <Text className="text-sky-600">Send againg OTP</Text>
                     </TouchableOpacity>
                 </Animated.View>

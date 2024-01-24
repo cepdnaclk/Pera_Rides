@@ -18,6 +18,8 @@ import Rateapp from './screens/Rateapp';
 import Profile from './screens/Profile';
 import OTPVerification from './screens/OTPVerification';
 import OTPsend from './screens/OTPsend';
+import Map from './screens/Map';
+import Subscription from './screens/Subscription';
 
 
 const Stack = createNativeStackNavigator();
@@ -40,6 +42,8 @@ function App() {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="OTPVerification" component={OTPVerification} />
         <Stack.Screen name="OTPsend" component={OTPsend} />
+        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="Subscription" component={Subscription} />
       </Stack.Navigator>
     </NavigationContainer>
   );
