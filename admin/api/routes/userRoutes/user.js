@@ -2,9 +2,22 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../../models/User");
+const Slip = require("../../models/Slip");
 const generateOTP = require("otp-generator");
 const { sendOTPEmail } = require("../../controllers/sendEmail");
 const mqtt = require("mqtt");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, "public/slips");
+  },
+  filename: (req, file, callback) => {
+    callback(null, "Hello.jpg");
+  },
+});
+
+const upload = multer({ storage: storage });
 
 OTPprops = {
   value: null,
@@ -182,6 +195,33 @@ router.post("/user/qr/verify", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+// slip image upload
+router.post("/user/slip/upload", upload.single("file"), (req, res) => {
+  res.status(200).json("File has been uploaded!");
+});
+
+// slip uplaod
+router.post("/user/newslip", async (req, res) => {
+  const reqUserId = req.body.userId;
+  const reqImage = req.body.image;
+
+  if (!reqUserId || !reqImage) {
+    res.status(400).json("User ID and Slip image required!");
+  }
+
+  const newSlip = new Slip({
+    userId: reqUserId,
+    image: reqImage,
+  });
+
+  try {
+    const savedSlip = await newSlip.save();
+    res.status(201).json(savedSlip);
+  } catch (err) {
     res.status(500).json(err);
   }
 });
