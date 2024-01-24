@@ -2,8 +2,8 @@
 import "./NewPassword.css";
 import PASSWORD_IMG from "../../assests/password-img.jpg";
 import { useRef } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import apiConnection from "../../apiConnection";
 
 const NewPassword = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const NewPassword = () => {
       // alert("Password updated successfully!");
       // navigate("/login");
       // console.log(response);
-      await axios.post("/resetpassword", {
+      await apiConnection.post("/resetpassword", {
         newpassword: passwordRef.current.value,
       });
       alert("Password updated successfully!");

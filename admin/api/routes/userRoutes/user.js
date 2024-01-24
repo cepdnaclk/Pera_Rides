@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../../models/User");
 const generateOTP = require("otp-generator");
 const { sendOTPEmail } = require("../../controllers/sendEmail");
-const mqtt = require('mqtt');
+const mqtt = require("mqtt");
 
 OTPprops = {
   value: null,
@@ -79,7 +79,6 @@ router.post("/user/verifyOTP", async (req, res) => {
   OTPprops.value = null;
 
   try {
-
     const foundUser = await User.findOne({ email: userEmail });
     if (!foundUser) return res.status(404).json("User not found!");
     foundUser.verified = true;
@@ -165,12 +164,15 @@ router.post("/user/qr/verify", async (req, res) => {
         // password: 'your_password', // Replace with your MQTT password
         clean: true,
       };
-      
-      const mqttClient = mqtt.connect('ws://test.mosquitto.org:8080/mqtt', mqttOptions); // Replace with your MQTT broker URL
 
-      mqttClient.on('connect', () => {
+      const mqttClient = mqtt.connect(
+        "ws://test.mosquitto.org:8080/mqtt",
+        mqttOptions
+      ); // Replace with your MQTT broker URL
+
+      mqttClient.on("connect", () => {
         // Publish a message on a specific topic when the MQTT client is connected
-        mqttClient.publish('Pera_Ride/unlock', JSON.stringify(1));
+        mqttClient.publish("Pera_Ride/unlock", JSON.stringify(1));
         mqttClient.end(); // Close the MQTT connection
       });
 
