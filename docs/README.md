@@ -41,38 +41,18 @@ Bicycle use for regular transportation is promoted by many large cities worldwid
 
 At the Department of Computer Engineering, our team is creating PeraRide, a comprehensive automated bicycle sharing system that will allow subscribers who are the students of the university to easily check out and return bikes within the university area  
 
-## Pera Ride
-[![Video](https://img.youtube.com/vi/2gkQerGHnDg/0.jpg)](https://youtu.be/2gkQerGHnDg)
-
-
-
 
 ## Solution Architecture
 
-## High level diagram 
-![Alt text](images/Highlevelarchi.png)
-
-## Dataflow
-![Alt text](images/Dataflow.png)
-
+High level diagram + description
 
 ## Hardware and Software Designs
 
-## Lock System of the bicycle
-
-![Alt text](images/Lock.png)
+Detailed designs with many sub-sections
 
 ## Testing
 
-FrontEnd Testing
-- Jest 
-- React 
-
-BackEnd Testing
-- Unit Testing
-- Api Testing
-
-![Alt text](images/React.png)
+Testing done on hardware and software, detailed + summarized results
 
 ## Detailed budget
 
@@ -84,7 +64,7 @@ All items and costs
 
 ## Conclusion
 
-We are going to demonstrate our project using two bicycles with two stations near 'Akbhar' hostel and 'Wus' premises.
+What was achieved, future developments, commercialization plans
 
 ## Links
 

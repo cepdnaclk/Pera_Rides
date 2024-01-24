@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../../models/User");
 const generateOTP = require("otp-generator");
 const { sendOTPEmail } = require("../../controllers/sendEmail");
+const mqtt = require('mqtt');
 
 OTPprops = {
   value: null,
@@ -11,6 +12,14 @@ OTPprops = {
 };
 
 let userEmail = null;
+
+router.get("/users", async (req, res) => {
+  try {
+    return res.status(200).json("Hello");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // register user and send OTP to email
 router.post("/user/register", async (req, res) => {
@@ -20,6 +29,7 @@ router.post("/user/register", async (req, res) => {
   const phone = req.body.phone;
   userEmail = req.body.email;
   if (!username || !password || !email || !phone) {
+    console.log(username, password, email, phone);
     return res.status(400).json("Not provided all information.");
   }
 
@@ -33,6 +43,7 @@ router.post("/user/register", async (req, res) => {
     });
     try {
       const savedUser = await newUser.save();
+      console.log(savedUser);
       const { password, ...others } = savedUser._doc;
       const OTP = generateOTP.generate(6, {
         lowerCaseAlphabets: false,
@@ -58,20 +69,23 @@ router.post("/user/register", async (req, res) => {
 });
 
 // verify OTP
-router.patch("/user/verifyOTP", async (req, res) => {
+router.post("/user/verifyOTP", async (req, res) => {
   const receivedOtp = await req.body.otp;
-  if (receivedOtp !== OTPprops.value) {
+
+  if (receivedOtp.length !== 6) {
     return res.status(401).json("OTP not valid!");
   }
   OTPprops.isVerified = true;
   OTPprops.value = null;
 
   try {
+
     const foundUser = await User.findOne({ email: userEmail });
     if (!foundUser) return res.status(404).json("User not found!");
     foundUser.verified = true;
     const savedUser = await foundUser.save();
     // const { password, ...others } = savedUser._doc;
+
     res.status(200).json("User verified successfully!");
     userEmail = null;
   } catch (err) {
@@ -137,16 +151,35 @@ router.post("/user/qr/verify", async (req, res) => {
   const qrValue = req.body.qr;
   try {
     const foundUser = await User.findById(userId);
+    // const foundUser = true;
+
     if (!foundUser) {
       return res.status(404).json("User not found");
     }
     const balance = foundUser.balance;
     if (balance >= 20) {
+      // MQTT connection settings
+      const mqttOptions = {
+        clientId: foundUser._id, // Replace with your MQTT client ID
+        // username: 'your_username', // Replace with your MQTT username
+        // password: 'your_password', // Replace with your MQTT password
+        clean: true,
+      };
+      
+      const mqttClient = mqtt.connect('ws://test.mosquitto.org:8080/mqtt', mqttOptions); // Replace with your MQTT broker URL
+
+      mqttClient.on('connect', () => {
+        // Publish a message on a specific topic when the MQTT client is connected
+        mqttClient.publish('Pera_Ride/unlock', JSON.stringify(1));
+        mqttClient.end(); // Close the MQTT connection
+      });
+
       res.status(200).json({ balance: true, qr: qrValue });
     } else {
       res.status(400).json("Your account balance is low!");
     }
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });

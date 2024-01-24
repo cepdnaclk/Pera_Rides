@@ -2,6 +2,9 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { View, Text, Image,TextInput,TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+import MapView, { Marker } from 'react-native-maps';
+
 import Icon from 'react-native-vector-icons/FontAwesome';'react-native-vector-icons/MaterialIcons';
 
 import COLORS from '../const/colors';
@@ -10,6 +13,10 @@ import { Dimensions } from 'react-native';
 
 import Settings from './Settings';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+
+
+
+
 
 const Drawer = createDrawerNavigator();
 
@@ -30,11 +37,14 @@ const Card = ({ station }) => {
               alignItems: 'center',
               justifyContent: 'center',
               backgroundColor: station.like ? 'rgba(245,42,42,0.2)' : 'rgba(0,0,0,0.2)',
-            }}
-          >
-            <Icon name="star" size={18} color={station.like ? COLORS.red : COLORS.dark} />
+            }}>
+            <TouchableOpacity onPress={() => navigation.push('Map')}>
+              <Icon name="compass" size={18} color={station.like ? COLORS.green : COLORS.red} />
+            </TouchableOpacity>
+           
           </View>
         </View>
+        
         <View style={{ height: 100, alignItems: 'center' }}>
           <Image source={station.img} style={{ flex: 1, resizeMode: 'contain' }} />
         </View>
@@ -85,9 +95,16 @@ export default function HomeScreen() {
           <Text style={{fontSize: 38, color: COLORS.green, fontWeight: 'bold'}}>
             Pera Ride
           </Text>
+
+
     
-          <Text style={{fontSize: 15, fontWeight: 'bold', marginTop:30}}>Account balance :</Text>
-        </View>
+          <Text style={{fontSize: 15, fontWeight: 'bold', marginTop:30,marginBottom:20}}>Account balance :</Text>
+          {/* <View className="flex items-center mx-10 space-y-20"> */}
+          <TouchableOpacity className="w-full bg-green-400 p-2 rounded-xl mb-3" onPress={() => navigation.push('Map')}>
+                        <Text className="text-xl font-bold text-white text-center">Map Of Stations 🔍</Text>
+                    </TouchableOpacity>
+                    </View> 
+        {/* </View> */}
         <View>
          <View style={{ flexDirection: 'row', alignItems: 'center' }}> 
             <TouchableOpacity onPress={() => navigation.push('QrScanner')}>
@@ -95,12 +112,12 @@ export default function HomeScreen() {
             </TouchableOpacity>
             <View style={{ width: 20 }} />
 
-            <TouchableOpacity onPress={() => navigation.push('Notifications')}>
+            <TouchableOpacity onPress={() => navigation.push('Subscription')}>
                  <Icon name="bell" size={30} color="black" />
             </TouchableOpacity>
         </View>
         
-       
+  
         </View>
         
       </View>

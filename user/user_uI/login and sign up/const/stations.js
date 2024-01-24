@@ -23,6 +23,10 @@ const stations = [
       amount: 1,
       about:
         'This is a station in the University of Peradeniya, it is located in the AHS faculty',
+      location: {
+        latitude: 7.2579,  // Replace with the actual latitude of Station 1
+        longitude: 80.5950,  // Replace with the actual longitude of Station 1
+      },
     },
     {
       id: 3,
