@@ -100,8 +100,8 @@ export default function HomeScreen() {
     
           <Text style={{fontSize: 15, fontWeight: 'bold', marginTop:30,marginBottom:20}}>Account balance :</Text>
           {/* <View className="flex items-center mx-10 space-y-20"> */}
-          <TouchableOpacity className="w-full bg-green-400 p-2 rounded-xl mb-3" onPress={() => navigation.push('Map')}>
-                        <Text className="text-xl font-bold text-white text-center">Map Of Stations 🔍</Text>
+          <TouchableOpacity className="w-full  p-2 rounded-xl mb-0.5" onPress={() => navigation.push('Map')}>
+                        <Text className=" w-full p-2 rounded-xl mb-3 text-xl font-bold text-white text-center" backgroundColor="#65B741">Map Of Stations 🔍</Text>
                     </TouchableOpacity>
                     </View> 
         {/* </View> */}

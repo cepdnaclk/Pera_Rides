@@ -67,7 +67,7 @@ export default function LoginScreen() {
             <Animated.View
         entering={FadeInDown.duration(1000).springify()}
         style={{
-          backgroundColor: 'purple', // Change the background color to green
+          backgroundColor: '#65B741', // Change the background color to green
           padding: 20,
           borderRadius: 20,
           width: '100%',
@@ -83,9 +83,10 @@ export default function LoginScreen() {
                 <Animated.View 
                     entering={FadeInDown.delay(200).duration(1000).springify()} 
                     style={{
-                        backgroundColor: '#66b2b2', // Change the background color to green
+                        backgroundColor: '#65B741', // Change the background color to green
                         padding: 20,
                         borderRadius: 20,
+                        marginBottom:30,
                         width: '100%',
                       }}
                     >
