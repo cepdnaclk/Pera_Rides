@@ -1,4 +1,4 @@
-import { View, Text, Image, SafeAreaView, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Image, SafeAreaView, TextInput, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { useNavigation } from '@react-navigation/native'
@@ -17,9 +17,15 @@ export default function LoginScreen() {
                     username,
                     password,
                 });
-
                 console.log(response.data);
+                Alert.alert("Details","login successfull",[
+                    {text:"OK", onPress:()=>{console.log("Details send");}}
+                    ]);
+                navigation.navigate('Homepage');
             }catch(error){
+                Alert.alert("Details","login failed. check username and password and try again",[
+                    {text:"OK", onPress:()=>{console.log("Details send");}}
+                    ]);
                 console.error('Error:', error);
             }
         }
@@ -77,7 +83,7 @@ export default function LoginScreen() {
                 <Animated.View 
                     entering={FadeInDown.delay(200).duration(1000).springify()} 
                     style={{
-                        backgroundColor: 'purple', // Change the background color to green
+                        backgroundColor: '#66b2b2', // Change the background color to green
                         padding: 20,
                         borderRadius: 20,
                         width: '100%',

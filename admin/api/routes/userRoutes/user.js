@@ -57,6 +57,8 @@ router.post("/user/login", async (req, res) => {
   const enteredUsername = req.body.username;
   const enteredPassword = req.body.password;
 
+  console.log(enteredUsername, enteredPassword);
+
   if (!enteredUsername || !enteredPassword) {
     return res.status(400).json("Username and Password required!");
   }
@@ -73,10 +75,6 @@ router.post("/user/login", async (req, res) => {
     if (!passwordValidated) {
       return res.status(400).json("Wrong Credentials!");
     }
-
-    const isVerified = foundUser.verified;
-    if (!isVerified) return res.status(403).json("User not verified!");
-
     const { password, ...others } = foundUser._doc;
     res.status(200).json(others);
   } catch (err) {
