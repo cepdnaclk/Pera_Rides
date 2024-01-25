@@ -22,12 +22,20 @@
 
 ## Introduction
 
-Bicycle use for regular transportation is promoted by many large cities worldwide as a way to combat growing automobile congestion and the air pollution that results from it. Riding a bicycle provides city inhabitants with additional health benefits by increasing physical activity in addition to addressing the primary difficulties already discussed. Similar needs have been identified in Sri Lankan cities and universities, where thousands of residents regularly need to commute short- to medium-distances.
+PeraRide, developed by the Department of Computer Engineering, stands as a pioneering solution to address the transportation challenges faced by the residents and students of Sri Lankan cities and universities. Recognizing the increasing need for sustainable and efficient commuting options, PeraRide establishes a comprehensive automated bicycle sharing system tailored specifically for the university environment. The system is designed to provide students with a convenient and eco-friendly means of transportation within the university area, alleviating the strain on conventional modes of commuting.
 
-At the Department of Computer Engineering, our team is creating PeraRide, a comprehensive automated bicycle sharing system that will allow subscribers who are the students of the university to easily check out and return bikes within the university area
+With PeraRide, students can effortlessly check out and return bicycles, fostering a culture of accessibility and promoting an active lifestyle. This initiative not only contributes to the reduction of automobile congestion and air pollution within the university premises but also encourages physical activity among students. By integrating technology into the traditional concept of bicycle sharing, the system enhances efficiency, making it easier for users to incorporate cycling into their daily routines.
+
+As the world grapples with the environmental and health implications of increased urbanization, PeraRide serves as a model for sustainable transportation solutions, aligning with the global trend of promoting cycling as a viable alternative to traditional modes of commuting. The Department of Computer Engineering's commitment to innovation and addressing real-world challenges is evident in the development of PeraRide, marking a significant step toward creating a more sustainable and health-conscious university environment.
 
 > <img src="./docs/images/station1.jpg" alt="Alt_Text" width="600" height="400">
 > <img src="./docs/images/station2.jpg" alt="Alt_Text" width="600" height="400">
+
+## Problem
+
+ Students face challenges in travelling around the university premises.
+ Inefficiencies in university commuting.
+ Insufficient parking spaces.
 
 ## Solution Architecture
 
