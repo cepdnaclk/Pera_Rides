@@ -23,7 +23,7 @@ mongoose
 ////////////////////////////////
 
 // rotes for admin login, password reset, register admin
-app.use("/api/", require("./routes/adminRoutes/login"));
+app.use("/api/", require("./routes/adminRoutes/adminMain"));
 
 // otp routes for admin
 app.use("/api/", require("./routes/adminRoutes/otp"));
