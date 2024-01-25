@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Image, TextInput } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Image, TextInput, Animated, Easing } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const Money = () => {
-  const [profileImage, setProfileImage] = useState('');
+  const [profileImage, setProfileImage] = useState(null); // Change the initial state to null
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPhone, setUserPhone] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [animatedValue] = useState(new Animated.Value(1));
+
+  const startAnimation = () => {
+    Animated.sequence([
+      Animated.timing(animatedValue, {
+        toValue: 1.2,
+        duration: 200,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(animatedValue, {
+        toValue: 1,
+        duration: 200,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
 
   const openImageLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -23,7 +42,8 @@ const Money = () => {
       });
 
       if (!response.cancelled) {
-        setProfileImage(response.uri);
+        const source = { uri: response.uri };
+        setProfileImage(source);
       }
     }
   };
@@ -47,47 +67,58 @@ const Money = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={openImageLibrary} style={styles.uploadBtnContainer}>
-        {profileImage ? (
-          <Image source={{ uri: profileImage }} style={{ width: '100%', height: '100%' }} />
-        ) : (
-          <Text style={styles.uploadBtn}>Upload a Profile Image</Text>
-        )}
-      </TouchableOpacity>
+      <LinearGradient
+        colors={['#56CCF2', '#2F80ED']}
+        style={styles.gradientBackground}
+      >
+        <TouchableOpacity onPress={openImageLibrary} style={styles.profileImageContainer}>
+          {profileImage ? (
+            <Image source={profileImage} style={styles.profileImage} />
+          ) : (
+            <Text style={styles.uploadBtn}>Upload a Profile Image</Text>
+          )}
+        </TouchableOpacity>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        value={userName}
-        onChangeText={text => setUserName(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={userEmail}
-        onChangeText={text => setUserEmail(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        value={userPhone}
-        onChangeText={text => setUserPhone(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry={true}
-        value={userPassword}
-        onChangeText={text => setUserPassword(text)}
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          value={userName}
+          onChangeText={text => setUserName(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={userEmail}
+          onChangeText={text => setUserEmail(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          value={userPhone}
+          onChangeText={text => setUserPhone(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          secureTextEntry={true}
+          value={userPassword}
+          onChangeText={text => setUserPassword(text)}
+        />
 
-      <TouchableOpacity onPress={saveUserProfile} style={styles.saveButton}>
-        <Text style={styles.saveButtonText}>Save Profile</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            saveUserProfile();
+            startAnimation();
+          }}
+          style={[styles.saveButton, { transform: [{ scale: animatedValue }] }]}
+        >
+          <Text style={styles.saveButtonText}>Save Profile</Text>
+        </TouchableOpacity>
 
-      <Text style={styles.userDetails}>Name: {userName}</Text>
-      <Text style={styles.userDetails}>Email: {userEmail}</Text>
-      <Text style={styles.userDetails}>Phone: {userPhone}</Text>
+        <Text style={styles.userDetails}>Name: {userName}</Text>
+        <Text style={styles.userDetails}>Email: {userEmail}</Text>
+        <Text style={styles.userDetails}>Phone: {userPhone}</Text>
+      </LinearGradient>
     </View>
   );
 };
@@ -97,36 +128,57 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  gradientBackground: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
     paddingHorizontal: 20,
   },
-  uploadBtnContainer: {
-    height: 125,
-    width: 125,
-    borderRadius: 125 / 2,
+  profileImageContainer: {
+    height: 120,
+    width: 120,
+    borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    borderStyle: 'dashed',
-    borderWidth: 1,
-    overflow: 'hidden',
+    borderWidth: 2,
+    borderColor: 'white',
     marginBottom: 20,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
+  },
+  profileImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 60,
   },
   uploadBtn: {
     textAlign: 'center',
     fontSize: 16,
-    opacity: 0.3,
+    opacity: 0.6,
     fontWeight: 'bold',
+    color: 'white',
   },
   input: {
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: 'white',
     borderRadius: 8,
     marginVertical: 10,
     paddingHorizontal: 15,
     paddingVertical: 10,
     width: '100%',
+    color: 'white',
   },
   saveButton: {
-    backgroundColor: 'green',
+    backgroundColor: '#4CAF50',
     padding: 12,
     borderRadius: 8,
     marginTop: 20,
@@ -138,8 +190,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   userDetails: {
-    fontSize: 18,
+    fontSize: 16,
     marginVertical: 5,
+    color: 'white',
   },
 });
 
