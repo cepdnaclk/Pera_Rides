@@ -50,7 +50,9 @@ const handleSignUp = async () => {
         password,
       });
       Alert.alert("Details","Registration successfull",[
-        {text:"OK", onPress:()=>{console.log("Details send");}}
+        {text:"OK", onPress:()=>{navigation.push('Login');}}
+        // onPress={() => navigation.push('Homepage')}
+        
         ]);
     }catch(error){
       Alert.alert("Details","registration failed. try again",[
@@ -120,7 +122,7 @@ useEffect(()=>{
         {/* form */}
         <View style={{ marginHorizontal: 5, marginTop: 10 }}>
           <View   style={{
-          backgroundColor: 'purple', // Change the background color to green
+          backgroundColor: '#65B741', // Change the background color to green
           padding: 10,
           borderRadius: 20,
           width: '100%',
@@ -135,7 +137,7 @@ useEffect(()=>{
             />
           </View>
           <View   style={{
-          backgroundColor: 'purple', // Change the background color to green
+          backgroundColor: '#65B741', // Change the background color to green
           padding: 10,
           marginTop: 10,
           borderRadius: 20,
@@ -150,7 +152,7 @@ useEffect(()=>{
             />
           </View>
           <View  style={{
-          backgroundColor: 'purple', // Change the background color to green
+          backgroundColor: '#65B741', // Change the background color to green
           padding: 10,
           marginTop: 10,
           borderRadius: 20,
@@ -165,7 +167,7 @@ useEffect(()=>{
             />
           </View>
           <View  style={{
-          backgroundColor: 'purple', // Change the background color to green
+          backgroundColor: '#65B741', // Change the background color to green
           padding: 10,
           marginTop: 10,
           marginBottom: 10,
@@ -190,7 +192,7 @@ useEffect(()=>{
             {/* <Text>Check your email</Text> */}
           </Animated.View>
 
-          <View style={{ backgroundColor: 'purple', padding: 10, borderRadius: 20, marginBottom: 10 }}>
+          <View style={{ backgroundColor: '#65B741', padding: 10, borderRadius: 20, marginBottom: 10 }}>
             <TextInput
               placeholder="Type OTP Here"
               value={OTP}
