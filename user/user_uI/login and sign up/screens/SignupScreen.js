@@ -1,98 +1,4 @@
-
-// import { View, Text, Image, SafeAreaView, TextInput, TouchableOpacity, Pressable } from 'react-native'
-// import React from 'react'
-// import { StatusBar } from 'expo-status-bar'
-// import { useNavigation } from '@react-navigation/native'
-// import { createSlice, configureStore } from '@reduxjs/toolkit'
-// import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
-
-// // Other necessary imports...
-
-// export default function SignupScreen() {
-//     const navigation = useNavigation();
-//   const [username, setUsername] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [phone, setPhone] = useState('');
-//   const [password, setPassword] = useState('');
-
-
-
-//   return (
-//     <View style={{ flex: 1 }}>
-//       <Image source={require('../assets/images/background.png')} style={{ position: 'absolute', height: '100%', width: '100%' }} />
-
-//       <View style={{ flexDirection: 'row', justifyContent: 'space-around', position: 'absolute', width: '100%' }}>
-//         <Image
-//           source={require('../assets/images/bicycle2.png')}
-//           style={{ height: 200, width: 250 }}
-//         />
-//         {/* Add other Image component here */}
-//       </View>
-
-//       <View style={{ flex: 1, justifyContent: 'space-around', paddingTop: 48 }}>
-//         <View style={{ alignItems: 'center' }}>
-//           <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 30 }}>Pera Ride</Text>
-//         </View>
-
-//         <View style={{ marginHorizontal: 5, marginTop: 10 }}>
-//           <View style={{ backgroundColor: 'rgba(0,0,0,0.05)', padding: 10, borderRadius: 20, marginBottom: 10 }}>
-//             <TextInput
-//               placeholder="Username"
-//               value={username}
-//               onChangeText={setUsername}
-//               style={{ color: 'black' }}
-//             />
-//           </View>
-//           <View style={{ backgroundColor: 'rgba(0,0,0,0.05)', padding: 10, borderRadius: 20, marginBottom: 10 }}>
-//             <TextInput
-//               placeholder="Email"
-//               value={email}
-//               onChangeText={setEmail}
-//               style={{ color: 'gray' }}
-//             />
-//           </View>
-//           <View style={{ backgroundColor: 'rgba(0,0,0,0.05)', padding: 10, borderRadius: 20, marginBottom: 10 }}>
-//             <TextInput
-//               placeholder="Phone number"
-//               value={phone}
-//               onChangeText={setPhone}
-//               style={{ color: 'gray' }}
-//             />
-//           </View>
-//           <View style={{ backgroundColor: 'rgba(0,0,0,0.05)', padding: 10, borderRadius: 20, marginBottom: 10 }}>
-//             <TextInput
-//               placeholder="Password"
-//               value={password}
-//               onChangeText={setPassword}
-//               secureTextEntry
-//               style={{ color: 'gray' }}
-//             />
-//           </View>
-
-//           <TouchableOpacity onPress={handleSignUp} style={{ backgroundColor: '#4ECDC4', padding: 10, borderRadius: 20, marginBottom: 10 }}>
-//             <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center' }}>SignUp</Text>
-//           </TouchableOpacity>
-
-//           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-//             <Text>Already have an account? </Text>
-//             <TouchableOpacity onPress={() => navigation.push('OTPsend')}>
-//               <Text style={{ color: '#4ECDC4' }}>Login</Text>
-//             </TouchableOpacity>
-//           </View>
-//         </View>
-//       </View>
-//     </View>
-//   );
-// }
-
-
-
-
-
-
-
-import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, Image,Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
@@ -106,51 +12,84 @@ export default function SignupScreen() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [OTP, setOTP] = useState('');
+  const [verifiedOtp, setVerifiedOtp] = useState(false);
+  const [sendOtpActive, setSendOtpActive] = useState(false);
+  const usernameRegX = /^\S+$/;
+  const phoneRegX = /^\b0\d{9}\b/;
+  const emailRegX = /^[a-zA-Z0-9._%+-]+@[^@\s]+\.pdn\.ac\.lk$/;
 
-  const pressHandler = async () => {
-    console.log(email);
-    try{
-      const response = await apiConnection.post('/user/generateOtp',{
-        email,
-      });
+  const handleSendOtp = async () => {
+    if(usernameRegX.test(username) && phoneRegX.test(phone) && emailRegX.test(email)){
+      try{
+        const response = await apiConnection.post('/user/generateOtp',{
+          email,
+        });
+        console.log(response.data);
+      }catch(error){
+        console.error('Error:', error);
+      }
+      Alert.alert("Details","Check your email after sending OTP",[
+      {text:"OK", onPress:()=>{console.log("OTP sent");}}
+      ]);
 
-      console.log(response.data);
-    }catch(error){
-      console.error('Error:', error);
-    }
-    Alert.alert("Details","Check your email after sending OTP",[
-    {text:"OK", onPress:()=>{console.log("OTP sent");}}
-    ]);
+    }else{
+      Alert.alert("Details","username can't have white spaces or phone number is not valid or email must have pdn.ac.lk part",[
+        {text:"OK", onPress:()=>{console.log("Details send");}}
+        ]);
+    }  
+
   }
 
 
 const handleSignUp = async () => {
-  try{
-    const reponse = await apiConnection.post('/user/register',{
-      username,
-      email,
-      phone,
-      password,
-    });
-    console.log(reponse.data);
-  }catch(error){
-    console.error('Error:', error);
-  }
+    try{
+      const reponse = await apiConnection.post('/user/register',{
+        username,
+        email,
+        phone,
+        password,
+      });
+      Alert.alert("Details","Registration successfull",[
+        {text:"OK", onPress:()=>{console.log("Details send");}}
+        ]);
+    }catch(error){
+      Alert.alert("Details","registration failed. try again",[
+        {text:"OK", onPress:()=>{console.log("Details send");}}
+        ]);
+      console.error('Error:', error);
+    } 
 }
 
 
 const handleVerifyOtp = async () => {
-
+  setVerifiedOtp(false);
   try{
     const response = await apiConnection.post('/user/verifyOTP',{
       otp:OTP,
     });
-    console.log(response.data);J
+    setVerifiedOtp(true);
+    Alert.alert("Details","OTP verification successfull",[
+      {text:"OK", onPress:()=>{console.log("Details send");}}
+      ]);
   }catch(error){
+    setVerifiedOtp(false);  
+    Alert.alert("Details","OTP verification failed. try again",[
+      {text:"OK", onPress:()=>{console.log("Details send");}}
+      ]);
     console.error('Error:', error);
   }
 
 }
+
+useEffect(()=>{
+  if(username && email && phone && password){
+    setSendOtpActive(true);
+  }
+  else{
+    setSendOtpActive(false);
+  }
+}, [username, email, phone, password]);
+
 
   return (
     <View style={{ backgroundColor: 'white', height: '100%', width: '100%' }}>
@@ -244,7 +183,7 @@ const handleVerifyOtp = async () => {
           </View>
           <Animated.View entering={FadeInDown.delay(800).duration(1000).springify()} style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:10 }}>
             <Text>Verifiy Your Account</Text>
-            <TouchableOpacity onPress={pressHandler} style={{ backgroundColor: '#3D85C6', padding: 9, borderRadius: 20 }}>
+            <TouchableOpacity disabled={!sendOtpActive} onPress={handleSendOtp} style={{ backgroundColor: sendOtpActive ? '#3D85C6' : "#999", padding: 9, borderRadius: 20 }}>
               <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 15 }}>Send OTP</Text>
             </TouchableOpacity>
 
@@ -264,7 +203,7 @@ const handleVerifyOtp = async () => {
           <TouchableOpacity onPress={handleVerifyOtp} style={{ backgroundColor: '#3D85C6', padding: 10, borderRadius: 20, marginBottom: 10, marginLeft:40,marginRight:40 }}>
               <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 15 }}>Verify OTP</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleSignUp()} style={{ backgroundColor: '#3D85C6', padding: 10, borderRadius: 20, marginBottom: 10 ,marginLeft:40 ,marginRight:40 }}>
+            <TouchableOpacity disabled={!verifiedOtp} onPress={() => handleSignUp()} style={{ backgroundColor: verifiedOtp ?'#3D85C6' : "#999", padding: 10, borderRadius: 20, marginBottom: 10 ,marginLeft:40 ,marginRight:40 }}>
               <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 20 }}>SignUp</Text>
             </TouchableOpacity>
           </Animated.View>
