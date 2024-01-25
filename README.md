@@ -29,6 +29,6 @@ At the Department of Computer Engineering, our team is creating PeraRide, a comp
 ![image](https://www.anylogic.com/upload/blog/c67/c671ba340460d0018a250d6c17fe8ad1.jpg)
 ![image](https://img.freepik.com/premium-vector/city-bicycle-sharing-system-isolated-white_169241-5557.jpg?w=996)
 
-High Level dArchitecture
+High Level Architecture
 
 > <img src="./docs/images/Highlevelarchi.png" alt="Alt_Text" width="600" height="400">
