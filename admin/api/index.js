@@ -31,8 +31,11 @@ app.use("/api/", require("./routes/adminRoutes/otp"));
 // admin routes related to user
 app.use("/api/", require("./routes/adminRoutes/user"));
 
-// user  routes
+// user  routes without otp
 app.use("/api/", require("./routes/userRoutes/user"));
+
+// user otp route
+app.use("/api/", require("./routes/userRoutes/otp"));
 
 // app listening to port
 app.listen(PORT, () => {

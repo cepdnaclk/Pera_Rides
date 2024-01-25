@@ -19,22 +19,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-OTPprops = {
-  value: null,
-  isVerified: false,
-};
-
-let userEmail = null;
-
-router.get("/users", async (req, res) => {
-  try {
-    return res.status(200).json("Hello");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// register user and send OTP to email
+// register user
 router.post("/user/register", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -58,48 +43,10 @@ router.post("/user/register", async (req, res) => {
       const savedUser = await newUser.save();
       console.log(savedUser);
       const { password, ...others } = savedUser._doc;
-      const OTP = generateOTP.generate(6, {
-        lowerCaseAlphabets: false,
-        upperCaseAlphabets: false,
-        specialChars: false,
-      });
-
-      try {
-        await sendOTPEmail(email, OTP);
-        OTPprops.value = OTP;
-        return res.status(200).json("OTP has been sent successfully!");
-      } catch (err) {
-        res.status(500).json(err);
-      }
-
       res.status(200).json(others);
     } catch (err) {
       res.status(500).json(err);
     }
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// verify OTP
-router.post("/user/verifyOTP", async (req, res) => {
-  const receivedOtp = await req.body.otp;
-
-  if (receivedOtp.length !== 6) {
-    return res.status(401).json("OTP not valid!");
-  }
-  OTPprops.isVerified = true;
-  OTPprops.value = null;
-
-  try {
-    const foundUser = await User.findOne({ email: userEmail });
-    if (!foundUser) return res.status(404).json("User not found!");
-    foundUser.verified = true;
-    const savedUser = await foundUser.save();
-    // const { password, ...others } = savedUser._doc;
-
-    res.status(200).json("User verified successfully!");
-    userEmail = null;
   } catch (err) {
     res.status(500).json(err);
   }
