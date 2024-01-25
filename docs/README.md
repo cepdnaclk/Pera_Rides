@@ -41,23 +41,23 @@ Bicycle use for regular transportation is promoted by many large cities worldwid
 
 At the Department of Computer Engineering, our team is creating PeraRide, a comprehensive automated bicycle sharing system that will allow subscribers who are the students of the university to easily check out and return bikes within the university area  
 
-> <img src="./docs/images/station1.jpg" alt="Alt_Text" width="600" height="400">
-> <img src="./docs/images/station2.jpg" alt="Alt_Text" width="600" height="400">
+> <img src="./images/station1.jpg" alt="Alt_Text" width="600" height="400">
+> <img src="./images/station2.jpg" alt="Alt_Text" width="600" height="400">
 
 
 ## Solution Architecture
 
-> <img src="./docs/images/Highlevelarchi.png" alt="Alt_Text" width="600" height="400">
+> <img src="./images/Highlevelarchi.png" alt="Alt_Text" width="600" height="400">
 
 ## Hardware and Software Designs
 
 ## QR Scanner And Bicycle Lock
 
-> <img src="./docs/images/QR.jpg" alt="Alt_Text" width="600" height="400">
+> <img src="./images/QR.jpg" alt="Alt_Text" width="600" height="400">
 
 ## Gps tracking system
 
-> <img src="./docs/images/Gps.jpg" alt="Alt_Text" width="600" height="400">
+> <img src="./images/Gps.jpg" alt="Alt_Text" width="600" height="400">
 
 ## Testing
 
