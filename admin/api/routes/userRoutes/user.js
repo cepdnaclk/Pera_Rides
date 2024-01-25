@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const User = require("../../models/User");
 const Slip = require("../../models/Slip");
 const mqtt = require("mqtt");
-const multer = require("multer");
 
 // register user
 router.post("/user/register", async (req, res) => {

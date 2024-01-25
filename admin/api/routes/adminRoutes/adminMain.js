@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Admin = require("../../models/Admin");
 const bcrypt = require("bcrypt");
+const Slip = require("../../models/Slip");
 
 // register
 router.post("/register", async (req, res) => {
@@ -47,6 +48,16 @@ router.post("/resetpassword", async (req, res) => {
   admin.password = hashedNewPassword;
   await admin.save();
   res.status(200).json("Password updated successfully");
+});
+
+// get slips
+router.get("/payments", async (req, res) => {
+  try {
+    const response = await Slip.find();
+    res.status(200).json(response);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
