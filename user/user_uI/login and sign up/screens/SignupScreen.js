@@ -97,6 +97,7 @@ import { View, TextInput, TouchableOpacity, Text, Image,Alert } from 'react-nati
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
+import apiConnection from "../apiConnection";
 
 export default function SignupScreen() {
   const navigation = useNavigation();
@@ -106,50 +107,50 @@ export default function SignupScreen() {
   const [password, setPassword] = useState('');
   const [OTP, setOTP] = useState('');
 
-  const pressHandler = () => {
-    onPress=()=>console.log("success")
-    // onPress=()=>navigation.push('OTPVerification')
-    Alert.alert("Details","Check your email after sending OTP",[
-    {text:"OK", onPress:()=>{console.log("OTP sent");
-                  //  navigation.push('OTPVerification');
-                   
-                  }
-                },
+  const pressHandler = async () => {
+    console.log(email);
+    try{
+      const response = await apiConnection.post('/user/generateOtp',{
+        email,
+      });
 
-    // {text:"Resend OTP", onPress: ()=>navigation.push('OTPVerification')},
-  
+      console.log(response.data);
+    }catch(error){
+      console.error('Error:', error);
+    }
+    Alert.alert("Details","Check your email after sending OTP",[
+    {text:"OK", onPress:()=>{console.log("OTP sent");}}
     ]);
   }
 
 
 const handleSignUp = async () => {
-  try {
-    const response = await fetch('http://192.168.8.160:5000/api/user/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        phone,
-        password,
-      }),
+  try{
+    const reponse = await apiConnection.post('/user/register',{
+      username,
+      email,
+      phone,
+      password,
     });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    console.log(data); // Handle the response from the server
-    // Optionally, you can navigate to the next screen or handle success here
-  } catch (error) {
+    console.log(reponse.data);
+  }catch(error){
     console.error('Error:', error);
-    // Handle errors here
   }
-};
+}
 
+
+const handleVerifyOtp = async () => {
+
+  try{
+    const response = await apiConnection.post('/user/verifyOTP',{
+      otp:OTP,
+    });
+    console.log(response.data);J
+  }catch(error){
+    console.error('Error:', error);
+  }
+
+}
 
   return (
     <View style={{ backgroundColor: 'white', height: '100%', width: '100%' }}>
@@ -166,7 +167,7 @@ const handleSignUp = async () => {
       </View>
 
       {/* title and form */}
-      <View style={{ flex: 1, justifyContent: 'space-around', paddingTop: 100 }}>
+      <View style={{ flex: 1, justifyContent: 'space-around', paddingTop: 140 }}>
         {/* title */}
         <View style={{ alignItems: 'center' }}>
           <Animated.Text 
@@ -179,66 +180,98 @@ const handleSignUp = async () => {
 
         {/* form */}
         <View style={{ marginHorizontal: 5, marginTop: 10 }}>
-          <View style={{ backgroundColor: 'rgba(0,0,0,0.05)', padding: 10, borderRadius: 20, marginBottom: 10 }}>
+          <View   style={{
+          backgroundColor: 'purple', // Change the background color to green
+          padding: 10,
+          borderRadius: 20,
+          width: '100%',
+        }}
+      >
             <TextInput
               placeholder="Username"
               value={username}
               onChangeText={setUsername}
-              style={{ color: 'black' }}
+              placeholderTextColor={'white'}
+              // style={{ color: 'white' }}
             />
           </View>
-          <View style={{ backgroundColor: 'rgba(0,0,0,0.05)', padding: 10, borderRadius: 20, marginBottom: 10 }}>
+          <View   style={{
+          backgroundColor: 'purple', // Change the background color to green
+          padding: 10,
+          marginTop: 10,
+          borderRadius: 20,
+          width: '100%',
+        }}
+      >
             <TextInput
               placeholder="Email"
               value={email}
               onChangeText={setEmail}
-              style={{ color: 'gray' }}
+              placeholderTextColor={'white'}
             />
           </View>
-          <View style={{ backgroundColor: 'rgba(0,0,0,0.05)', padding: 10, borderRadius: 20, marginBottom: 10 }}>
+          <View  style={{
+          backgroundColor: 'purple', // Change the background color to green
+          padding: 10,
+          marginTop: 10,
+          borderRadius: 20,
+          width: '100%',
+        }}
+      >
             <TextInput
               placeholder="Phone number"
               value={phone}
               onChangeText={setPhone}
-              style={{ color: 'gray' }}
+              placeholderTextColor={'white'}
             />
           </View>
-          <View style={{ backgroundColor: 'rgba(0,0,0,0.05)', padding: 10, borderRadius: 20, marginBottom: 10 }}>
+          <View  style={{
+          backgroundColor: 'purple', // Change the background color to green
+          padding: 10,
+          marginTop: 10,
+          marginBottom: 10,
+          borderRadius: 20,
+          width: '100%',
+        }}
+      >
             <TextInput
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
-              style={{ color: 'gray' }}
+              placeholderTextColor={'white'}
             />
           </View>
-          <Animated.View entering={FadeInDown.delay(800).duration(1000).springify()} style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+          <Animated.View entering={FadeInDown.delay(800).duration(1000).springify()} style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:10 }}>
             <Text>Verifiy Your Account</Text>
-            <TouchableOpacity onPress={() => { pressHandler(); console.log("OTP sent"); }} style={{ backgroundColor: '#3D85C6', padding: 9, borderRadius: 20, marginBottom: 10 }}>
-              <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 10 }}>Send OTP</Text>
+            <TouchableOpacity onPress={pressHandler} style={{ backgroundColor: '#3D85C6', padding: 9, borderRadius: 20 }}>
+              <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 15 }}>Send OTP</Text>
             </TouchableOpacity>
 
             {/* <Text>Check your email</Text> */}
           </Animated.View>
 
-          <View style={{ backgroundColor: 'rgba(0,0,0,0.05)', padding: 10, borderRadius: 20, marginBottom: 10 }}>
+          <View style={{ backgroundColor: 'purple', padding: 10, borderRadius: 20, marginBottom: 10 }}>
             <TextInput
               placeholder="Type OTP Here"
               value={OTP}
               onChangeText={setOTP}
-              style={{ color: 'gray' }}
+              placeholderTextColor={'white'}
             />
           </View>
 
           <Animated.View entering={FadeInDown.delay(600).duration(1000).springify()}>
-            <TouchableOpacity onPress={() => handleSignUp()} style={{ backgroundColor: '#3D85C6', padding: 10, borderRadius: 20, marginBottom: 10 }}>
+          <TouchableOpacity onPress={handleVerifyOtp} style={{ backgroundColor: '#3D85C6', padding: 10, borderRadius: 20, marginBottom: 10, marginLeft:40,marginRight:40 }}>
+              <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 15 }}>Verify OTP</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleSignUp()} style={{ backgroundColor: '#3D85C6', padding: 10, borderRadius: 20, marginBottom: 10 ,marginLeft:40 ,marginRight:40 }}>
               <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 20 }}>SignUp</Text>
             </TouchableOpacity>
           </Animated.View>
 
           <Animated.View entering={FadeInDown.delay(800).duration(1000).springify()} style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <Text>Already have an account? </Text>
-            <TouchableOpacity onPress={() => navigation.push('OTPVerification')}>
+            <TouchableOpacity onPress={() => navigation.push('Homepage')}>
               <Text style={{ color: '#4ECDC4' }}>Login</Text>
             </TouchableOpacity>
           </Animated.View>

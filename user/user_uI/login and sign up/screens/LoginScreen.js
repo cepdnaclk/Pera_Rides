@@ -1,12 +1,30 @@
 import { View, Text, Image, SafeAreaView, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { useNavigation } from '@react-navigation/native'
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
-
+import apiConnection from '../apiConnection';
 
 export default function LoginScreen() {
     const navigation = useNavigation();
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+        const handleLogin = async () => {
+            try{
+                const response = await apiConnection.post('/user/login',{
+                    username,
+                    password,
+                });
+
+                console.log(response.data);
+            }catch(error){
+                console.error('Error:', error);
+            }
+        }
+
+
   return (
     <View className="bg-white h-full w-full">
         <StatusBar style="light" />
@@ -40,23 +58,38 @@ export default function LoginScreen() {
 
             {/* form */}
             <View className="flex items-center mx-5 space-y-4">
-                <Animated.View 
-                    entering={FadeInDown.duration(1000).springify()} 
-                    className="bg-black/5 p-5 rounded-2xl w-full">
-
-                    <TextInput
-                        placeholder="User Name"
-                        placeholderTextColor={'gray'}
-                    />
-                </Animated.View>
+            <Animated.View
+        entering={FadeInDown.duration(1000).springify()}
+        style={{
+          backgroundColor: 'purple', // Change the background color to green
+          padding: 20,
+          borderRadius: 20,
+          width: '100%',
+        }}
+      >
+        <TextInput
+          placeholder="User Name"
+          placeholderTextColor={'white'}
+          value={username}
+          onChangeText={setUsername}
+        />
+      </Animated.View>
                 <Animated.View 
                     entering={FadeInDown.delay(200).duration(1000).springify()} 
-                    className="bg-black/5 p-5 rounded-2xl w-full mb-3">
+                    style={{
+                        backgroundColor: 'purple', // Change the background color to green
+                        padding: 20,
+                        borderRadius: 20,
+                        width: '100%',
+                      }}
+                    >
 
                     <TextInput
                         placeholder="Password"
-                        placeholderTextColor={'gray'}
+                        placeholderTextColor={'white'}
                         secureTextEntry
+                        value={password}
+                        onChangeText={setPassword}
                     />
                 </Animated.View>
 
@@ -64,7 +97,7 @@ export default function LoginScreen() {
                     className="w-full" 
                     entering={FadeInDown.delay(400).duration(1000).springify()}>
 
-                    <TouchableOpacity className="w-full bg-sky-400 p-3 rounded-2xl mb-3">
+                    <TouchableOpacity onPress={handleLogin} className="w-full bg-sky-400 p-3 rounded-2xl mb-3">
                         <Text className="text-xl font-bold text-white text-center">Login</Text>
                     </TouchableOpacity>
                 </Animated.View>
