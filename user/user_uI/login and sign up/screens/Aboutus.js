@@ -20,12 +20,12 @@ const members = [
   {
     name: 'Jeevajith Madushanka',
     photo: require('./jeev.jpg'),
-    description: 'E/19/091',
+    description: 'E/19/227',
   },
   {
     name: 'Pasan Dissanayake',
     photo: require('./pasa.jpg'),
-    description: 'E/19/227',
+    description: 'E/19/091',
   },
   // Add similar objects for other members
 ];
