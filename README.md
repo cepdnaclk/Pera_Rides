@@ -33,9 +33,9 @@ As the world grapples with the environmental and health implications of increase
 
 ## Problem
 
- Students face challenges in travelling around the university premises.
- Inefficiencies in university commuting.
- Insufficient parking spaces.
+ Students face challenges in travelling around the university premises. <br>
+ Inefficiencies in university commuting. <br>
+ Insufficient parking spaces. <br>
 
 ## Solution Architecture
 
