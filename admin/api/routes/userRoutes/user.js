@@ -1,23 +1,9 @@
 const router = require("express").Router();
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../../models/User");
 const Slip = require("../../models/Slip");
-const generateOTP = require("otp-generator");
-const { sendOTPEmail } = require("../../controllers/sendEmail");
 const mqtt = require("mqtt");
 const multer = require("multer");
-
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, "public/slips");
-  },
-  filename: (req, file, callback) => {
-    callback(null, "Hello.jpg");
-  },
-});
-
-const upload = multer({ storage: storage });
 
 // register user
 router.post("/user/register", async (req, res) => {
@@ -142,11 +128,6 @@ router.post("/user/qr/verify", async (req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
-});
-
-// slip image upload
-router.post("/user/slip/upload", upload.single("file"), (req, res) => {
-  res.status(200).json("File has been uploaded!");
 });
 
 // slip uplaod
