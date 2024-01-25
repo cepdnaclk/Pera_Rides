@@ -41,18 +41,43 @@ Bicycle use for regular transportation is promoted by many large cities worldwid
 
 At the Department of Computer Engineering, our team is creating PeraRide, a comprehensive automated bicycle sharing system that will allow subscribers who are the students of the university to easily check out and return bikes within the university area  
 
+> <img src="./images/station1.jpg" alt="Alt_Text" width="600" height="400">
+> <img src="./images/station2.jpg" alt="Alt_Text" width="600" height="400">
+
 
 ## Solution Architecture
 
-High level diagram + description
+> <img src="./images/Highlevelarchi.png" alt="Alt_Text" width="600" height="400">
 
 ## Hardware and Software Designs
 
-Detailed designs with many sub-sections
+## QR Scanner And Bicycle Lock
+
+> <img src="./images/QR.jpg" alt="Alt_Text" width="600" height="400">
+
+## Gps tracking system
+
+> <img src="./images/Gps.jpg" alt="Alt_Text" width="600" height="400">
 
 ## Testing
 
-Testing done on hardware and software, detailed + summarized results
+Testing is done on hardware and software.
+
+#### Software Testing Strategy for Bicycle sharing system
+
+Our project utilizes a comprehensive testing strategy to ensure the reliability and performance of the Pera-Ride software. This includes:
+
+Unit Testing: Identifies and fixes bugs within individual units before integration, ensuring fundamental functionalities work as intended. This minimizes the likelihood of unexpected issues arising during live events.
+
+Integration Testing: Verifies seamless communication between various components of the system, including user registration, QR and lock, Gps tracking, and dashboards. This ensures smooth data flow and prevents compatibility issues.
+
+End-to-End Testing: Simulates user journeys from registration to QR scanning and data analysis. This identifies hidden issues with user flows and functionalities, guaranteeing a seamless user experience.
+
+Performance Testing: Evaluates system scalability under high load conditions, simulating large numbers of attendees and concurrent sessions. This ensures the system can handle peak demands without compromising responsiveness.
+
+Cross-Browser Testing: Validates the application's functionality across various browsers and devices. This identifies browser-specific bugs and compatibility issues, ensuring widespread accessibility and consistent user experience.
+
+By implementing this comprehensive testing strategy, we aim to deliver a robust and user-friendly bicycle sharing platform that guarantees a successful and enjoyable event experience for everyone involved.
 
 ## Detailed budget
 
