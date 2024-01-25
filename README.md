@@ -39,4 +39,20 @@ High Level Architecture
 
 ### Data Flow
 
-> <img src="./docs/images/dataflow.png" alt="Alt Text" width="600" height="400">
+> <img src="./docs/images/Dataflow.png" alt="Alt Text" width="600" height="400">
+
+## Key Featuers
+
+QR scanning automatic lock <br>
+GPS tracking system <br>
+User friendly mobile app for users <br>
+Web application for admins <br>
+Notification System <br>
+
+## QR Scanner And Bicycle Lock
+
+
+
+
+
+
