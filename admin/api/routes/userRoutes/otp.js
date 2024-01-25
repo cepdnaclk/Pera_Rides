@@ -8,7 +8,7 @@ OTPprops = {
 };
 
 // sending OTP
-router.get("/user/generateOtp", async (req, res) => {
+router.post("/user/generateOtp", async (req, res) => {
   const userEmail = req.body.email;
 
   OTPprops.value = null;
