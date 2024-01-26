@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { useTheme } from "@mui/material";
+import { useState } from "react";
+import apiConnection from "../../apiConnection";
 
 const OnePaymentMain = styled.div`
   margin-bottom: 20px;
@@ -32,29 +35,20 @@ const IMG = styled.img`
 
 const ID = styled.div`
   width: 70%;
-  background-color: #1f2a40;
+  background-color: ${(props) =>
+    props.mode === "dark" ? "#1f2a40" : "lightgray"};
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px;
   border-radius: 5px;
+  margin-bottom: 10px;
 `;
 
-const P = styled.p`
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 0;
-`;
-
-const Label = styled.label`
-  margin-right: 10px;
-`;
-
-const IP = styled.input`
+const IPCHECK = styled.input`
   width: 20px;
   height: 20px;
+  margin-right: 10px;
 `;
 
 const BTN = styled.button`
@@ -77,9 +71,71 @@ const BTN = styled.button`
   &:hover {
     background-color: #1e5245;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #999;
+  }
 `;
 
-const OnePayment = ({ userId, slipImg }) => {
+const Form = styled.form`
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+`;
+
+const Input = styled.input`
+  width: 200px;
+  height: 100%;
+  margin-right: 10px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-bottom: 1px solid
+    ${(props) => (props.mode === "dark" ? "#fff" : "#000")};
+  background-color: ${(props) =>
+    props.mode === "dark" ? "rgba(255, 255, 255, 0.2)" : "lightgray"};
+  color: ${(props) => (props.mode === "dark" ? "#fff" : "#000")};
+
+  &::placeholder {
+    color: ${(props) => (props.mode === "dark" ? "#fff" : "#000")};
+  }
+`;
+
+const OnePayment = ({ userId, slipImg, slipDate, marked, slipId }) => {
+  const theme = useTheme();
+  const [income, setIncome] = useState("");
+  const [incomeUpdated, setIncomeUpdated] = useState(false);
+  const [markAsDone, setMarkAsDone] = useState(marked);
+
+  const handleUpdateIncome = (e) => {
+    e.preventDefault();
+    alert("Icome successfully updated");
+    setIncomeUpdated(true);
+    setIncome("");
+    console.log(slipDate);
+    console.log(income);
+    console.log(typeof income);
+  };
+
+  const handleCheckChange = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await apiConnection.patch("/checkchange", {
+        slipId: slipId,
+        marked: markAsDone,
+      });
+      alert(response.data);
+      // console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <OnePaymentMain>
       <OnePay>
@@ -87,11 +143,31 @@ const OnePayment = ({ userId, slipImg }) => {
           <IMG src={slipImg} alt="payment slip" />
         </IMGconatiner>
         <DetailsContainer>
-          <ID>User ID: {userId}</ID>
-          <P>
-            <Label htmlFor="checkSlip">Mark as done: </Label>
-            <IP type="checkbox" id="checkSlip" name="checkSlip" />
-          </P>
+          <ID mode={theme.palette.mode}>User ID: {userId}</ID>
+          <Form onSubmit={handleCheckChange}>
+            <IPCHECK
+              type="checkbox"
+              id={`checkSlip_${userId}`}
+              name={`checkSlip_${userId}`}
+              checked={markAsDone}
+              onChange={(e) => setMarkAsDone(e.target.checked)}
+            />
+            <BTN>Mark as done</BTN>
+          </Form>
+          <Form onSubmit={handleUpdateIncome}>
+            <Input
+              mode={theme.palette.mode}
+              type="number"
+              name={`incomeVal_${userId}`}
+              id={`incomeVal_${userId}`}
+              placeholder="Update income..."
+              value={income}
+              onChange={(e) => setIncome(e.target.value)}
+            />
+            <BTN type="submit" disabled={incomeUpdated}>
+              update
+            </BTN>
+          </Form>
           <BTN>delete slip</BTN>
         </DetailsContainer>
       </OnePay>

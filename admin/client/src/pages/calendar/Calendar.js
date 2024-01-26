@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import HeaderTitle from "../../components/headerTitle/HeaderTitle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import { formatDate } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -16,6 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import { tokens } from "../../theme";
+import apiConnection from "../../apiConnection";
 
 const CalendarMain = styled.div`
   width: 100%;
@@ -27,7 +28,36 @@ const Calendar = () => {
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
 
-  const handleDateClick = (selected) => {
+  // useEffect(() => {
+  //   const getCalendarEvents = async () => {
+  //     try {
+  //       const response = await apiConnection.get("/calendar/all");
+  //       console.log(response.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getCalendarEvents();
+  // }, []);
+
+  useEffect(() => {
+    const getCalendarEvents = async () => {
+      try {
+        const response = await apiConnection.get("/calendar/all");
+        const formattedEvents = response.data.map((event) => ({
+          id: event.id,
+          title: event.title,
+          date: event.date,
+        }));
+        setCurrentEvents(formattedEvents);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getCalendarEvents();
+  }, [currentEvents]);
+
+  const handleDateClick = async (selected) => {
     const title = prompt("Please enter a new title for your event.");
     const calendarApi = selected.view.calendar;
     calendarApi.unselect();
@@ -41,14 +71,33 @@ const Calendar = () => {
         allDay: selected.allDay,
       });
     }
+
+    try {
+      const response = await apiConnection.post("/calendar/event", {
+        title: title,
+        date: selected.startStr,
+      });
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleEventClick = (selected) => {
+  const handleEventClick = async (selected) => {
     const needToDelete = window.confirm(
       `Are you sure you want to delete the event ${selected.event.title}?`
     );
     if (needToDelete) {
-      selected.event.remove();
+      const deleteEventId = selected.event._def.publicId;
+      try {
+        const response = await apiConnection.delete(
+          `/calendar/delete/${deleteEventId}`
+        );
+        selected.event.remove();
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -92,7 +141,7 @@ const Calendar = () => {
                   primary={event.title}
                   secondary={
                     <Typography>
-                      {formatDate(event.start, {
+                      {formatDate(event.date, {
                         year: "numeric",
                         month: "short",
                         day: "numeric",
@@ -136,7 +185,8 @@ const Calendar = () => {
             dayMaxEvents={true}
             select={handleDateClick}
             eventClick={handleEventClick}
-            eventsSet={(events) => setCurrentEvents(events)}
+            // eventsSet={(events) => setCurrentEvents(events)}
+            events={currentEvents}
             initialEvents={[
               {
                 id: "123",

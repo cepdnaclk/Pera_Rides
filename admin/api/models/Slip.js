@@ -10,6 +10,10 @@ const SlipSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    marked: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

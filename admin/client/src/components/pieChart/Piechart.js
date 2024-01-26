@@ -1,18 +1,20 @@
 import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
-
-import { mockDataPie as data } from "../../data/mockData";
+import { useSelector } from "react-redux";
+// import { mockDataPie as data } from "../../data/mockData";
 
 const Piechart = () => {
+  const { enrollments } = useSelector((store) => store.userStats);
+  console.log(enrollments);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
     <ResponsivePie
       width={800}
       height={500}
-      data={data}
-      margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+      data={enrollments}
+      margin={{ top: 50, right: 80, bottom: 80, left: 80 }}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
@@ -53,31 +55,7 @@ const Piechart = () => {
           spacing: 10,
         },
       ]}
-      legends={[
-        {
-          anchor: "bottom",
-          direction: "row",
-          justify: false,
-          translateX: 0,
-          translateY: 56,
-          itemsSpacing: 0,
-          itemWidth: 100,
-          itemHeight: 18,
-          itemTextColor: colors.gray[100],
-          itemDirection: "left-to-right",
-          itemOpacity: 1,
-          symbolSize: 18,
-          symbolShape: "circle",
-          effects: [
-            {
-              on: "hover",
-              style: {
-                itemTextColor: "#000",
-              },
-            },
-          ],
-        },
-      ]}
+      legends={[]}
       theme={{
         axis: {
           domain: {

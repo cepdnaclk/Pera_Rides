@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { Box, IconButton, useTheme } from "@mui/material";
 import { ColorModeContext, tokens } from "../../theme";
-import InputBase from "@mui/material/InputBase";
+// import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+// import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import SearchIcon from "@mui/icons-material/Search";
+// import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../Redux/features/modal/modalSlice";
@@ -22,11 +22,11 @@ const TopbarMainDiv = styled.div`
   /* background-color: green; */
 `;
 
-const SearchContainer = styled.div`
-  display: flex;
-  background-color: ${(props) => props.color};
-  border-radius: 5px;
-`;
+// const SearchContainer = styled.div`
+//   display: flex;
+//   background-color: ${(props) => props.color};
+//   border-radius: 5px;
+// `;
 
 const TopBar = () => {
   const theme = useTheme();
@@ -37,12 +37,12 @@ const TopBar = () => {
   return (
     <TopbarMainDiv color={colors.primary[500]}>
       {/* SEARCH BAR */}
-      <SearchContainer color={colors.primary[400]}>
+      {/* <SearchContainer color={colors.primary[400]}>
         <InputBase sx={{ marginLeft: 2, flex: 1 }} placeholder="Search" />
         <IconButton type="button" sx={{ padding: 1 }}>
           <SearchIcon />
         </IconButton>
-      </SearchContainer>
+      </SearchContainer> */}
 
       {/* OTHER ICONS */}
       <Box display="flex">
@@ -63,9 +63,9 @@ const TopBar = () => {
         <IconButton title="notifications">
           <NotificationsOutlinedIcon />
         </IconButton>
-        <IconButton title="settings">
+        {/* <IconButton title="settings">
           <SettingsOutlinedIcon />
-        </IconButton>
+        </IconButton> */}
         <IconButton title="logout" onClick={() => dispatch(openModal())}>
           <PersonOutlinedIcon />
         </IconButton>
