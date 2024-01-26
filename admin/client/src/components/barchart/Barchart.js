@@ -1,37 +1,52 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../../theme";
-import { mockDataSales as data } from "../../data/mockData";
+import { useEffect, useState } from "react";
+import apiConnection from "../../apiConnection";
 
 const Barchart = ({ isInDashboard }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const getBarData = async () => {
+      try {
+        const response = await apiConnection.get("/income/status");
+        setData(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getBarData();
+  }, []);
 
   const getColor = (bar) => {
-    const numOfSales = bar.data.sales;
+    const gainedIncome = bar.data.income;
 
     const color =
-      numOfSales > 5000
+      gainedIncome > 5000
         ? theme.palette.mode === "dark"
           ? "hsl(200, 80%, 50%)"
           : "hsl(200, 80%, 20%)"
-        : numOfSales > 4000
+        : gainedIncome > 4000
         ? theme.palette.mode === "dark"
           ? "hsl(15, 70%, 65%)"
           : "hsl(270, 60%, 40%)"
-        : numOfSales > 3000
+        : gainedIncome > 3000
         ? theme.palette.mode === "dark"
           ? "hsl(120, 80%, 60%)"
           : "hsl(210, 80%, 40%)"
-        : numOfSales > 2000
+        : gainedIncome > 2000
         ? theme.palette.mode === "dark"
           ? "hsl(45, 80%, 70%)"
           : "hsl(180, 50%, 50%)"
-        : numOfSales > 1000
+        : gainedIncome > 1000
         ? theme.palette.mode === "dark"
           ? "hsl(50, 75%, 55%) "
           : "hsl(0, 70%, 50%)"
-        : numOfSales > 500
+        : gainedIncome > 500
         ? theme.palette.mode === "dark"
           ? "hsl(40, 80%, 50%)"
           : "hsl(90, 60%, 30%)"
@@ -46,7 +61,7 @@ const Barchart = ({ isInDashboard }) => {
       width={900}
       height={500}
       data={data}
-      keys={["sales"]}
+      keys={["income"]}
       indexBy="month"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
