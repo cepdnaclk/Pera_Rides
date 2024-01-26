@@ -2,7 +2,6 @@ import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
-// import { mockDataPie as data } from "../../data/mockData";
 
 const Piechart = () => {
   const { enrollments } = useSelector((store) => store.userStats);

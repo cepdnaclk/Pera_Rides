@@ -28,4 +28,84 @@ router.post("/create/income", async (req, res) => {
   }
 });
 
+// get income status
+// router.get("/income/status", async (req, res) => {
+//   const date = new Date();
+//   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+
+//   try {
+//     const data = await Income.aggregate([
+//       { $match: { paymentDate: { $gte: lastYear } } },
+//       {
+//         $project: {
+//           month: { $month: "$paymentDate" },
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: "$month",
+//           total: { $sum: 1 },
+//         },
+//       },
+//     ]);
+//     res.status(200).json(data);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+router.get("/income/status", async (req, res) => {
+  const date = new Date();
+  const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  try {
+    const data = await Income.aggregate([
+      {
+        $match: { paymentDate: { $gte: lastYear } },
+      },
+      {
+        $project: {
+          month: { $month: "$paymentDate" },
+          amount: 1, // include the amount field in the projection
+        },
+      },
+      {
+        $group: {
+          _id: "$month",
+          label: {
+            $first: { $arrayElemAt: [months, { $subtract: ["$month", 1] }] },
+          },
+          total: { $sum: "$amount" }, // calculate the sum of amount per month
+        },
+      },
+      {
+        $project: {
+          _id: 0, // Exclude _id field
+          id: "$label", // Rename _id to id
+          month: "$label",
+          income: { $toString: "$total" },
+        },
+      },
+    ]);
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
