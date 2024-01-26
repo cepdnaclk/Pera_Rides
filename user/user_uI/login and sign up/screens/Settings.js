@@ -1,13 +1,92 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-// import { createDrawerNavigator } from '@react-navigation/drawer';
+import React, { useState } from 'react';
+import { View, Text, Switch, StyleSheet, TouchableOpacity } from 'react-native';
 
-// const Drawer = createDrawerNavigator();
+const Settings = () => {
+  const [notificationSwitch, setNotificationSwitch] = useState(false);
+  const [darkModeSwitch, setDarkModeSwitch] = useState(false);
 
-export default function Settings() {
+  const toggleNotificationSwitch = () => {
+    setNotificationSwitch((prev) => !prev);
+  };
+
+  const toggleDarkModeSwitch = () => {
+    setDarkModeSwitch((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    // Implement logout functionality here
+    console.log('Logout button pressed');
+  };
+
   return (
-    <View style={{flex: 1, alignItems: "center", justifyContent: "center"}} >
-      <Text>Settings</Text>
+    <View style={styles.container}>
+      <Text style={styles.header}>Settings</Text>
+
+      {/* Notification Toggle */}
+      <View style={styles.settingItem}>
+        <Text style={styles.settingText}>Receive Notifications</Text>
+        <Switch
+          value={notificationSwitch}
+          onValueChange={toggleNotificationSwitch}
+          thumbColor="#fff"
+          trackColor={{ false: '#aaa', true: '#66bb6a' }}
+        />
+      </View>
+
+      {/* Dark Mode Toggle */}
+      <View style={styles.settingItem}>
+        <Text style={styles.settingText}>Dark Mode</Text>
+        <Switch
+          value={darkModeSwitch}
+          onValueChange={toggleDarkModeSwitch}
+          thumbColor="#fff"
+          trackColor={{ false: '#aaa', true: '#2196F3' }}
+        />
+      </View>
+
+      {/* Logout Button */}
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.logoutButtonText}>Logout</Text>
+      </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  settingItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  settingText: {
+    fontSize: 16,
+  },
+  logoutButton: {
+    marginTop: 20,
+    backgroundColor: '#f44336',
+    padding: 10,
+    borderRadius: 5,
+  },
+  logoutButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
+
+export default Settings;
