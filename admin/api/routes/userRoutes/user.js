@@ -145,6 +145,7 @@ router.post("/user/newslip", async (req, res) => {
 
   try {
     const savedSlip = await newSlip.save();
+    console.log(savedSlip.createdAt);
     res.status(201).json(savedSlip);
   } catch (err) {
     res.status(500).json(err);

@@ -31,6 +31,15 @@ app.use("/api/", require("./routes/adminRoutes/otp"));
 // admin routes related to user
 app.use("/api/", require("./routes/adminRoutes/user"));
 
+// admin routes related to user payments slips
+app.use("/api/", require("./routes/adminRoutes/slipRoutes"));
+
+// admin routes related to calendar
+app.use("/api/", require("./routes/adminRoutes/calendarEvents"));
+
+//admin routes related to income
+app.use("/api/", require("./routes/adminRoutes/incomeRoutes"));
+
 // user  routes without otp
 app.use("/api/", require("./routes/userRoutes/user"));
 
