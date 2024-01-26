@@ -37,8 +37,7 @@ title: Pera Ride
 
 ## Introduction
 
-<iframe width="560" height="315" src="https://youtu.be/F7IAU2Zsg6I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
+[![Watch the video](https://img.youtube.com/vi/F7IAU2Zsg6I/0.jpg)](https://www.youtube.com/watch?v=F7IAU2Zsg6I)
 
 Bicycle use for regular transportation is promoted by many large cities worldwide as a way to combat growing automobile congestion and the air pollution that results from it. Riding a bicycle provides city inhabitants with additional health benefits by increasing physical activity in addition to addressing the primary difficulties already discussed. Similar needs have been identified in Sri Lankan cities and universities, where thousands of residents regularly need to commute short- to medium-distances.
 
