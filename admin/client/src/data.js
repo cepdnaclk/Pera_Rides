@@ -4,31 +4,37 @@ export const userPayments = [
   {
     id: 1,
     userId: "adwd1a51wda5wda154wda45w5d4awd",
+    slipDate: "2024-01-25T15:57:22.656+00:00",
     img: IMG,
   },
   {
     id: 2,
     userId: "adwd1a51wda5wda154wda45w5d4awd",
+    slipDate: "2024-01-25T15:57:22.656+00:00",
     img: IMG,
   },
   {
     id: 3,
     userId: "adwd1a51wda5wda154wda45w5d4awd",
+    slipDate: "2024-01-25T15:57:22.656+00:00",
     img: IMG,
   },
   {
     id: 4,
     userId: "adwd1a51wda5wda154wda45w5d4awd",
+    slipDate: "2024-01-25T15:57:22.656+00:00",
     img: IMG,
   },
   {
     id: 5,
     userId: "adwd1a51wda5wda154wda45w5d4awd",
+    slipDate: "2024-01-25T15:57:22.656+00:00",
     img: IMG,
   },
   {
     id: 6,
     userId: "adwd1a51wda5wda154wda45w5d4awd",
+    slipDate: "2024-01-25T15:57:22.656+00:00",
     img: IMG,
   },
 ];

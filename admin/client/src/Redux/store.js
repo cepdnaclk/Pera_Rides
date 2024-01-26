@@ -4,6 +4,7 @@ import modalReducer from "./features/modal/modalSlice";
 import componentReducer from "./features/comp_inside_homepage/componentSlice";
 import userReducer from "./features/users/usersSlice";
 import otpReducer from "./features/otp/OtpSlice";
+import userStatsReducer from "./features/userStats/userStatsSlice";
 
 import {
   persistStore,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   component: componentReducer,
   users: userReducer,
   otp: otpReducer,
+  userStats: userStatsReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

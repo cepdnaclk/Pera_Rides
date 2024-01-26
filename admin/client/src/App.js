@@ -8,6 +8,7 @@ import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsersDB } from "./Redux/features/users/usersSlice";
+import { getAllStats } from "./Redux/features/userStats/userStatsSlice"
 import { useEffect } from "react";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getAllUsersDB());
+    dispatch(getAllStats());
   }, [dispatch]);
 
   return (

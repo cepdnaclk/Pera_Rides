@@ -19,7 +19,7 @@ const BarChartView = () => {
     <BarChartMain>
       <HeaderTitle
         title="Earnings Fluctuations"
-        desc="revenue gained in last seven months"
+        desc="revenue gained per month over the year"
       />
       <Bar>
         <Barchart isInDashboard={false} />
