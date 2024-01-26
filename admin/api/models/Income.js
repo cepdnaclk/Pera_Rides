@@ -6,9 +6,13 @@ const IncomeSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    updated: {
-      type: Boolean,
-      default: false,
+    userID: {
+      type: String,
+      required: true,
+    },
+    paymentDate: {
+      type: Object,
+      required: true,
     },
   },
   { timestamps: true }

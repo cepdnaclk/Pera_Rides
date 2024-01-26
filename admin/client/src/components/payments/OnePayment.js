@@ -52,7 +52,7 @@ const IPCHECK = styled.input`
 `;
 
 const BTN = styled.button`
-  width: 25%;
+  width: 30%;
   padding: 10px;
   cursor: pointer;
   transition-property: background-color;
@@ -105,20 +105,31 @@ const Input = styled.input`
   }
 `;
 
-const OnePayment = ({ userId, slipImg, slipDate, marked, slipId }) => {
+const OnePayment = ({
+  userId,
+  slipImg,
+  marked,
+  slipId,
+  removeSlip,
+  postedDate,
+}) => {
   const theme = useTheme();
   const [income, setIncome] = useState("");
-  const [incomeUpdated, setIncomeUpdated] = useState(false);
+  // const [incomeUpdated, setIncomeUpdated] = useState(false);
   const [markAsDone, setMarkAsDone] = useState(marked);
 
-  const handleUpdateIncome = (e) => {
+  const handleUpdateIncome = async (e) => {
     e.preventDefault();
-    alert("Icome successfully updated");
-    setIncomeUpdated(true);
-    setIncome("");
-    console.log(slipDate);
-    console.log(income);
-    console.log(typeof income);
+    try {
+      const response = await apiConnection.post("/create/income", {
+        amount: income,
+        userID: userId,
+        paymentDate: postedDate,
+      });
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleCheckChange = async (e) => {
@@ -136,6 +147,21 @@ const OnePayment = ({ userId, slipImg, slipDate, marked, slipId }) => {
     }
   };
 
+  const handleDeleteSlip = async () => {
+    const answer = window.confirm("Are you really need to delete this slip?");
+    if (answer) {
+      try {
+        const response = await apiConnection.delete(`/deleteSlip/${slipId}`);
+        removeSlip(slipId);
+        alert(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  console.log(postedDate);
+
   return (
     <OnePaymentMain>
       <OnePay>
@@ -152,7 +178,7 @@ const OnePayment = ({ userId, slipImg, slipDate, marked, slipId }) => {
               checked={markAsDone}
               onChange={(e) => setMarkAsDone(e.target.checked)}
             />
-            <BTN>Mark as done</BTN>
+            <BTN>{markAsDone ? "Mark as done" : "Mark as not done"}</BTN>
           </Form>
           <Form onSubmit={handleUpdateIncome}>
             <Input
@@ -164,11 +190,9 @@ const OnePayment = ({ userId, slipImg, slipDate, marked, slipId }) => {
               value={income}
               onChange={(e) => setIncome(e.target.value)}
             />
-            <BTN type="submit" disabled={incomeUpdated}>
-              update
-            </BTN>
+            <BTN type="submit">update</BTN>
           </Form>
-          <BTN>delete slip</BTN>
+          <BTN onClick={handleDeleteSlip}>delete slip</BTN>
         </DetailsContainer>
       </OnePay>
     </OnePaymentMain>

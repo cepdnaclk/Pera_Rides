@@ -20,6 +20,7 @@ const Payments = () => {
       try {
         const response = await apiConnection.get("/payments");
         setUserPayments(response.data);
+        console.log(response.data);
       } catch (err) {
         console.log(err);
       }
@@ -27,6 +28,15 @@ const Payments = () => {
 
     getAllSlips();
   }, []);
+
+  console.log(userPayments);
+
+  const removeSlip = (slipId) => {
+    const newPayments = userPayments.filter(
+      (paymnet) => paymnet._id !== slipId
+    );
+    setUserPayments(newPayments);
+  };
 
   return (
     <PayMain>
@@ -36,8 +46,9 @@ const Payments = () => {
           slipId={payment._id}
           userId={payment.userId}
           slipImg={payment.image}
-          slipDate={payment.updatedAt}
           marked={payment.marked}
+          removeSlip={removeSlip}
+          postedDate={payment.createdAt}
         />
       ))}
     </PayMain>
