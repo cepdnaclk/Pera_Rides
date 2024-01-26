@@ -95,8 +95,8 @@ router.get("/income/status", async (req, res) => {
       },
       {
         $project: {
+          id: "$_id", // Rename _id to id
           _id: 0, // Exclude _id field
-          id: "$label", // Rename _id to id
           month: "$label",
           income: { $toString: "$total" },
         },
