@@ -35,7 +35,6 @@ const PieChartView = () => {
       ) : (
         <StyledP>No enrollments yet</StyledP>
       )}
-      <p></p>
     </PieChartMain>
   );
 };

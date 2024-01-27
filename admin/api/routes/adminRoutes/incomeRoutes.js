@@ -94,6 +94,9 @@ router.get("/income/status", async (req, res) => {
         },
       },
       {
+        $sort: { _id: 1 }, // Sort by id in ascending order
+      },
+      {
         $project: {
           id: "$_id", // Rename _id to id
           _id: 0, // Exclude _id field
