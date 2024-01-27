@@ -1,10 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import React, { useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import axios from 'axios';
-
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View, Button } from "react-native";
+import React, { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import axios from "axios";
+import apiConnection from "../apiConnection";
+import { useSelector } from "react-redux";
 
 export default function QrScanner() {
   const navigation = useNavigation();
@@ -12,8 +13,8 @@ export default function QrScanner() {
   const [scanData, setScanData] = React.useState();
 
   useEffect(() => {
-    (async() => {
-      const {status} = await BarCodeScanner.requestPermissionsAsync();
+    (async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
@@ -26,36 +27,42 @@ export default function QrScanner() {
     );
   }
 
-  const handleBarCodeScanned = async ({type, data}) => {
+  const handleBarCodeScanned = async ({ type, data }) => {
     setScanData(data);
     console.log(`Data: ${data}`);
     console.log(`Type: ${type}`);
 
-    const userId = 'your_user_id_here'; // Replace with the actual user ID
-    const qrValue = 'your_qr_value_here'; // Replace with the actual QR value
+    const { user } = useSelector((store) => store.user);
+
+    // const userId = "your_user_id_here"; // Replace with the actual user ID
+    // const qrValue = "your_qr_value_here"; // Replace with the actual QR value
 
     try {
-      const response = await axios.post('http://192.168.8.160:5000/api/user/qr/verify', {
-        id: "5747",
+      const response = await apiConnection.post("/user/qr/verify", {
+        id: user._id,
         qr: data,
       });
 
       console.log(response.data); // Handle the response data here
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       // Handle errors here
     }
   };
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner 
+      <BarCodeScanner
         style={StyleSheet.absoluteFillObject}
         onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
-        />
-      {scanData && <Button title='Scan Again?' onPress={() => setScanData(undefined)} />}
+      />
+      {scanData && (
+        <Button title="Scan Again?" onPress={() => setScanData(undefined)} />
+      )}
       <View style={{ width: 40 }} />
-      {scanData && <Button title='Go back?' onPress={() => navigation.goBack()} />}
+      {scanData && (
+        <Button title="Go back?" onPress={() => navigation.goBack()} />
+      )}
 
       <StatusBar style="inverted" />
     </View>
@@ -65,8 +72,8 @@ export default function QrScanner() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#6fa8dc',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#6fa8dc",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
