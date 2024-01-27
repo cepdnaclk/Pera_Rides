@@ -14,6 +14,10 @@ const SlipSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    revenueUpdated: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

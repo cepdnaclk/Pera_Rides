@@ -1,13 +1,11 @@
 import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-// import { mockDataUsers } from "../../data/mockData";
 import HeaderTitle from "../../components/headerTitle/HeaderTitle";
 import styled from "styled-components";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import axios from "axios";
 import { deletUser } from "../../Redux/features/users/usersSlice";
 import apiConnection from "../../apiConnection";
 ////////////////////////////////
@@ -86,7 +84,7 @@ const Users = () => {
     // console.log("value: ", value);
     // console.log("Id: ", userId);
     try {
-      const response = await axios.patch(`/user/balance/${userId}`, {
+      const response = await apiConnection.patch(`/user/balance/${userId}`, {
         balance: value,
       });
       console.log(response.data);
