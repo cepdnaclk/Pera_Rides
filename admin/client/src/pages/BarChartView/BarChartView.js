@@ -39,7 +39,7 @@ const BarChartView = () => {
       />
       <Bar>
         {revenue.length ? (
-          <Barchart isInDashboard={false} />
+          <Barchart isDashboard={false} />
         ) : (
           <StyledP>No revenue yet</StyledP>
         )}

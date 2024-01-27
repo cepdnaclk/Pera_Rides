@@ -3,7 +3,7 @@ import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../../theme";
 import { useSelector } from "react-redux";
 
-const Barchart = ({ isInDashboard }) => {
+const Barchart = ({ isDashboard }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -45,8 +45,8 @@ const Barchart = ({ isInDashboard }) => {
 
   return (
     <ResponsiveBar
-      width={900}
-      height={500}
+    width={isDashboard ?600 : 900}
+    height={isDashboard ? 400 : 500}
       data={revenue || []}
       keys={["income"]}
       indexBy="month"
@@ -65,7 +65,7 @@ const Barchart = ({ isInDashboard }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isInDashboard ? undefined : "month",
+        legend: isDashboard ? undefined : "month",
         legendPosition: "middle",
         legendOffset: 40,
         truncateTickAt: 0,
@@ -74,7 +74,7 @@ const Barchart = ({ isInDashboard }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isInDashboard ? undefined : "Sri Lankan Rupees",
+        legend: isDashboard ? undefined : "Sri Lankan Rupees",
         legendPosition: "middle",
         legendOffset: -50,
         truncateTickAt: 0,
