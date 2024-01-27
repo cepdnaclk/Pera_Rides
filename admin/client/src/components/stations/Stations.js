@@ -103,6 +103,19 @@ const Stations = () => {
                 borderColor: themeMode === "dark" ? "#fff" : "#000",
               }}
             />
+            <AddStationInput
+              type="text"
+              required
+              placeholder="Station Location"
+              style={{
+                backgroundColor:
+                  themeMode === "dark"
+                    ? "rgba(255,255,255,0.4)"
+                    : "rgba(0,0,0,0.3)",
+                color: themeMode === "dark" ? "#fff" : "#000",
+                borderColor: themeMode === "dark" ? "#fff" : "#000",
+              }}
+            />
             <BTN modes={themeMode} type="submit">
               add
             </BTN>
@@ -148,7 +161,7 @@ const Stations = () => {
       </QrValueAddForm>
       <QrValueAddForm>
         <fieldset style={{ padding: "20px" }}>
-          <legend>Remove a QR from station</legend>
+          <legend>Remove a QR</legend>
           <AddStationInput
             type="text"
             required

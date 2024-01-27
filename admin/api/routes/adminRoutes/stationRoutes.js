@@ -4,13 +4,17 @@ const router = require("express").Router();
 // create a new station
 router.post("/new/station", async (req, res) => {
   const stationName = req.body.name;
+  const stationLocation = req.body.location;
 
-  if (!stationName) {
+  if (!stationName || !stationLocation) {
     return res.status(400).json("Station name required!");
   }
 
   try {
-    const station = new Station({ name: stationName });
+    const station = new Station({
+      name: stationName,
+      location: stationLocation,
+    });
     const savedStation = await station.save();
     res.status(201).json(savedStation);
   } catch (err) {

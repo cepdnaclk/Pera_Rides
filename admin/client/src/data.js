@@ -44,30 +44,36 @@ export const stationsData = [
     _id: "65b50b97b1ccbcd342751592",
     stationName: "akbar",
     bikesAvailable: 2,
+    location: "Near Akbar Hostel",
   },
   {
     _id: "65b50b97b1ccbcd342751592",
     stationName: "wus",
     bikesAvailable: 1,
+    location: "Near WUS",
   },
   {
     _id: "65b50b97b1ccbcd342751592",
     stationName: "wus",
     bikesAvailable: 1,
+    location: "Peradeniya Junction",
   },
   {
     _id: "65b50b97b1ccbcd342751592",
     stationName: "wus",
     bikesAvailable: 1,
+    location: "Peradeniya",
   },
   {
     _id: "65b50b97b1ccbcd342751592",
     stationName: "wus",
     bikesAvailable: 1,
+    location: "Badulla.",
   },
   {
     _id: "65b50b97b1ccbcd342751592",
     stationName: "wus",
     bikesAvailable: 1,
+    location: "Colombo Maradana",
   },
 ];
