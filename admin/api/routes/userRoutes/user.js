@@ -107,13 +107,14 @@ router.post("/user/qr/verify", async (req, res) => {
   const userId = req.body.id;
   const qrValue = req.body.qr;
   try {
-    const foundUser = await User.findById(userId);
-    // const foundUser = true;
+    // const foundUser = await User.findById(userId);
+    const foundUser = true;
 
     if (!foundUser) {
       return res.status(404).json("User not found");
     }
-    const balance = foundUser.balance;
+    // const balance = foundUser.balance;
+    const balance = 100;
     if (balance >= 20) {
       // MQTT connection settings
       const mqttOptions = {
@@ -146,6 +147,7 @@ router.post("/user/qr/verify", async (req, res) => {
 
 // slip image upload
 router.post("/user/slip/upload", upload.single("file"), (req, res) => {
+  console.log("x");
   res.status(200).json("File has been uploaded!");
 });
 
