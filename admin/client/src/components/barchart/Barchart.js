@@ -60,7 +60,7 @@ const Barchart = ({ isInDashboard }) => {
     <ResponsiveBar
       width={900}
       height={500}
-      data={data}
+      data={data || []}
       keys={["income"]}
       indexBy="month"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}

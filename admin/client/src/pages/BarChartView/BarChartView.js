@@ -14,6 +14,19 @@ const Bar = styled.div`
   padding-left: 20px;
 `;
 
+const StyledP = styled.p`
+  width: 95%;
+  height: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 1px;
+  margin: 20px;
+  font-size: 20px;
+  color: #4cceac;
+  border: 1px solid #4cceac;
+`;
+
 const BarChartView = () => {
   return (
     <BarChartMain>
