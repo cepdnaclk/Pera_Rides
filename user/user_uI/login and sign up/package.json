@@ -3,7 +3,7 @@
     "@react-navigation/drawer": "^6.6.6",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
-    "@reduxjs/toolkit": "^2.0.1",
+    "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.6.5",
     "expo": "^49.0.3",
     "expo-barcode-scanner": "~12.5.3",
