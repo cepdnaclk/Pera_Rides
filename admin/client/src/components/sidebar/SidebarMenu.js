@@ -6,10 +6,10 @@ import {
   PersonOutlined,
   PieChartOutlined,
   BarChartOutlined,
-  TimelineOutlined,
   MenuOutlined,
   CalendarTodayOutlined,
   Paid,
+  AccountBalance,
 } from "@mui/icons-material";
 import { tokens } from "../../theme";
 import IM from "../../assests/ff.jpg";
@@ -202,11 +202,11 @@ const SidebarMenu = () => {
       </MenuItem>
       <MenuItem>
         <MenuItemIcon>
-          <IconButton onClick={() => dispatch(setComponent("lineChart"))}>
-            <TimelineOutlined />
+          <IconButton onClick={() => dispatch(setComponent("stations"))}>
+            <AccountBalance />
           </IconButton>
         </MenuItemIcon>
-        <MenuItemWord>Line Chart</MenuItemWord>
+        <MenuItemWord>Stations</MenuItemWord>
       </MenuItem>
     </SidebarMainDiv>
   );
