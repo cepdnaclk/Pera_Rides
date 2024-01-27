@@ -38,3 +38,36 @@ export const userPayments = [
     img: IMG,
   },
 ];
+
+export const stationsData = [
+  {
+    _id: "65b50b97b1ccbcd342751592",
+    stationName: "akbar",
+    bikesAvailable: 2,
+  },
+  {
+    _id: "65b50b97b1ccbcd342751592",
+    stationName: "wus",
+    bikesAvailable: 1,
+  },
+  {
+    _id: "65b50b97b1ccbcd342751592",
+    stationName: "wus",
+    bikesAvailable: 1,
+  },
+  {
+    _id: "65b50b97b1ccbcd342751592",
+    stationName: "wus",
+    bikesAvailable: 1,
+  },
+  {
+    _id: "65b50b97b1ccbcd342751592",
+    stationName: "wus",
+    bikesAvailable: 1,
+  },
+  {
+    _id: "65b50b97b1ccbcd342751592",
+    stationName: "wus",
+    bikesAvailable: 1,
+  },
+];

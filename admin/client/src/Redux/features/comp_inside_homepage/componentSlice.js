@@ -8,7 +8,7 @@ const initialState = {
   pay: false,
   barChart: false,
   pieChar: false,
-  lineChart: false,
+  stations: false,
 };
 
 // Function to reset all values to 0
