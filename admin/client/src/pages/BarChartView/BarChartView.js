@@ -22,7 +22,7 @@ const StyledP = styled.p`
   align-items: center;
   justify-content: center;
   letter-spacing: 1px;
-  margin: 20px;
+  margin: 20px 20px 20px 0;
   font-size: 20px;
   color: #4cceac;
   border: 1px solid #4cceac;

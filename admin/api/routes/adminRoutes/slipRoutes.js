@@ -11,7 +11,7 @@ router.get("/payments", async (req, res) => {
   }
 });
 
-// slip mark changing
+// slip checked changing
 router.patch("/checkchange", async (req, res) => {
   const userMarked = req.body.marked;
   const slipId = req.body.slipId;
@@ -49,6 +49,25 @@ router.delete("/deleteSlip/:slipId", async (req, res) => {
     res.status(200).json("Slip has been deleted successfully!");
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+// slip revenue updated set as done (when income updated from slip => slip revenueUpdated set as true)
+router.patch("/slip/updated", async (req, res) => {
+  const slipId = req.body.slipId;
+  try {
+    const foundSlip = await Slip.findById(slipId);
+    if (!foundSlip) {
+      return res.status(404).json("Slip not found!");
+    }
+
+    foundSlip.revenueUpdated = true;
+
+    const updatedSlip = await foundSlip.save();
+
+    return res.status(200).json(updatedSlip);
+  } catch (err) {
+    console.log(err);
   }
 });
 

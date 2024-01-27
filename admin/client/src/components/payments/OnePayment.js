@@ -112,24 +112,47 @@ const OnePayment = ({
   slipId,
   removeSlip,
   postedDate,
+  revenueUpdated,
 }) => {
   const theme = useTheme();
   const [income, setIncome] = useState("");
   // const [incomeUpdated, setIncomeUpdated] = useState(false);
+  const [revenue, setRevenue] = useState(revenueUpdated);
   const [markAsDone, setMarkAsDone] = useState(marked);
 
   const handleUpdateIncome = async (e) => {
     e.preventDefault();
     try {
-      const response = await apiConnection.post("/create/income", {
+      const responseIncomeUpdate = await apiConnection.post("/create/income", {
         amount: income,
         userID: userId,
         paymentDate: postedDate,
       });
-      console.log(response.data);
+
+      const responseRevenueUpdate = await apiConnection.patch("/slip/updated", {
+        slipId: slipId,
+      });
+
+      alert("Income Updated!");
+      setIncome("");
+      console.log("Income: ", responseIncomeUpdate.data);
+      console.log("Revenue: ", responseRevenueUpdate.data);
+      setRevenue(true);
     } catch (err) {
+      setRevenue(false);
       console.log(err);
     }
+
+    // try {
+    //   const response = await apiConnection.patch("/slip/updated", {
+    //     slipId: slipId,
+    //   });
+    //   console.log(response);
+    //   setRevenueUpdated(true);
+    // } catch (err) {
+    //   setRevenueUpdated(false);
+    //   console.log(err);
+    // }
   };
 
   const handleCheckChange = async (e) => {
@@ -160,7 +183,7 @@ const OnePayment = ({
     }
   };
 
-  console.log(postedDate);
+  // console.log(postedDate);
 
   return (
     <OnePaymentMain>
@@ -190,7 +213,9 @@ const OnePayment = ({
               value={income}
               onChange={(e) => setIncome(e.target.value)}
             />
-            <BTN type="submit">update</BTN>
+            <BTN type="submit" disabled={revenue}>
+              {revenue ? "updated" : "update"}
+            </BTN>
           </Form>
           <BTN onClick={handleDeleteSlip}>delete slip</BTN>
         </DetailsContainer>

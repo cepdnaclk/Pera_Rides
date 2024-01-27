@@ -20,7 +20,7 @@ const Payments = () => {
       try {
         const response = await apiConnection.get("/payments");
         setUserPayments(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (err) {
         console.log(err);
       }
@@ -29,7 +29,7 @@ const Payments = () => {
     getAllSlips();
   }, []);
 
-  console.log(userPayments);
+  // console.log(userPayments);
 
   const removeSlip = (slipId) => {
     const newPayments = userPayments.filter(
@@ -49,6 +49,7 @@ const Payments = () => {
           marked={payment.marked}
           removeSlip={removeSlip}
           postedDate={payment.createdAt}
+          revenueUpdated={payment.revenueUpdated}
         />
       ))}
     </PayMain>
