@@ -3,15 +3,15 @@ import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 
-const Piechart = () => {
+const Piechart = (isDashboard) => {
   const { enrollments } = useSelector((store) => store.userStats);
   console.log(enrollments);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
     <ResponsivePie
-      width={800}
-      height={500}
+    width={isDashboard ?500 : 800}
+    height={isDashboard ? 400 : 500}
       data={enrollments}
       margin={{ top: 50, right: 80, bottom: 80, left: 80 }}
       innerRadius={0.5}
