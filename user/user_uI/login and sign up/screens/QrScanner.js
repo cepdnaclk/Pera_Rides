@@ -11,7 +11,7 @@ export default function QrScanner() {
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
-
+  const { user } = useSelector((store) => store.user);
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -32,11 +32,12 @@ export default function QrScanner() {
     console.log(`Data: ${data}`);
     console.log(`Type: ${type}`);
 
-    const { user } = useSelector((store) => store.user);
+    // const qrValue = "edeefsf"; 
+
+    
 
     // const userId = "your_user_id_here"; // Replace with the actual user ID
     // const qrValue = "your_qr_value_here"; // Replace with the actual QR value
-
     try {
       const response = await apiConnection.post("/user/qr/verify", {
         id: user._id,
