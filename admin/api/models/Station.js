@@ -7,6 +7,10 @@ const StationSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    location: {
+      type: String,
+      required: true,
+    },
     qrValues: {
       type: [
         {

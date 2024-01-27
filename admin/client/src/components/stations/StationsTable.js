@@ -44,6 +44,9 @@ const StationsTable = () => {
               <TH modes={colormode} scope="col">
                 Available Bicycles
               </TH>
+              <TH modes={colormode} scope="col">
+                Location
+              </TH>
             </tr>
           </thead>
           <tbody>
@@ -53,6 +56,7 @@ const StationsTable = () => {
                 id={station._id}
                 name={station.stationName}
                 bikes={station.bikesAvailable}
+                location={station.location}
               />
             ))}
           </tbody>

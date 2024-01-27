@@ -8,12 +8,13 @@ const TD = styled.th`
   font-weight: 400;
 `;
 
-const TableRow = ({ id, name, bikes, modes }) => {
+const TableRow = ({ id, name, bikes, modes, location }) => {
   return (
     <tr>
       <TD modes={modes}>{id}</TD>
       <TD modes={modes}>{name}</TD>
       <TD modes={modes}>{bikes}</TD>
+      <TD modes={modes}>{location}</TD>
     </tr>
   );
 };
