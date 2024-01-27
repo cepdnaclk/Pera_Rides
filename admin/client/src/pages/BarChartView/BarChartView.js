@@ -1,6 +1,7 @@
 import Barchart from "../../components/barchart/Barchart";
 import styled from "styled-components";
 import HeaderTitle from "../../components/headerTitle/HeaderTitle";
+import { useSelector } from "react-redux";
 
 const BarChartMain = styled.div`
   width: 100%;
@@ -28,6 +29,8 @@ const StyledP = styled.p`
 `;
 
 const BarChartView = () => {
+  const { revenue } = useSelector((store) => store.paymentStats);
+
   return (
     <BarChartMain>
       <HeaderTitle
@@ -35,7 +38,11 @@ const BarChartView = () => {
         desc="revenue gained per month over the year"
       />
       <Bar>
-        <Barchart isInDashboard={false} />
+        {revenue.length ? (
+          <Barchart isInDashboard={false} />
+        ) : (
+          <StyledP>No revenue yet</StyledP>
+        )}
       </Bar>
     </BarChartMain>
   );

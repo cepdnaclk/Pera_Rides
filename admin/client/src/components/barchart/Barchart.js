@@ -1,26 +1,13 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../../theme";
-import { useEffect, useState } from "react";
-import apiConnection from "../../apiConnection";
+import { useSelector } from "react-redux";
 
 const Barchart = ({ isInDashboard }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const getBarData = async () => {
-      try {
-        const response = await apiConnection.get("/income/status");
-        setData(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getBarData();
-  }, []);
+  const { revenue } = useSelector((store) => store.paymentStats);
 
   const getColor = (bar) => {
     const gainedIncome = bar.data.income;
@@ -60,7 +47,7 @@ const Barchart = ({ isInDashboard }) => {
     <ResponsiveBar
       width={900}
       height={500}
-      data={data || []}
+      data={revenue || []}
       keys={["income"]}
       indexBy="month"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}

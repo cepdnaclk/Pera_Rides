@@ -5,6 +5,7 @@ import componentReducer from "./features/comp_inside_homepage/componentSlice";
 import userReducer from "./features/users/usersSlice";
 import otpReducer from "./features/otp/OtpSlice";
 import userStatsReducer from "./features/userStats/userStatsSlice";
+import revenueReducer from "./features/paymentsStats/paymentSlice";
 
 import {
   persistStore,
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   users: userReducer,
   otp: otpReducer,
   userStats: userStatsReducer,
+  paymentStats: revenueReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

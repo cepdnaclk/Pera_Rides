@@ -8,8 +8,9 @@ import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsersDB } from "./Redux/features/users/usersSlice";
-import { getAllStats } from "./Redux/features/userStats/userStatsSlice"
+import { getAllStats } from "./Redux/features/userStats/userStatsSlice";
 import { useEffect } from "react";
+import { getRevenueStats } from "./Redux/features/paymentsStats/paymentSlice";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -20,6 +21,7 @@ function App() {
   useEffect(() => {
     dispatch(getAllUsersDB());
     dispatch(getAllStats());
+    dispatch(getRevenueStats());
   }, [dispatch]);
 
   return (
