@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const Piechart = ({ isDashboard }) => {
   const { enrollments } = useSelector((store) => store.userStats);
-  console.log(enrollments);
+  // console.log(enrollments);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -36,6 +36,7 @@ const Piechart = ({ isDashboard }) => {
       arcLinkLabelsColor={colors.greenAccent[500]}
       enableArcLabels={false}
       arcLabelsSkipAngle={10}
+      isInteractive={isDashboard ? false : true}
       arcLabelsTextColor={{
         from: "color",
         modifiers: [["darker", 2]],

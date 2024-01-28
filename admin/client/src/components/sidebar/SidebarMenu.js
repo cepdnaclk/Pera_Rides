@@ -6,15 +6,17 @@ import {
   PersonOutlined,
   PieChartOutlined,
   BarChartOutlined,
-  MenuOutlined,
+  // MenuOutlined,
   CalendarTodayOutlined,
   Paid,
   AccountBalance,
+  DirectionsBike,
 } from "@mui/icons-material";
 import { tokens } from "../../theme";
 import IM from "../../assests/ff.jpg";
 import { useDispatch } from "react-redux";
 import { setComponent } from "../../Redux/features/comp_inside_homepage/componentSlice";
+// import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 
 /* STYLED COMPONENTS */
 const SidebarMainDiv = styled.div`
@@ -86,7 +88,7 @@ const HeaderIconContainer = styled.div`
   border-radius: 0px 10px 0 0;
 `;
 
-const StyledMenuIcon = styled(MenuOutlined)`
+const StyledMenuIcon = styled(DirectionsBike)`
   width: 30px;
   height: 30px;
 `;
@@ -132,9 +134,9 @@ const SidebarMenu = () => {
       <SidebarHeader>
         <HeaderWordContainer>admin</HeaderWordContainer>
         <HeaderIconContainer>
-          <IconButton>
-            <StyledMenuIcon />
-          </IconButton>
+          {/* <IconButton> */}
+          <StyledMenuIcon />
+          {/* </IconButton> */}
         </HeaderIconContainer>
       </SidebarHeader>
       <SideBArImageContainer>
