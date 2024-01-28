@@ -22,6 +22,8 @@ mongoose
   .catch((err) => console.log(err));
 ////////////////////////////////
 
+
+
 // rotes for admin login, password reset, register admin
 app.use("/api/", require("./routes/adminRoutes/adminMain"));
 
@@ -48,6 +50,17 @@ app.use("/api/", require("./routes/userRoutes/user"));
 
 // user otp route
 app.use("/api/", require("./routes/userRoutes/otp"));
+
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    res.status(400).json({ error: 'Invalid JSON payload' });
+  } else if (err.type === 'entity.too.large') {
+    // console.log("x");
+    res.status(413).json({error: 'Image is too large'});
+  } else {
+    next();
+  }
+});
 
 // app listening to port
 app.listen(PORT, () => {

@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, Image, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { StackActions } from "@react-navigation/native";
 import apiConnection from "../apiConnection";
-
-// import client from '../api/client';
+import { useSelector } from "react-redux";
 
 const Money = (props) => {
+
+  
+  const { user } = useSelector((store) => store.user);
   const [profileImage, setProfileImage] = useState("");
-  const [progress, setProgress] = useState(0);
-  // const { token } = props.route.params;
 
   const openImageLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -25,36 +24,72 @@ const Money = (props) => {
       });
 
       if (!response.cancelled) {
-        setProfileImage(response.uri);
+        const imageUri = response.uri || (response.assets && response.assets[0]?.uri);
+        if (imageUri) {
+          setProfileImage(imageUri);
+          console.log(imageUri);
+        }
       }
     }
   };
 
-  const uploadProfileImage = async () => {
-    const formData = new FormData();
-    const fileName = Date.now() + profileImage.name;
-    formData.append("name", fileName);
-    data.append("file", profileImage);
-
+  const convertImageToBase64 = async (imageUri) => {
     try {
-      const res = await apiConnection.post("/user/slip/upload", formData);
-
-      if (res.data.success) {
-        props.navigation.dispatch(StackActions.replace("UserProfile"));
-      }
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
+    }
+  };
+
+  const uploadProfileImage = async () => {
+    if (!profileImage) {
+      alert("Please select an image first.");
+      return;
     }
 
-    try {
-      const response = await apiConnection.post("/user/newslip", {
-        userId: "12554",
-        image: fileName,
-      });
+    const base64Image = await convertImageToBase64(profileImage);
 
-      console.log(response);
-    } catch (err) {
-      console.log(err);
+    const userId = user._id;
+
+    // Get the image format from the base64 string
+    const formatMatch = base64Image.match(/^data:(image\/[a-zA-Z+]+);base64,/);
+    const imageFormat = formatMatch ? formatMatch[1] : "image/jpeg"; // Default to JPEG if not detected
+
+    // Construct the data URL with the corresponding format
+    const image = `data:${imageFormat};base64,${base64Image}`;
+
+
+    try {
+      const response = await apiConnection.post("/user/newslip", { userId, image });
+      Alert.alert("Details", response.data, [
+        {
+          text: "OK",
+          onPress: () => {
+            console.log("Details send");
+          },
+        },
+      ]);
+      setProfileImage("");
+      // if (res.data.success) {
+      //   props.navigation.dispatch(StackActions.replace("UserProfile"));
+      // }
+    } catch (error) {
+      console.log(error.response.data.error);
+      Alert.alert("Details", error.response.data.error, [
+        {
+          text: "OK",
+          onPress: () => {
+            console.log("Details send");
+          },
+        },
+      ]);
     }
   };
 
@@ -75,17 +110,15 @@ const Money = (props) => {
           )}
         </TouchableOpacity>
         <Text style={styles.skip}>Skip</Text>
-        {profileImage ? (
-          <Text
-            onPress={uploadProfileImage}
-            style={[
-              styles.skip,
-              { backgroundColor: "green", color: "white", borderRadius: 8 },
-            ]}
-          >
-            Upload
-          </Text>
-        ) : null}
+        <Text
+          onPress={uploadProfileImage}
+          style={[
+            styles.skip,
+            { backgroundColor: "green", color: "white", borderRadius: 8 },
+          ]}
+        >
+          Upload
+        </Text>
       </View>
     </View>
   );

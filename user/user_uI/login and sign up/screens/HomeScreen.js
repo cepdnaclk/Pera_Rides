@@ -13,17 +13,18 @@ import { Dimensions } from 'react-native';
 
 import Settings from './Settings';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { useSelector } from 'react-redux';
 
 
 
 
-
-const Drawer = createDrawerNavigator();
 
 const width = Dimensions.get('screen').width / 2 - 30;
 
 const Card = ({ station }) => {
   const navigation = useNavigation();
+
+  
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate("Details", station)}>
@@ -75,6 +76,7 @@ const Card = ({ station }) => {
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+  const { user } = useSelector((store) => store.user);
 
   return (
     
@@ -98,7 +100,7 @@ export default function HomeScreen() {
 
 
     
-          <Text style={{fontSize: 15, fontWeight: 'bold', marginTop:30,marginBottom:20}}>Account balance :</Text>
+          <Text style={{fontSize: 15, fontWeight: 'bold', marginTop:30,marginBottom:20}}>Account balance : {user.balance} </Text>
           {/* <View className="flex items-center mx-10 space-y-20"> */}
           <TouchableOpacity className="w-full  p-2 rounded-xl mb-0.5" onPress={() => navigation.push('Map')}>
                         <Text className=" w-full p-2 rounded-xl mb-3 text-xl font-bold text-white text-center" backgroundColor="#65B741">Map Of Stations 🔍</Text>
