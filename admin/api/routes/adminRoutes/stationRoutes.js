@@ -232,4 +232,33 @@ router.get("/total/stations", async (req, res) => {
   }
 });
 
+// get QR value and is there bike or not
+router.get("/qr/bike/availability", async (req, res) => {
+  try {
+    const foundStations = await Station.find();
+    if (!foundStations) {
+      return res.status(404).json("No stations found!");
+    }
+
+    let responseArray = [];
+
+    for (let station of foundStations) {
+      let qrBikeArray = station.qrValues;
+      for (let qrBikePairObj of qrBikeArray) {
+        const oneObj = {
+          _id: qrBikePairObj._id,
+          qrValue: qrBikePairObj.qr,
+          bikeAvailable:
+            qrBikePairObj.bike === null ? "Not Available" : "Available",
+        };
+
+        responseArray.push(oneObj);
+      }
+    }
+    res.status(200).json(responseArray);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

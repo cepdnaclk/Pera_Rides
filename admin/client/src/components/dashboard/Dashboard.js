@@ -184,7 +184,7 @@ const Dashboard = () => {
       <StatsContainer>
         <OneStatContainer backcolor={colors.primary[400]}>
           <OneStatLeft>
-            <LeftAmountContainer>{allUsers.length || 0}</LeftAmountContainer>
+            <LeftAmountContainer>{allUsers?.length || 0}</LeftAmountContainer>
             <LeftTitleContainer clr={colors.greenAccent[500]}>
               Total Users
             </LeftTitleContainer>
@@ -238,7 +238,7 @@ const Dashboard = () => {
       <GraphsContainer>
         <OneGraphContainer backcolor={colors.primary[400]}>
           <ChartDiv>
-            {revenue.length ? (
+            {revenue?.length ? (
               <BarChart isDashboard={true} />
             ) : (
               <div
@@ -249,6 +249,8 @@ const Dashboard = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   border: `1px solid ${colors.greenAccent[500]}`,
+                  color: colors.greenAccent[500],
+                  letterSpacing: "1px",
                 }}
               >
                 No earnings for this year yet.
@@ -258,7 +260,7 @@ const Dashboard = () => {
         </OneGraphContainer>
         <OneGraphContainer backcolor={colors.primary[400]}>
           <ChartDiv>
-            {enrollments.length ? (
+            {enrollments?.length ? (
               <PieChart isDashboard={true} />
             ) : (
               <div
@@ -269,6 +271,8 @@ const Dashboard = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   border: `1px solid ${colors.greenAccent[500]}`,
+                  color: colors.greenAccent[500],
+                  letterSpacing: "1px",
                 }}
               >
                 No enrollments for this year yet.
@@ -360,7 +364,8 @@ const Dashboard = () => {
               <div
                 style={{
                   // background: "red",
-                  height: "230px",
+                  width: "100%",
+                  height: "250px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",

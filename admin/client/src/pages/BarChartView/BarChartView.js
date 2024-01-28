@@ -38,7 +38,7 @@ const BarChartView = () => {
         desc="revenue gained per month over the year"
       />
       <Bar>
-        {revenue.length ? (
+        {revenue?.length ? (
           <Barchart isDashboard={false} />
         ) : (
           <StyledP>No revenue yet</StyledP>

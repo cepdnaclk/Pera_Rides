@@ -77,3 +77,36 @@ export const stationsData = [
     location: "Colombo Maradana",
   },
 ];
+
+export const bicycleQrdata = [
+  {
+    _id: "1",
+    qrValue: "65b6afbfebdd33ff89268817 wsadsasd",
+    bikeAvailable: "bicycle available",
+  },
+  {
+    _id: "2",
+    qrValue: "65b6afbfebdd33ff89268817 wsadsasd",
+    bikeAvailable: "bicycle available",
+  },
+  {
+    _id: "3",
+    qrValue: "65b6afbfebdd33ff89268817 wsadsasd",
+    bikeAvailable: "bicycle available",
+  },
+  {
+    _id: "4",
+    qrValue: "65b6afbfebdd33ff89268817 wsadsasd",
+    bikeAvailable: "bicycle available",
+  },
+  {
+    _id: "5",
+    qrValue: "65b6afbfebdd33ff89268817 wsadsasd",
+    bikeAvailable: "bicycle available",
+  },
+  {
+    _id: "6",
+    qrValue: "65b6afbfebdd33ff89268817 wsadsasd",
+    bikeAvailable: "bicycle available",
+  },
+];

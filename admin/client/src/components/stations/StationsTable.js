@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { stationsData } from "../../data";
 import TableRow from "./TableRow";
 import { useTheme } from "@mui/material";
 
@@ -24,13 +23,13 @@ const CAPTION = styled.caption`
   letter-spacing: 1px;
 `;
 
-const StationsTable = () => {
+const StationsTable = ({ stats }) => {
   const theme = useTheme();
   const colormode = theme.palette.mode;
 
   return (
     <>
-      {stationsData.length ? (
+      {stats.length ? (
         <StyledTable>
           <CAPTION modes={colormode}>STATIONS STATS</CAPTION>
           <thead>
@@ -50,8 +49,9 @@ const StationsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {stationsData?.map((station) => (
+            {stats?.map((station) => (
               <TableRow
+                key={station._id}
                 modes={colormode}
                 id={station._id}
                 name={station.stationName}
