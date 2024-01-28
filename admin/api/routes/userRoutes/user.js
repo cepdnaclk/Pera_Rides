@@ -133,6 +133,7 @@ router.post("/user/qr/verify", async (req, res) => {
 router.post("/user/newslip", async (req, res) => {
   const reqUserId = req.body.userId;
   const reqImage = req.body.image;
+  console.log(reqUserId);
 
   if (!reqUserId || !reqImage) {
     res.status(400).json("User ID and Slip image required!");
@@ -145,11 +146,13 @@ router.post("/user/newslip", async (req, res) => {
 
   try {
     const savedSlip = await newSlip.save();
-    console.log(savedSlip.createdAt);
-    res.status(201).json(savedSlip);
+    res.status(201).json("Slip uploaded successfully!");
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
+
+
 
 module.exports = router;
