@@ -54,6 +54,7 @@ router.post("/create/income", async (req, res) => {
 //   }
 // });
 
+// total income over the year
 router.get("/income/status", async (req, res) => {
   const date = new Date();
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
@@ -106,6 +107,26 @@ router.get("/income/status", async (req, res) => {
       },
     ]);
     res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// get total complete income
+router.get("/total/income", async (req, res) => {
+  try {
+    const foundIncomes = await Income.find();
+    if (!foundIncomes) {
+      return res.status(404).json("No income yet!");
+    }
+
+    let fullIncome = 0;
+
+    for (let obj of foundIncomes) {
+      fullIncome = fullIncome + parseFloat(obj.amount);
+    }
+
+    res.status(200).json(fullIncome);
   } catch (err) {
     res.status(500).json(err);
   }

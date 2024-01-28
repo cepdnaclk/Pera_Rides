@@ -90,6 +90,7 @@ const Barchart = ({ isDashboard }) => {
       }}
       enableLabel={false}
       labelSkipWidth={12}
+      isInteractive={isDashboard ? false : true}
       labelSkipHeight={12}
       labelTextColor={{
         from: "color",

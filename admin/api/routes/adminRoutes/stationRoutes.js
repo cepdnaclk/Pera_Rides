@@ -111,11 +111,12 @@ router.patch("/empty/bike/:stationId", async (req, res) => {
 });
 
 // get number of bikes parked in a station (all bikes)
-router.get("/get/all/bikes", async (req, res) => {
+router.get("/info/all/bikes", async (req, res) => {
   try {
     const values = await Station.aggregate([
       {
         $project: {
+          location: "$location",
           stationName: "$name",
           bikesAvailable: {
             $size: {
@@ -186,6 +187,46 @@ router.patch("/remove/qr/:stationId", async (req, res) => {
     );
     const savedStation = await foundStation.save();
     res.status(200).json(savedStation);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// get all available number of bicycles
+router.get("/total/bicycles", async (req, res) => {
+  try {
+    const allStations = await Station.find();
+    if (!allStations) {
+      return res.status(404).json("No stations found!");
+    }
+
+    let allBicycles = 0;
+
+    for (let station of allStations) {
+      let qrArray = station.qrValues;
+
+      for (let qrBikePair of qrArray) {
+        if (qrBikePair.bike) {
+          allBicycles++;
+        }
+      }
+    }
+    res.status(200).json(allBicycles);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// get total number of stations
+router.get("/total/stations", async (req, res) => {
+  try {
+    const availableStations = await Station.find();
+
+    if (!availableStations) {
+      return res.status(404).json("No stations available.");
+    }
+
+    res.status(200).json(availableStations.length);
   } catch (err) {
     res.status(500).json(err);
   }
