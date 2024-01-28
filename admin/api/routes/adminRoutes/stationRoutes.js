@@ -70,11 +70,8 @@ router.patch("/available/bike/:stationId", async (req, res) => {
         .status(404)
         .json("Provided QR value not found in the station!");
     }
-
     qrObject.bike = bikeId;
-
     const savedStation = await foundStation.save();
-
     res.status(200).json(savedStation);
   } catch (err) {
     res.status(500).json(err);

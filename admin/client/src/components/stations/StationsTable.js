@@ -5,7 +5,7 @@ import { useTheme } from "@mui/material";
 
 const StyledTable = styled.table`
   width: 100%;
-  height: 400px;
+  height: 300px;
   border-collapse: collapse;
 `;
 
