@@ -45,12 +45,17 @@ const Barchart = ({ isDashboard }) => {
 
   return (
     <ResponsiveBar
-    width={isDashboard ?600 : 900}
-    height={isDashboard ? 400 : 500}
+      width={isDashboard ? 300 : 900}
+      height={isDashboard ? 320 : 500}
       data={revenue || []}
       keys={["income"]}
       indexBy="month"
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+      margin={{
+        top: 30,
+        right: 10,
+        bottom: 50,
+        left: 60,
+      }}
       padding={0.3}
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
@@ -61,15 +66,19 @@ const Barchart = ({ isDashboard }) => {
       }}
       axisTop={null}
       axisRight={null}
-      axisBottom={{
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-        legend: isDashboard ? undefined : "month",
-        legendPosition: "middle",
-        legendOffset: 40,
-        truncateTickAt: 0,
-      }}
+      axisBottom={
+        isDashboard
+          ? null
+          : {
+              tickSize: 5,
+              tickPadding: 5,
+              tickRotation: 0,
+              legend: isDashboard ? undefined : "month",
+              legendPosition: "middle",
+              legendOffset: 40,
+              truncateTickAt: 0,
+            }
+      }
       axisLeft={{
         tickSize: 5,
         tickPadding: 5,

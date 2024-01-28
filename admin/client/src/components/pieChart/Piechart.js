@@ -3,17 +3,22 @@ import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 
-const Piechart = (isDashboard) => {
+const Piechart = ({ isDashboard }) => {
   const { enrollments } = useSelector((store) => store.userStats);
   console.log(enrollments);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
     <ResponsivePie
-    width={isDashboard ?500 : 800}
-    height={isDashboard ? 400 : 500}
+      width={isDashboard ? 300 : 800}
+      height={isDashboard ? 300 : 500}
       data={enrollments}
-      margin={{ top: 50, right: 80, bottom: 80, left: 80 }}
+      margin={{
+        top: isDashboard ? 30 : 50,
+        right: isDashboard ? 30 : 50,
+        bottom: isDashboard ? 30 : 50,
+        left: isDashboard ? 50 : 80,
+      }}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
@@ -24,6 +29,7 @@ const Piechart = (isDashboard) => {
         from: "color",
         modifiers: [["darker", 0.2]],
       }}
+      enableArcLinkLabels={isDashboard ? false : true}
       arcLinkLabelsSkipAngle={10}
       arcLinkLabelsTextColor={colors.gray[100]}
       arcLinkLabelsThickness={2}
