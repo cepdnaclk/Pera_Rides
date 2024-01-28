@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Text, Image, Alert } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, Image, Alert,Button,StatusBar} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import apiConnection from "../apiConnection";
 import { useSelector } from "react-redux";
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from "@react-navigation/native";
 
 const Money = (props) => {
+  const navigation = useNavigation();
 
   
   const { user } = useSelector((store) => store.user);
@@ -72,7 +75,7 @@ const Money = (props) => {
         {
           text: "OK",
           onPress: () => {
-            console.log("Details send");
+             navigation.push('Homepage')
           },
         },
       ]);
@@ -95,7 +98,17 @@ const Money = (props) => {
 
   return (
     <View style={styles.container}>
+       <StatusBar style="light" />
+      <Image source={require('../assets/images/background.png')} style={{ position: 'absolute', height: '100%', width: '100%' }} />
       <View>
+      <View style={styles.header}>
+        <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />
+        {/* <Icon name="shopping-cart" size={28} /> */}
+      </View>
+      <View>
+      <Text style={styles.skip}>Here You can upload a bank slip.</Text>
+      </View>
+      
         <TouchableOpacity
           onPress={openImageLibrary}
           style={styles.uploadBtnContainer}
@@ -106,15 +119,14 @@ const Money = (props) => {
               style={{ width: "100%", height: "100%" }}
             />
           ) : (
-            <Text style={styles.uploadBtn}>Upload a bank slip Image</Text>
+            <Text style={styles.uploadBtn}>Upload a bank slip Image.  🚨Size should be less than 1MB</Text>
           )}
         </TouchableOpacity>
-        <Text style={styles.skip}>Skip</Text>
         <Text
           onPress={uploadProfileImage}
           style={[
             styles.skip,
-            { backgroundColor: "green", color: "white", borderRadius: 8 },
+            { backgroundColor: "#274e13", color: "white", borderRadius: 8 },
           ]}
         >
           Upload
@@ -130,10 +142,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  header: {
+    marginBottom: 140,
+    flexDirection: 'row',
+    justifyContent: 'space between',
+  },
   uploadBtnContainer: {
-    height: 100,
-    width: 100,
+    height: 300,
+    width: 300,
     borderRadius: 125 / 2,
+    marginBottom: 20,
+    marginLeft: 10,
+    marginTop: 10,
     justifyContent: "center",
     alignItems: "center",
     borderStyle: "dashed",

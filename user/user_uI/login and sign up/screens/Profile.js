@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Image, TextInput, Animated, Easing } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 
 const Money = () => {
   const [profileImage, setProfileImage] = useState(null); // Change the initial state to null
@@ -10,6 +12,8 @@ const Money = () => {
   const [userPhone, setUserPhone] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [animatedValue] = useState(new Animated.Value(1));
+
+  const navigation = useNavigation();
 
   const startAnimation = () => {
     Animated.sequence([
@@ -67,6 +71,10 @@ const Money = () => {
 
   return (
     <View style={styles.container}>
+    <View style={styles.header}>
+        <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />
+        {/* <Icon name="shopping-cart" size={28} /> */}
+      </View>
       <LinearGradient
         colors={['#56CCF2', '#2F80ED']}
         style={styles.gradientBackground}
@@ -128,6 +136,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  header:{
+    alignContent: 'left',
+    marginlerft: 10,
+    marginright: 60,
+    paddingHorizontal: 20,
   },
   gradientBackground: {
     flex: 1,

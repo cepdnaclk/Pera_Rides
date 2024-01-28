@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, Switch, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+
 
 const Settings = () => {
+  const navigation = useNavigation();
   const [notificationSwitch, setNotificationSwitch] = useState(false);
   const [darkModeSwitch, setDarkModeSwitch] = useState(false);
 
@@ -13,14 +18,14 @@ const Settings = () => {
     setDarkModeSwitch((prev) => !prev);
   };
 
-  const handleLogout = () => {
-    // Implement logout functionality here
-    console.log('Logout button pressed');
-  };
+  
+
 
   return (
     <View style={styles.container}>
+       
       <Text style={styles.header}>Settings</Text>
+
 
       {/* Notification Toggle */}
       <View style={styles.settingItem}>
@@ -45,7 +50,7 @@ const Settings = () => {
       </View>
 
       {/* Logout Button */}
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+      <TouchableOpacity style={styles.logoutButton} onPress={() => navigation.push('Login')}>
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
     </View>

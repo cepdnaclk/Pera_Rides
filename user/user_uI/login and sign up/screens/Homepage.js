@@ -10,6 +10,8 @@ import Aboutus from './Aboutus';
 import Notification from './Notifications';
 import Money from './Money';
 import Profile from './Profile';
+import Login from './LoginScreen';
+import Subscription from './Subscription';
 
 
 // ara siyallam meke uda tynnee
@@ -20,14 +22,15 @@ export default function Homepage() {
   return (
     
   
-      <Drawer.Navigator initialRouteName='Home'>
+    <Drawer.Navigator initialRouteName='Home'>
     <Drawer.Screen name="Home" component={HomeScreen} />
     <Drawer.Screen name="Payments" component={Money} />
     <Drawer.Screen name="Setting" component={Settings} />
     <Drawer.Screen name="Profile" component={Profile} />
     <Drawer.Screen name="Notifications" component={Notification} />
-    <Drawer.Screen name="Aboutus" component={Aboutus} />
+    <Drawer.Screen name="About us" component={Aboutus} />
     <Drawer.Screen name="Rateapp" component={Rateapp} />
+    {/* <Drawer.Screen name="Logout" component={Login} /> */}
 
   </Drawer.Navigator>
 

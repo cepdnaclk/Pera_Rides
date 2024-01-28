@@ -8,6 +8,7 @@ import { Dimensions } from 'react-native';
 // SubscriptionPlans component
 
 const Subscription = () => {
+  const navigation = useNavigation();
   // State to track the selected plan
   const [selectedPlan, setSelectedPlan] = useState(null);
 
@@ -35,7 +36,7 @@ const Subscription = () => {
           price="LKR 200"
           info={['Access to basic features', 'Limited support']}
           button={{ title: 'Select', icon: 'check' }}
-          onButtonPress={() => setSelectedPlan({ name: 'Basic Plan', price: '$9.99' })}
+          onButtonPress={() => navigation.push('Money')}
         />
       </Card>
 
@@ -46,14 +47,14 @@ const Subscription = () => {
           price="LKR 700"
           info={['Full access to all features', 'Priority support']}
           button={{ title: 'Select', icon: 'check' }}
-          onButtonPress={() => setSelectedPlan({ name: 'Premium Plan', price: '$19.99' })}
+          onButtonPress={() => navigation.push('Money')}
         />
       </Card>
 
       {/* Button to handle subscription */}
-      <TouchableOpacity style={styles.subscribeButton} onPress={handleSubscribe}>
+      {/* <TouchableOpacity style={styles.subscribeButton} onPress={handleSubscribe}>
         <Text style={styles.subscribeButtonText}>Subscribe</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

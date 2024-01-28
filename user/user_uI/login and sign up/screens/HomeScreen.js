@@ -1,9 +1,8 @@
 import 'react-native-gesture-handler';
-import React from 'react';
-import { View, Text, Image,TextInput,TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import React ,{useState}from 'react';
+import { View, Text, Image,TextInput,TouchableOpacity, FlatList, StyleSheet,Alert,Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-import MapView, { Marker } from 'react-native-maps';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import Icon from 'react-native-vector-icons/FontAwesome';'react-native-vector-icons/MaterialIcons';
 
@@ -14,12 +13,14 @@ import { Dimensions } from 'react-native';
 import Settings from './Settings';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useSelector } from 'react-redux';
-
+import Modal from 'react-native-modal';
 
 
 
 
 const width = Dimensions.get('screen').width / 2 - 30;
+
+
 
 const Card = ({ station }) => {
   const navigation = useNavigation();
@@ -74,11 +75,47 @@ const Card = ({ station }) => {
   );
 };
 
+
+
 export default function HomeScreen() {
   const navigation = useNavigation();
   const { user } = useSelector((store) => store.user);
+  
+const [selectedOption, setSelectedOption] = useState(null);
+
+const handleLogout = () => {
+  // Perform any logout actions (e.g., clear user session, reset state, etc.)
+
+  // Navigate to the login screen and prevent going back
+  navigation.reset({
+    index: 0,
+    routes: [{ name: 'Login' }],
+  });
+};   
+
+
+      const [isModalVisible, setModalVisible] = useState(false);
+
+      const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+      };
+
+
+  const handleLog = () => {
+    // Perform any logout actions (e.g., clear user session, reset state, etc.)
+    // Then navigate to the login screen and prevent going back
+    Alert.alert("","",[
+      {text:"Profile", onPress:()=>{navigation.push('Profile');}},
+      {text:"Settings", onPress:()=>{navigation.push('Settings');}},
+      {text:"Log Out", onPress: handleLogout},
+     
+      ]);
+      toggleModal();
+     };
+  
 
   return (
+    
     
     <View 
       style={{
@@ -86,11 +123,7 @@ export default function HomeScreen() {
         paddingHorizontal: 20,
         backgroundColor: COLORS.white
         }}>
-        {/* <Drawer.Navigator>
-            <Drawer.Screen name="Home" component={HomeScreen} />
-            <Drawer.Screen name="Setting" component={Settings} />
-            
-        </Drawer.Navigator> */}
+       
       <View style={styles.header}>
         <View>
           <Text style={{fontSize: 25, fontWeight: 'bold'}}>Welcome to</Text>
@@ -100,7 +133,8 @@ export default function HomeScreen() {
 
 
     
-          <Text style={{fontSize: 15, fontWeight: 'bold', marginTop:30,marginBottom:20}}>Account balance : {user.balance} </Text>
+          <Text style={{fontSize: 15, fontWeight: 'bold', marginTop:30}}>Your Account balance : LKR {user.balance} </Text>
+          <Text style={{fontSize: 15, fontWeight: 'bold',marginBottom:20}}>Fee per Ride : LKR 20. </Text>
           {/* <View className="flex items-center mx-10 space-y-20"> */}
           <TouchableOpacity className="w-full  p-2 rounded-xl mb-0.5" onPress={() => navigation.push('Map')}>
                         <Text className=" w-full p-2 rounded-xl mb-3 text-xl font-bold text-white text-center" backgroundColor="#65B741">Map Of Stations 🔍</Text>
@@ -108,14 +142,25 @@ export default function HomeScreen() {
                     </View> 
         {/* </View> */}
         <View>
+       
+     
          <View style={{ flexDirection: 'row', alignItems: 'center' }}> 
             <TouchableOpacity onPress={() => navigation.push('QrScanner')}>
-                <Icon name="qrcode" size={28} color="black" />
+                <Icon name="qrcode" size={40} color="black" />
             </TouchableOpacity>
-            <View style={{ width: 20 }} />
+            <View style={{ width: 30 }} />
 
-            <TouchableOpacity onPress={() => navigation.push('Subscription')}>
-                 <Icon name="bell" size={30} color="black" />
+                    <Modal isVisible={isModalVisible}>
+                      <View style={styles.modalContainer}>
+                        <Button marginBottom='20'  title="Profile"  onPress={() => navigation.push('Profile')} />
+                        <Button  marginBottom='20'title="Settings" onPress={() => navigation.push('Settings')} />
+                        <Button  marginBottom='20'title="Log Out" onPress={handleLogout} />
+                        <Button  marginBottom='20'title="Close" onPress={toggleModal} />
+                      </View>
+                    </Modal>
+
+            <TouchableOpacity onPress={toggleModal}>
+                 <Icon name="user" size={30} color="black" />
             </TouchableOpacity>
         </View>
         
@@ -185,6 +230,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  // container: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
+  // modalContainer: {
+  //   backgroundColor: '#8fce00',
+  //   padding: 20,
+  //   justifyContent:'space-around',
+  //   alignItems: 'center',
+  //   marginBottom: 40,
+  //   borderRadius: 8,
+  //   borderColor: 'rgba(0, 0, 0, 0.1)',
+  // },
 });
 
         
