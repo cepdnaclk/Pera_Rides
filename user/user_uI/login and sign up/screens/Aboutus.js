@@ -4,27 +4,27 @@ import { View, Text, Image, ScrollView, StyleSheet } from 'react-native';
 const members = [
   {
     name: 'Rajitha Thennakoon',
-    photo: require('./raj.jpg'), // Replace with actual image path
+    photo: require('../assets/images/raj.jpg'), // Replace with actual image path
     description: 'E/19/405',
   },
   {
     name: 'Dulshan Chamuditha',
-    photo: require('./chamu.jpg'),
+    photo: require('../assets/images/chamu.jpg'), // Replace with actual image path
     description: 'E/19/395',
   },
   {
     name: 'Sasindu Dilshan',
-    photo: require('./sasi.jpg'),
+    photo: require('../assets/images/sasi.jpg'), // Replace with actual image path
     description: 'E/19/465',
   },
   {
     name: 'Jeevajith Madushanka',
-    photo: require('./jeev.jpg'),
+    photo: require('../assets/images/jeeva.jpg'), // Replace with actual image path
     description: 'E/19/227',
   },
   {
     name: 'Pasan Dissanayake',
-    photo: require('./pasa.jpg'),
+    photo: require('../assets/images/pasa.jpg'),
     description: 'E/19/091',
   },
   // Add similar objects for other members
