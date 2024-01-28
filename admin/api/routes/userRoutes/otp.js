@@ -21,7 +21,7 @@ router.post("/user/generateOtp", async (req, res) => {
   });
 
   try {
-    await sendOTPEmail(userEmail, OTP);
+    await sendOTPEmail(userEmail, OTP, "User Register");
     OTPprops.value = OTP;
     return res.status(200).json("OTP has been sent successfully!");
   } catch (err) {

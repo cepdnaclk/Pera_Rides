@@ -6,7 +6,6 @@ import {
   PersonOutlined,
   PieChartOutlined,
   BarChartOutlined,
-  // MenuOutlined,
   CalendarTodayOutlined,
   Paid,
   AccountBalance,
@@ -16,7 +15,6 @@ import { tokens } from "../../theme";
 import IM from "../../assests/ff.jpg";
 import { useDispatch } from "react-redux";
 import { setComponent } from "../../Redux/features/comp_inside_homepage/componentSlice";
-// import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 
 /* STYLED COMPONENTS */
 const SidebarMainDiv = styled.div`
@@ -134,9 +132,7 @@ const SidebarMenu = () => {
       <SidebarHeader>
         <HeaderWordContainer>admin</HeaderWordContainer>
         <HeaderIconContainer>
-          {/* <IconButton> */}
           <StyledMenuIcon />
-          {/* </IconButton> */}
         </HeaderIconContainer>
       </SidebarHeader>
       <SideBArImageContainer>

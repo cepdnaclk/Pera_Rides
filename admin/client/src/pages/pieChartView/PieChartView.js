@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 const PieChartMain = styled.div`
   width: 100%;
   height: 80%;
-  /* background-color: red; */
 `;
 
 const StyledP = styled.p`
@@ -31,7 +30,7 @@ const PieChartView = () => {
         title={"Enrollment Dynamics"}
         desc={"The monthly user enrollment over the year"}
       />
-      {enrollments.length ? (
+      {enrollments?.length ? (
         <Piechart isDashboard={false} />
       ) : (
         <StyledP>No enrollments yet</StyledP>

@@ -27,7 +27,7 @@ const DetailsContainer = styled.div`
 
 const IMG = styled.img`
   width: 100%;
-  height: auto;
+  height: 350px;
   display: flex;
   align-items: center;
   justify-content: center;

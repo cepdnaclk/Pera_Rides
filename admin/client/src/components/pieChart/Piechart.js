@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const Piechart = ({ isDashboard }) => {
   const { enrollments } = useSelector((store) => store.userStats);
-  // console.log(enrollments);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
