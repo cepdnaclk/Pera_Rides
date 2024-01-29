@@ -1,9 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import axios from "axios";
+// import axios from "axios";
 import apiConnection from "../apiConnection";
 import { useSelector } from "react-redux";
 
@@ -44,10 +44,27 @@ export default function QrScanner() {
         qr: data,
       });
 
-      console.log(response.data); // Handle the response data here
+      // console.log(response.data); // Handle the response data here
+      Alert.alert("Details", response.data.message, [
+        {
+          text: "OK",
+          onPress: () => {
+            console.log("Details send");
+          },
+        },
+      ]);
     } catch (error) {
-      console.error("Error:", error);
+      // console.error("Error:", error);
       // Handle errors here
+      console.log(error.response.data.error);
+      Alert.alert("Details", error.response.data.error, [
+        {
+          text: "OK",
+          onPress: () => {
+            console.log("Details send");
+          },
+        },
+      ]);
     }
   };
 
