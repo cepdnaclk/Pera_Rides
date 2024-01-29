@@ -26,7 +26,7 @@ const Form = styled.form`
   margin-left: 10px;
 `;
 
-const AddStationInput = styled.input`
+const StyledInput = styled.input`
   width: 300px;
   height: 40px;
   margin-right: 20px;
@@ -77,7 +77,7 @@ const AllStationsContainer = styled.div`
 `;
 
 const StationsQrBikesContainer = styled.div`
-  width: 800px;
+  width: 780px;
   min-height: 200px;
   /* background-color: red; */
   margin-left: 20px;
@@ -133,6 +133,28 @@ const SearchInput = styled.input`
   }
 `;
 
+const BTNREMOVE = styled.button`
+  width: 80px;
+  height: 40px;
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  font-size: 13px;
+  background-color: red;
+  color: #fff;
+  font-weight: 700;
+  transition-property: background-color;
+  transition-duration: 0.7s;
+  transition-delay: 0s;
+  transition-timing-function: ease-in-out;
+
+  &:hover {
+    background-color: darkred;
+  }
+`;
+
 const Stations = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -141,6 +163,8 @@ const Stations = () => {
   // Add new station
   const [addNewStationName, setAddNewStationName] = useState("");
   const [addNewStationLocation, setAddNewStationLocation] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
 
   // Add new QR to station
   const [addNewQr, setAddNewQr] = useState("");
@@ -160,6 +184,9 @@ const Stations = () => {
 
   // search
   const [search, setSearch] = useState("");
+
+  // remove a station
+  const [removeStationId, setRemoveStationId] = useState("");
 
   useEffect(() => {
     const getStationStats = async () => {
@@ -193,6 +220,7 @@ const Stations = () => {
     getQrAndBikeAvailableStats();
   }, []);
 
+  // add new station
   const handleAddStation = async (e) => {
     e.preventDefault();
     const answer = window.confirm("Are you sure you need to add this station?");
@@ -201,17 +229,23 @@ const Stations = () => {
         const response = await apiConnection.post("/new/station", {
           name: addNewStationName,
           location: addNewStationLocation,
+          latitude: latitude,
+          longitude: longitude,
         });
         alert("Station added successfully.");
         setAddNewStationName("");
         setAddNewStationLocation("");
+        setLatitude("");
+        setLongitude("");
         console.log(response.data);
       } catch (err) {
+        alert(err.response.data.error);
         console.log(err);
       }
     }
   };
 
+  // add new qr value to station
   const handleAddNewQr = async (e) => {
     e.preventDefault();
     const answer = window.confirm("Are you sure you need to add this QR?");
@@ -234,6 +268,7 @@ const Stations = () => {
     }
   };
 
+  // remove qr from station
   const handleRemoveQr = async (e) => {
     e.preventDefault();
     const answer = window.confirm("Are you sure you need to remove this QR?");
@@ -256,13 +291,33 @@ const Stations = () => {
     }
   };
 
+  // remove station
+  const handleRemoveStation = async (e) => {
+    e.preventDefault();
+    const answer = window.confirm(
+      "Are you sure you need to remove this statio?"
+    );
+    if (answer) {
+      try {
+        const response = await apiConnection.delete(
+          `/remove/station/${removeStationId}`
+        );
+        console.log(response.data);
+        alert("Station Removed Successfully");
+        setRemoveStationId("");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <StationsMain>
       {/* Add new station form */}
       <Form onSubmit={handleAddStation}>
         <fieldset style={{ padding: "20px" }}>
           <legend>Add New Station</legend>
-          <AddStationInput
+          <StyledInput
             type="text"
             required
             placeholder="Station Name"
@@ -277,7 +332,7 @@ const Stations = () => {
             value={addNewStationName}
             onChange={(e) => setAddNewStationName(e.target.value)}
           />
-          <AddStationInput
+          <StyledInput
             type="text"
             required
             placeholder="Station Location"
@@ -291,6 +346,36 @@ const Stations = () => {
             }}
             value={addNewStationLocation}
             onChange={(e) => setAddNewStationLocation(e.target.value)}
+          />
+          <StyledInput
+            type="text"
+            required
+            placeholder="Latitude"
+            style={{
+              backgroundColor:
+                themeMode === "dark"
+                  ? "rgba(255,255,255,0.4)"
+                  : "rgba(0,0,0,0.3)",
+              color: themeMode === "dark" ? "#fff" : "#000",
+              borderColor: themeMode === "dark" ? "#fff" : "#000",
+            }}
+            value={latitude}
+            onChange={(e) => setLatitude(e.target.value)}
+          />
+          <StyledInput
+            type="text"
+            required
+            placeholder="Longitude"
+            style={{
+              backgroundColor:
+                themeMode === "dark"
+                  ? "rgba(255,255,255,0.4)"
+                  : "rgba(0,0,0,0.3)",
+              color: themeMode === "dark" ? "#fff" : "#000",
+              borderColor: themeMode === "dark" ? "#fff" : "#000",
+            }}
+            value={longitude}
+            onChange={(e) => setLongitude(e.target.value)}
           />
           <BTN modes={themeMode} type="submit">
             add
@@ -309,7 +394,7 @@ const Stations = () => {
       <Form onSubmit={handleAddNewQr}>
         <fieldset style={{ padding: "20px" }}>
           <legend>Add a new QR</legend>
-          <AddStationInput
+          <StyledInput
             type="text"
             required
             placeholder="QR Value"
@@ -324,7 +409,7 @@ const Stations = () => {
             value={addNewQr}
             onChange={(e) => setAddNewQr(e.target.value)}
           />
-          <AddStationInput
+          <StyledInput
             type="text"
             required
             placeholder="Station Id"
@@ -376,7 +461,7 @@ const Stations = () => {
         <ValuesContainer>
           {isQrAndBikesLoading ? (
             <p>Loading...</p>
-          ) : (
+          ) : qrBikeAvailableArray.length ? (
             <Content
               items={qrBikeAvailableArray?.filter((item) => {
                 return item?.qrValue
@@ -385,6 +470,21 @@ const Stations = () => {
               })}
               colors={colors}
             />
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: colors.greenAccent[500],
+                letterSpacing: "1px",
+                fontSize: "17px",
+              }}
+            >
+              No Bicycles or QR values available yet
+            </div>
           )}
         </ValuesContainer>
       </StationsQrBikesContainer>
@@ -393,7 +493,7 @@ const Stations = () => {
       <Form onSubmit={handleRemoveQr}>
         <fieldset style={{ padding: "20px" }}>
           <legend>Remove a QR</legend>
-          <AddStationInput
+          <StyledInput
             type="text"
             required
             placeholder="QR Value"
@@ -408,7 +508,7 @@ const Stations = () => {
             value={removeQr}
             onChange={(e) => setRemoveQr(e.target.value)}
           />
-          <AddStationInput
+          <StyledInput
             type="text"
             required
             placeholder="Station Id"
@@ -426,6 +526,32 @@ const Stations = () => {
           <BTN modes={themeMode} type="submit">
             Remove
           </BTN>
+        </fieldset>
+      </Form>
+
+      {/* Remove station form */}
+
+      <Form onSubmit={handleRemoveStation}>
+        <fieldset style={{ padding: "20px" }}>
+          <legend>Remove a station</legend>
+          <StyledInput
+            type="text"
+            required
+            placeholder="Station ID"
+            style={{
+              backgroundColor:
+                themeMode === "dark"
+                  ? "rgba(255,255,255,0.4)"
+                  : "rgba(0,0,0,0.3)",
+              color: themeMode === "dark" ? "#fff" : "#000",
+              borderColor: themeMode === "dark" ? "#fff" : "#000",
+            }}
+            value={removeStationId}
+            onChange={(e) => setRemoveStationId(e.target.value)}
+          />
+          <BTNREMOVE modes={themeMode} type="submit">
+            Remove
+          </BTNREMOVE>
         </fieldset>
       </Form>
     </StationsMain>
