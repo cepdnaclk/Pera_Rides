@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const User = require("../../models/User");
 const Slip = require("../../models/Slip");
 const mqtt = require("mqtt");
+const Station = require("../../models/Station");
 
 // register user
 router.post("/user/register", async (req, res) => {
@@ -152,7 +153,30 @@ router.post("/user/newslip", async (req, res) => {
   }
 });
 
+// get map lattitude and longitude
+router.get("/map/data", async (req, res) => {
+  try {
+    const foundStations = await Station.find();
+    if (!foundStations) {
+      return res.status(400).json({ message: "No stations found!" });
+    }
 
+    let responseArray = [];
 
+    for (let stationObj of foundStations) {
+      const oneLocation = {
+        _id: stationObj._id,
+        lattitude: parseFloat(stationObj.latitude),
+        longitude: parseFloat(stationObj.longitude),
+      };
+
+      responseArray.push(oneLocation);
+    }
+
+    res.status(200).json(responseArray);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
 
 module.exports = router;
