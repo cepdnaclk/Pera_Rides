@@ -30,8 +30,8 @@ const PieChartView = () => {
         title={"Enrollment Dynamics"}
         desc={"The monthly user enrollment over the year"}
       />
-      {enrollments.length ? (
-        <Piechart />
+      {enrollments?.length ? (
+        <Piechart isDashboard={false} />
       ) : (
         <StyledP>No enrollments yet</StyledP>
       )}

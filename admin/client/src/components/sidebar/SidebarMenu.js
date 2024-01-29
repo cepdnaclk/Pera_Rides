@@ -6,10 +6,10 @@ import {
   PersonOutlined,
   PieChartOutlined,
   BarChartOutlined,
-  MenuOutlined,
   CalendarTodayOutlined,
   Paid,
   AccountBalance,
+  DirectionsBike,
 } from "@mui/icons-material";
 import { tokens } from "../../theme";
 import IM from "../../assests/ff.jpg";
@@ -86,7 +86,7 @@ const HeaderIconContainer = styled.div`
   border-radius: 0px 10px 0 0;
 `;
 
-const StyledMenuIcon = styled(MenuOutlined)`
+const StyledMenuIcon = styled(DirectionsBike)`
   width: 30px;
   height: 30px;
 `;
@@ -132,9 +132,7 @@ const SidebarMenu = () => {
       <SidebarHeader>
         <HeaderWordContainer>admin</HeaderWordContainer>
         <HeaderIconContainer>
-          <IconButton>
-            <StyledMenuIcon />
-          </IconButton>
+          <StyledMenuIcon />
         </HeaderIconContainer>
       </SidebarHeader>
       <SideBArImageContainer>

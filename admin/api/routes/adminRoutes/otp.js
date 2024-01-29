@@ -27,7 +27,7 @@ router.get("/admin/generateOtp", async (req, res) => {
     const adminEmail = admin.email;
 
     try {
-      await sendOTPEmail(adminEmail, OTP);
+      await sendOTPEmail(adminEmail, OTP, "Reset Password ✔");
       OTPprops.value = OTP;
       return res.status(200).json("OTP has been sent successfully!");
     } catch (err) {

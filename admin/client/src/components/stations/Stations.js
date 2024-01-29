@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import { useTheme } from "@mui/material";
 import StationsTable from "./StationsTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import apiConnection from "../../apiConnection";
+// import OneQrDetail from "./OneQrDetail";
+import { tokens } from "../../theme";
+import Content from "./Content";
+// import { search } from "../../../../api/routes/adminRoutes/stationRoutes";
 
 const StationsMain = styled.div`
   width: 98%;
   height: 98%;
   margin-top: 10px;
-  /* background-color: red; */
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -73,8 +76,66 @@ const AllStationsContainer = styled.div`
   margin-left: 10px;
 `;
 
+const StationsQrBikesContainer = styled.div`
+  width: 800px;
+  min-height: 200px;
+  /* background-color: red; */
+  margin-left: 20px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
+
+const Title = styled.div`
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding-left: 10px;
+`;
+
+const SearchContainer = styled.div`
+  position: sticky;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  /* background-color: blue; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ValuesContainer = styled.div`
+  width: 100%;
+  height: calc(100% - 60px);
+  overflow: auto;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  /* background-color: ; */
+  border-bottom: 1px solid #fff;
+  /* color: #fff; */
+
+  &::placeholder {
+    color: #fff;
+  }
+`;
+
 const Stations = () => {
   const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const themeMode = theme.palette.mode;
 
   // Add new station
@@ -88,6 +149,49 @@ const Stations = () => {
   // remove a QR from station
   const [removeQr, setRemoveQr] = useState("");
   const [removeQrStationId, setRemoveQrStationId] = useState("");
+
+  // station stats
+  const [stationStats, setStationStats] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // qr-bike available
+  const [qrBikeAvailableArray, setQrBikeAvailableArray] = useState([]);
+  const [isQrAndBikesLoading, setIsQrAndBikesLoading] = useState(false);
+
+  // search
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const getStationStats = async () => {
+      setLoading(false);
+      try {
+        setLoading(true);
+        const response = await apiConnection.get("/info/all/bikes");
+        setStationStats(response.data);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        console.log(err);
+      }
+    };
+    getStationStats();
+  }, []);
+
+  useEffect(() => {
+    const getQrAndBikeAvailableStats = async () => {
+      setIsQrAndBikesLoading(false);
+      try {
+        setIsQrAndBikesLoading(true);
+        const response = await apiConnection.get("/qr/bike/availability");
+        setQrBikeAvailableArray(response.data);
+        setIsQrAndBikesLoading(false);
+      } catch (err) {
+        setIsQrAndBikesLoading(false);
+        console.log(err);
+      }
+    };
+    getQrAndBikeAvailableStats();
+  }, []);
 
   const handleAddStation = async (e) => {
     e.preventDefault();
@@ -197,7 +301,7 @@ const Stations = () => {
       {/* Table container  */}
 
       <AllStationsContainer>
-        <StationsTable />
+        {loading ? <p>Loading...</p> : <StationsTable stats={stationStats} />}
       </AllStationsContainer>
 
       {/* Add new QR to station form */}
@@ -240,6 +344,50 @@ const Stations = () => {
           </BTN>
         </fieldset>
       </Form>
+
+      <StationsQrBikesContainer
+        style={{ backgroundColor: colors.primary[400] }}
+      >
+        <Title
+          style={{
+            backgroundColor: colors.primary[400],
+            color: colors.greenAccent[500],
+          }}
+        >
+          Type Station ID or QR value to search &nbsp;&nbsp;(&nbsp;Find
+          availability of bicycle with corresponding QR in a station)
+        </Title>
+        <SearchContainer>
+          <SearchInput
+            type="text"
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            style={{
+              backgroundColor:
+                theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.4)"
+                  : "rgba(0,0,0,0.3)",
+              color: theme.palette.mode === "dark" ? "#fff" : "#000",
+              borderColor: theme.palette.mode === "dark" ? "#fff" : "#000",
+            }}
+          />
+        </SearchContainer>
+        <ValuesContainer>
+          {isQrAndBikesLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <Content
+              items={qrBikeAvailableArray?.filter((item) => {
+                return item?.qrValue
+                  .toLowerCase()
+                  .includes(search.toLowerCase());
+              })}
+              colors={colors}
+            />
+          )}
+        </ValuesContainer>
+      </StationsQrBikesContainer>
 
       {/* Remove a QR form */}
       <Form onSubmit={handleRemoveQr}>

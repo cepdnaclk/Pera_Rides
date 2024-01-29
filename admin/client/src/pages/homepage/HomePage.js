@@ -3,7 +3,6 @@ import Modal from "../../components/modal/Modal";
 import { useSelector } from "react-redux";
 import SidebarMenu from "../../components/sidebar/SidebarMenu";
 import styled from "styled-components";
-import Dashboard from "../../components/dashboard/Dashboard";
 import Users from "../users/Users";
 import Adduser from "../adduser/Adduser";
 import Calendar from "../calendar/Calendar";
@@ -11,6 +10,7 @@ import BarChartView from "../BarChartView/BarChartView";
 import PieChartView from "../pieChartView/PieChartView";
 import StationsView from "../stationsView/StationsView";
 import PayView from "../payView/PayView";
+import DashView from "../dashboardView/DashView";
 
 const HomepageMainDiv = styled.div`
   width: 100%;
@@ -62,7 +62,7 @@ const HomePage = () => {
       </SideBarContainer>
       <OthesContainer>
         <TopBar />
-        {dashboard && <Dashboard />}
+        {dashboard && <DashView />}
         {manageUsers && <Users />}
         {addUser && <Adduser />}
         {calender && <Calendar />}

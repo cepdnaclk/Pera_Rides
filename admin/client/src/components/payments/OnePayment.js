@@ -27,7 +27,7 @@ const DetailsContainer = styled.div`
 
 const IMG = styled.img`
   width: 100%;
-  height: auto;
+  height: 350px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,25 +122,36 @@ const OnePayment = ({
 
   const handleUpdateIncome = async (e) => {
     e.preventDefault();
-    try {
-      const responseIncomeUpdate = await apiConnection.post("/create/income", {
-        amount: income,
-        userID: userId,
-        paymentDate: postedDate,
-      });
+    const answer = window.confirm(
+      "Are you sure you need to update this income?"
+    );
+    if (answer) {
+      try {
+        const responseIncomeUpdate = await apiConnection.post(
+          "/create/income",
+          {
+            amount: income,
+            userID: userId,
+            paymentDate: postedDate,
+          }
+        );
 
-      const responseRevenueUpdate = await apiConnection.patch("/slip/updated", {
-        slipId: slipId,
-      });
+        const responseRevenueUpdate = await apiConnection.patch(
+          "/slip/updated",
+          {
+            slipId: slipId,
+          }
+        );
 
-      alert("Income Updated!");
-      setIncome("");
-      console.log("Income: ", responseIncomeUpdate.data);
-      console.log("Revenue: ", responseRevenueUpdate.data);
-      setRevenue(true);
-    } catch (err) {
-      setRevenue(false);
-      console.log(err);
+        alert("Income Updated!");
+        setIncome("");
+        console.log("Income: ", responseIncomeUpdate.data);
+        console.log("Revenue: ", responseRevenueUpdate.data);
+        setRevenue(true);
+      } catch (err) {
+        setRevenue(false);
+        console.log(err);
+      }
     }
 
     // try {
