@@ -46,14 +46,14 @@ const Barchart = ({ isDashboard }) => {
   return (
     <ResponsiveBar
       width={isDashboard ? 300 : 900}
-      height={isDashboard ? 320 : 500}
+      height={isDashboard ? 250 : 500}
       data={revenue || []}
       keys={["income"]}
       indexBy="month"
       margin={{
-        top: 30,
+        top: isDashboard ? 0 : 30,
         right: 10,
-        bottom: 50,
+        bottom: isDashboard ? 0 : 50,
         left: 60,
       }}
       padding={0.3}
@@ -79,15 +79,19 @@ const Barchart = ({ isDashboard }) => {
               truncateTickAt: 0,
             }
       }
-      axisLeft={{
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-        legend: isDashboard ? undefined : "Sri Lankan Rupees",
-        legendPosition: "middle",
-        legendOffset: -50,
-        truncateTickAt: 0,
-      }}
+      axisLeft={
+        isDashboard
+          ? null
+          : {
+              tickSize: 5,
+              tickPadding: 5,
+              tickRotation: 0,
+              legend: isDashboard ? undefined : "Sri Lankan Rupees",
+              legendPosition: "middle",
+              legendOffset: -50,
+              truncateTickAt: 0,
+            }
+      }
       enableLabel={false}
       labelSkipWidth={12}
       isInteractive={isDashboard ? false : true}
