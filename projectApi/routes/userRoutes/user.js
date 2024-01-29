@@ -179,28 +179,4 @@ router.get("/map/data", async (req, res) => {
   }
 });
 
-// available stations
-router.get("/user/info/stations", async (req, res) => {
-  try {
-    const values = await Station.aggregate([
-      {
-        $project: {
-          stationName: "$name",
-          bikesAvailable: {
-            $size: {
-              $filter: {
-                input: "$qrValues",
-                cond: { $ifNull: ["$$this.bike", false] },
-              },
-            },
-          },
-        },
-      },
-    ]);
-    res.status(200).json(values);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 module.exports = router;
