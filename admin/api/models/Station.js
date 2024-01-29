@@ -11,6 +11,14 @@ const StationSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    latitude: {
+      type: String,
+      required: true,
+    },
+    longitude: {
+      type: String,
+      required: true,
+    },
     qrValues: {
       type: [
         {

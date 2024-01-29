@@ -333,13 +333,11 @@ const Dashboard = () => {
                       primary={event.title}
                       secondary={
                         <Typography>
-                          <Typography>
-                            {formatDate(event.date, {
-                              year: "numeric",
-                              month: "short",
-                              day: "numeric",
-                            })}
-                          </Typography>
+                          {formatDate(event.date, {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}
                         </Typography>
                       }
                     />

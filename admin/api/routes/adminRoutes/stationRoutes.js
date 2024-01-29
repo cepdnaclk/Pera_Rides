@@ -5,8 +5,10 @@ const router = require("express").Router();
 router.post("/new/station", async (req, res) => {
   const stationName = req.body.name;
   const stationLocation = req.body.location;
+  const stationLatitude = req.body.latitude;
+  const stationLongitude = req.body.longitude;
 
-  if (!stationName || !stationLocation) {
+  if (!stationName || !stationLocation || !stationLatitude) {
     return res.status(400).json("Station name required!");
   }
 
@@ -14,11 +16,13 @@ router.post("/new/station", async (req, res) => {
     const station = new Station({
       name: stationName,
       location: stationLocation,
+      latitude: stationLatitude,
+      longitude: stationLongitude,
     });
     const savedStation = await station.save();
     res.status(201).json(savedStation);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -258,6 +262,21 @@ router.get("/qr/bike/availability", async (req, res) => {
     res.status(200).json(responseArray);
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+// remove a station
+router.delete("/remove/station/:stationId", async (req, res) => {
+  const stationId = req.params.stationId;
+  if (!stationId) {
+    return res.status(400).json("Station ID required.");
+  }
+
+  try {
+    await Station.findByIdAndDelete(stationId);
+    res.status(200).json({ message: "Station Removed Successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

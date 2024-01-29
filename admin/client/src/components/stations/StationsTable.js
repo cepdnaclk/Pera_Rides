@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import TableRow from "./TableRow";
 import { useTheme } from "@mui/material";
+import { tokens } from "../../theme";
 
 const StyledTable = styled.table`
   width: 100%;
@@ -26,6 +27,7 @@ const CAPTION = styled.caption`
 const StationsTable = ({ stats }) => {
   const theme = useTheme();
   const colormode = theme.palette.mode;
+  const colors = tokens(theme.palette.mode);
 
   return (
     <>
@@ -62,9 +64,21 @@ const StationsTable = ({ stats }) => {
           </tbody>
         </StyledTable>
       ) : (
-        <p style={{ padding: "20px", fontSize: "20px", letterSpacing: "1px" }}>
+        <div
+          style={{
+            fontSize: "20px",
+            letterSpacing: "1px",
+            width: "100%",
+            height: "100%",
+            background: colors.primary[400],
+            color: colors.greenAccent[500],
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           No stations Available Yet
-        </p>
+        </div>
       )}
     </>
   );
