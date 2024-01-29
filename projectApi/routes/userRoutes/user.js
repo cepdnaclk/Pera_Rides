@@ -120,9 +120,9 @@ router.post("/user/qr/verify", async (req, res) => {
         mqttClient.end(); // Close the MQTT connection
       });
 
-      res.status(200).json({ balance: true, qr: qrValue });
+      res.status(200).json({ balance: true, qr: qrValue, message: "Unlocked"});
     } else {
-      res.status(400).json("Your account balance is low!");
+      res.status(400).json({error: "Insufficient balance!"});
     }
   } catch (err) {
     console.log(err);
