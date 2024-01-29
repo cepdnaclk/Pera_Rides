@@ -19,11 +19,7 @@ export default function OTPsend () {
                 source={require('../assets/images/bicycle2.png')} 
                 className="h-[200] w-[250]" 
             />
-            {/* <Animated.Image 
-                entering={FadeInUp.delay(400).duration(1000).springify()} 
-                source={require('../assets/images/bicycle.png')} 
-                className="h-[160] w-[65] opacity-75" 
-            /> */}
+          
         </View>
 
         {/* title and form */}
@@ -49,25 +45,7 @@ export default function OTPsend () {
                 </Animated.Text>
             </View>
 
-                {/* <Animated.View 
-                    entering={FadeInDown.duration(1000).springify()} 
-                    className="bg-black/5 p-5 rounded-2xl w-full">
-
-                    <TextInput
-                        placeholder="User Name"
-                        placeholderTextColor={'gray'}
-                    />
-                </Animated.View> */}
-                {/* <Animated.View 
-                    entering={FadeInDown.delay(200).duration(1000).springify()} 
-                    className="bg-black/5 p-5 rounded-2xl w-full mb-3">
-
-                    <TextInput
-                        placeholder="Enter OTP"
-                        placeholderTextColor={'gray'}
-                        // secureTextEntry
-                    />
-                </Animated.View> */}
+              
 
                 <Animated.View 
                     className="w-full" 
@@ -81,11 +59,7 @@ export default function OTPsend () {
                 <Animated.View 
                     entering={FadeInDown.delay(600).duration(1000).springify()} 
                     className="flex-row justify-center">
-{/* 
-                    <Text>Don't have an account? </Text>
-                    <TouchableOpacity onPress={()=> navigation.push('Signup')}>
-                        <Text className="text-sky-600">SignUp</Text>
-                    </TouchableOpacity> */}
+
                 </Animated.View>
             </View>
         </View>
