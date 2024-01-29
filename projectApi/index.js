@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = express();
 const cors = require("cors");
-const corsOptions = require("./config/corsOptions");
+// const corsOptions = require("./config/corsOptions");
 dotenv.config();
 
 // define port
 const PORT = process.env.PORT || 5000;
 
 // middleware for cors
-app.use(cors(corsOptions));
+app.use(cors());
 
 // middleware for json()
 app.use(express.json());
@@ -21,8 +21,6 @@ mongoose
   .then(console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
 ////////////////////////////////
-
-
 
 // rotes for admin login, password reset, register admin
 app.use("/api/", require("./routes/adminRoutes/adminMain"));
@@ -52,11 +50,11 @@ app.use("/api/", require("./routes/userRoutes/user"));
 app.use("/api/", require("./routes/userRoutes/otp"));
 
 app.use((err, req, res, next) => {
-  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-    res.status(400).json({ error: 'Invalid JSON payload' });
-  } else if (err.type === 'entity.too.large') {
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    res.status(400).json({ error: "Invalid JSON payload" });
+  } else if (err.type === "entity.too.large") {
     // console.log("x");
-    res.status(413).json({error: 'Image is too large'});
+    res.status(413).json({ error: "Image is too large" });
   } else {
     next();
   }
