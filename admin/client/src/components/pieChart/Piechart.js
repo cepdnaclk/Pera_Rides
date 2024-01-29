@@ -10,12 +10,12 @@ const Piechart = ({ isDashboard }) => {
   return (
     <ResponsivePie
       width={isDashboard ? 300 : 800}
-      height={isDashboard ? 300 : 500}
+      height={isDashboard ? 250 : 500}
       data={enrollments}
       margin={{
-        top: isDashboard ? 30 : 50,
+        top: isDashboard ? 0 : 50,
         right: isDashboard ? 30 : 50,
-        bottom: isDashboard ? 30 : 50,
+        bottom: isDashboard ? 0 : 50,
         left: isDashboard ? 50 : 80,
       }}
       innerRadius={0.5}

@@ -18,6 +18,8 @@ import apiConnection from "../../apiConnection";
 import { useEffect, useState } from "react";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import { useSelector } from "react-redux";
+import InsightsIcon from "@mui/icons-material/Insights";
+import EqualizerIcon from "@mui/icons-material/Equalizer";
 
 const DashboardMain = styled.div`
   width: 97%;
@@ -239,7 +241,41 @@ const Dashboard = () => {
         <OneGraphContainer backcolor={colors.primary[400]}>
           <ChartDiv>
             {revenue?.length ? (
-              <BarChart isDashboard={true} />
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <div
+                  style={{
+                    // background: colors.gray[600],
+                    color: colors.gray[100],
+                    textAlign: "end",
+                    padding: "2px",
+                    letterSpacing: "1px",
+                    marginBottom: "5px",
+                  }}
+                >
+                  <EqualizerIcon />
+                </div>
+                <BarChart isDashboard={true} />
+                <div
+                  style={{
+                    // background: colors.gray[700],
+                    color: colors.greenAccent[500],
+                    textAlign: "center",
+                    padding: "2px",
+                    letterSpacing: "1px",
+                    marginBottom: "5px",
+                    fontSize: "12px",
+                  }}
+                >
+                  variation of the income
+                </div>
+              </div>
             ) : (
               <div
                 style={{
@@ -261,7 +297,41 @@ const Dashboard = () => {
         <OneGraphContainer backcolor={colors.primary[400]}>
           <ChartDiv>
             {enrollments?.length ? (
-              <PieChart isDashboard={true} />
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <div
+                  style={{
+                    // background: colors.gray[600],
+                    color: colors.gray[100],
+                    textAlign: "end",
+                    padding: "2px",
+                    letterSpacing: "1px",
+                    marginBottom: "5px",
+                  }}
+                >
+                  <InsightsIcon />
+                </div>
+                <PieChart isDashboard={true} />
+                <div
+                  style={{
+                    // background: colors.gray[700],
+                    color: colors.greenAccent[500],
+                    textAlign: "center",
+                    padding: "2px",
+                    letterSpacing: "1px",
+                    marginBottom: "5px",
+                    fontSize: "12px",
+                  }}
+                >
+                  variation of the progress
+                </div>
+              </div>
             ) : (
               <div
                 style={{
@@ -290,18 +360,19 @@ const Dashboard = () => {
         >
           <div
             style={{
-              // background: "red",
               width: "100%",
               textAlign: "center",
               position: "sticky",
               top: 0,
               left: 0,
               zIndex: 10,
-              padding: "20px 0",
+              padding: "10px 0",
               marginBottom: "20px",
               textTransform: "capitalize",
               letterSpacing: "1px",
-              backgroundColor: colors.primary[400],
+              backgroundColor: colors.gray[700],
+              color: colors.gray[100],
+              fontWeight: 500,
             }}
           >
             available events
@@ -367,7 +438,7 @@ const Dashboard = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  border: "1px solid #4cceac",
+                  border: `1px solid ${colors.greenAccent[500]}`,
                   color: "#4cceac",
                 }}
               >
