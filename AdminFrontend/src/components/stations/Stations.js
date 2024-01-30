@@ -523,9 +523,9 @@ const Stations = () => {
             value={removeQrStationId}
             onChange={(e) => setRemoveQrStationId(e.target.value)}
           />
-          <BTN modes={themeMode} type="submit">
+          <BTNREMOVE modes={themeMode} type="submit">
             Remove
-          </BTN>
+          </BTNREMOVE>
         </fieldset>
       </Form>
 
