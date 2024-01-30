@@ -50,6 +50,7 @@ const satationSlice = createSlice({
       state.isStationsLoading = false;
       state.stationsArray = action.payload;
       state.isStationsError = false;
+      console.log(action.payload);
     });
 
     builder.addCase(getStationsStats.rejected, (state) => {

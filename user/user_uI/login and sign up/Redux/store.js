@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./features/user/userSlice";
 import stationReducer from "./features/stations/stationSlice";
+import mapReducer from "./features/mapdata/mapSlice";
 
 import {
   persistStore,
@@ -26,6 +27,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   stations: stationReducer,
+  map: mapReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

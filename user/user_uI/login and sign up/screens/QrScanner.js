@@ -39,7 +39,7 @@ export default function QrScanner() {
     // const userId = "your_user_id_here"; // Replace with the actual user ID
     // const qrValue = "your_qr_value_here"; // Replace with the actual QR value
     try {
-      const response = await apiConnection.post("/user/qr/verify", {
+      const response = await apiConnection.patch("/user/qr/verify", {
         id: user._id,
         qr: data,
       });

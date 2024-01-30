@@ -43,7 +43,7 @@ const Details = ({ navigation, route }) => {
           }}
         >
           <Text style={{ fontSize: 25, fontWeight: "bold" }}>
-            {station.name}
+            station: {station.name}
           </Text>
           <View style={style.statusTag}>
             <Text

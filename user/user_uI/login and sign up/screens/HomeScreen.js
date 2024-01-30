@@ -97,6 +97,9 @@ export default function HomeScreen() {
     (store) => store.stations
   );
 
+  // let isStationsLoading = false;
+  // let isStationsError = true;
+
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleLogout = () => {
@@ -210,7 +213,7 @@ export default function HomeScreen() {
       {/* ... Other components */}
       {isStationsLoading ? (
         <Text>Loading...</Text>
-      ) : isStationsError ? (
+      ) : isStationsError && !isStationsLoading ? (
         <Text>Error Loading Stations. Try again</Text>
       ) : (
         <FlatList
@@ -225,7 +228,7 @@ export default function HomeScreen() {
           renderItem={({ item }) => {
             return <Card station={item} />;
           }}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item._id.toString()}
         />
       )}
     </View>
