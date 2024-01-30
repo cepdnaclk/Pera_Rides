@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./features/user/userSlice";
+import stationReducer from "./features/stations/stationSlice";
 
 import {
   persistStore,
@@ -12,7 +13,7 @@ import {
   REGISTER,
 } from "redux-persist";
 
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage
 // import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
@@ -24,6 +25,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userReducer,
+  stations: stationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
