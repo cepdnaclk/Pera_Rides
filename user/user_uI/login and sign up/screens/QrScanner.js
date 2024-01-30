@@ -29,12 +29,12 @@ export default function QrScanner() {
 
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanData(data);
-    console.log(`Data: ${data}`);
-    console.log(`Type: ${type}`);
+    // console.log(`Data: ${data}`);
+    // console.log(`Type: ${type}`);
 
     // const qrValue = "edeefsf"; 
 
-    
+    // console.log(data);
 
     // const userId = "your_user_id_here"; // Replace with the actual user ID
     // const qrValue = "your_qr_value_here"; // Replace with the actual QR value
@@ -44,8 +44,10 @@ export default function QrScanner() {
         qr: data,
       });
 
+      // console.log("res: ", response); // Handle the response data here
+
       // console.log(response.data); // Handle the response data here
-      Alert.alert("Details", response.data.message, [
+      Alert.alert("Details", "Unlocked", [
         {
           text: "OK",
           onPress: () => {
@@ -53,11 +55,12 @@ export default function QrScanner() {
           },
         },
       ]);
+      // console.log("x");
     } catch (error) {
       // console.error("Error:", error);
       // Handle errors here
       console.log(error.response.data.error);
-      Alert.alert("Details", error.response.data.error, [
+      Alert.alert("Details", "Error Unlocking", [
         {
           text: "OK",
           onPress: () => {
