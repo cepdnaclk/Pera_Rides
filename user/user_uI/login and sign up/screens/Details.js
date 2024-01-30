@@ -1,33 +1,35 @@
-import React from 'react';
-import {View, SafeAreaView, Image, Text, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import COLORS from '../const/colors';
+import React from "react";
+import { View, SafeAreaView, Image, Text, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import COLORS from "../const/colors";
+import IMAGE from "../assets/images/station2.jpg";
 
-const Details = ({navigation, route}) => {
+const Details = ({ navigation, route }) => {
   const station = route.params;
 
   return (
-    
     <SafeAreaView
-    // showsVerticalScrollIndicator={false}
+      // showsVerticalScrollIndicator={false}
       style={{
         flex: 1,
         backgroundColor: COLORS.white,
-      }}>
+      }}
+    >
       <View style={style.header}>
         <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />
         {/* <Icon name="shopping-cart" size={28} /> */}
       </View>
       <View style={style.imageContainer}>
-        <Image source={station.img} style={{resizeMode: 'contain', flex: 1}} />
+        <Image source={IMAGE} style={{ resizeMode: "contain", flex: 1 }} />
       </View>
       <View style={style.detailsContainer}>
         <View
           style={{
             marginLeft: 20,
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-          }}>
+            flexDirection: "row",
+            alignItems: "flex-end",
+          }}
+        >
           {/* <View style={style.line} />
           <Text style={{fontSize: 18, fontWeight: 'bold'}}>Best choice</Text> */}
         </View>
@@ -35,25 +37,29 @@ const Details = ({navigation, route}) => {
           style={{
             marginLeft: 20,
             marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 25, fontWeight: 'bold'}}>{station.name}</Text>
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+            {station.name}
+          </Text>
           <View style={style.statusTag}>
             <Text
               style={{
                 marginLeft: 15,
                 color: COLORS.white,
-                fontWeight: 'bold',
+                fontWeight: "bold",
                 fontSize: 16,
-              }}>
+              }}
+            >
               {station.status}
             </Text>
           </View>
         </View>
-        <View style={{paddingHorizontal: 20, marginTop: 10}}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
+          {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>bicycles Slots</Text>
           <Text
             style={{
@@ -66,30 +72,35 @@ const Details = ({navigation, route}) => {
             }}>
             : {station.slots}
           </Text>
-        </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>No of bicycles are Available now</Text>
-          <Text
-            style={{
-                color: 'grey',
+        </View> */}
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              Available Bicycles
+            </Text>
+            <Text
+              style={{
+                color: "grey",
                 fontSize: 20,
                 lineHeight: 20,
                 marginTop: 10,
-                marginLeft: 20 // Adjust this margin as needed for spacing
-            }}>
-            : {station.amount}
+                marginLeft: 20, // Adjust this margin as needed for spacing
+              }}
+            >
+              : {station.amount}
+            </Text>
+          </View>
+
+          <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 20 }}>
+            About
           </Text>
-        </View>
-
-
-          <Text style={{fontSize: 20, fontWeight: 'bold',marginTop: 20}}>About</Text>
           <Text
             style={{
-              color: 'grey',
+              color: "grey",
               fontSize: 16,
               lineHeight: 22,
               marginTop: 20,
-            }}>
+            }}
+          >
             {station.about}
           </Text>
           {/* <View
@@ -119,15 +130,14 @@ const Details = ({navigation, route}) => {
               </View>
             </View> */}
 
-            {/* <View style={style.buyBtn}>
+          {/* <View style={style.buyBtn}>
               <Text
                 style={{color: COLORS.white, fontSize: 18, fontWeight: 'bold'}}>
                 Buy
               </Text>
             </View> */}
-          </View>
         </View>
-      
+      </View>
     </SafeAreaView>
   );
 };
@@ -136,14 +146,14 @@ const style = StyleSheet.create({
   header: {
     paddingHorizontal: 20,
     marginTop: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   imageContainer: {
     flex: 0.45,
     marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   detailsContainer: {
     flex: 0.55,
@@ -162,28 +172,28 @@ const style = StyleSheet.create({
     marginRight: 3,
   },
   borderBtn: {
-    borderColor: 'grey',
+    borderColor: "grey",
     borderWidth: 1,
     borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     width: 60,
     height: 40,
   },
-  borderBtnText: {fontWeight: 'bold', fontSize: 28},
+  borderBtnText: { fontWeight: "bold", fontSize: 28 },
   buyBtn: {
     width: 130,
     height: 50,
     backgroundColor: COLORS.green,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 30,
   },
   statusTag: {
     backgroundColor: COLORS.green,
     width: 200,
     height: 40,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderTopLeftRadius: 25,
     borderBottomLeftRadius: 25,
   },

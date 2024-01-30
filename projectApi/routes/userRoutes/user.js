@@ -203,13 +203,36 @@ router.patch("/park/bicycle", async (req, res) => {
 });
 
 // get number of bikes parked in a station (all bikes)
+// router.get("/info/all/bikes/user", async (req, res) => {
+//   try {
+//     const values = await Station.aggregate([
+//       {
+//         $project: {
+//           stationName: "$name",
+//           bikesAvailable: {
+//             $size: {
+//               $filter: {
+//                 input: "$qrValues",
+//                 cond: { $ifNull: ["$$this.bike", false] },
+//               },
+//             },
+//           },
+//         },
+//       },
+//     ]);
+//     res.status(200).json(values);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 router.get("/info/all/bikes/user", async (req, res) => {
   try {
     const values = await Station.aggregate([
       {
         $project: {
-          stationName: "$name",
-          bikesAvailable: {
+          about: "$location",
+          name: "$name",
+          amount: {
             $size: {
               $filter: {
                 input: "$qrValues",
@@ -219,7 +242,22 @@ router.get("/info/all/bikes/user", async (req, res) => {
           },
         },
       },
+      {
+        $project: {
+          about: 1,
+          name: 1,
+          amount: 1,
+          status: {
+            $cond: {
+              if: { $eq: ["$amount", 0] },
+              then: "Not available for use bicycles",
+              else: "Available for use bicycles",
+            },
+          },
+        },
+      },
     ]);
+
     res.status(200).json(values);
   } catch (err) {
     res.status(500).json(err);
@@ -262,8 +300,12 @@ router.get("/map/data", async (req, res) => {
     for (let stationObj of foundStations) {
       const oneLocation = {
         _id: stationObj._id,
-        lattitude: parseFloat(stationObj.latitude),
-        longitude: parseFloat(stationObj.longitude),
+        name: stationObj.name,
+        address: stationObj.location,
+        location: {
+          lattitude: parseFloat(stationObj.latitude),
+          longitude: parseFloat(stationObj.longitude),
+        },
       };
 
       responseArray.push(oneLocation);

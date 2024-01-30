@@ -20,12 +20,19 @@ import OTPsend from "./screens/OTPsend";
 import Map from "./screens/Map";
 import Subscription from "./screens/Subscription";
 import { store, persistor } from "./Redux/store";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { getStationsStats } from "./Redux/features/stations/stationSlice";
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getStationsStats());
+  }, [dispatch]);
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
