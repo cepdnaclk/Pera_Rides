@@ -90,93 +90,96 @@ router.put("/user/update/:userId", async (req, res) => {
 
 // QR scanning and set bike in the QR to null
 router.patch("/user/qr/verify", async (req, res) => {
-  res.status(200).json({ message: "Verified" });
-  // const userId = req.body.id;
-  // const fullQrValueWithStationID = req.body.qrValue;
-  // const stationId = fullQrValueWithStationID.split(" ")[0];
-  // const qrValue = fullQrValueWithStationID.split(" ")[1];
+  const userId = req.body.id;
+  const fullQrValueWithStationID = req.body.qr;
+  const stationId = fullQrValueWithStationID.split(" ")[0];
 
-  // if (!userId || !stationId || !qrValue) {
-  //   res
-  //     .status(400)
-  //     .json({ message: "User ID, QR value and Station ID required" });
-  // }
+  if (!userId || !fullQrValueWithStationID) {
+    res
+      .status(400)
+      .json({ message: "User ID, QR value and Station ID required" });
+  }
 
-  // try {
-  //   const foundUser = await User.findById(userId);
-  //   if (!foundUser) {
-  //     return res.status(404).json({ message: "User not found" });
-  //   }
-  //   const balance = foundUser.balance;
-  //   if (balance >= 20) {
-  //     try {
-  //       const foundStation = await Station.findById(stationId);
-  //       if (!foundStation) {
-  //         return res
-  //           .status(404)
-  //           .json({ message: "Station with provided ID not found!" });
-  //       }
+  try {
+    const foundUser = await User.findById(userId);
+    if (!foundUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const balance = foundUser.balance;
+    if (balance >= 20 && balance-20 >= 0) {
+        const foundStation = await Station.findById(stationId);
+        if (!foundStation) {
+          return res
+            .status(404)
+            .json({ message: "Station with provided ID not found!" });
+        }
 
-  //       const qrObject = foundStation.qrValues.find(
-  //         (item) => item.qr === qrValue
-  //       );
+        const qrObject = foundStation.qrValues.find(
+          (item) => item.qr === fullQrValueWithStationID
+        );
 
-  //       if (!qrObject) {
-  //         return res
-  //           .status(404)
-  //           .json({ message: "Provided QR value not found in the station!" });
-  //       }
+        if (!qrObject) {
+          return res
+            .status(404)
+            .json({ message: "Provided QR value not found in the station!" });
+        }
 
-  //       ///////////////////////////
-  //       qrObject.bike = null;
-  //       foundUser.balance = foundUser.balance - 20;
+        ///////////////////////////
+        qrObject.bike = null;
+        foundUser.balance = foundUser.balance - 20;
 
-  //       // MQTT connection settings
-  //       const mqttOptions = {
-  //         clientId: foundUser._id, // Replace with your MQTT client ID
-  //         // username: 'your_username', // Replace with your MQTT username
-  //         // password: 'your_password', // Replace with your MQTT password
-  //         clean: true,
-  //       };
+        // MQTT connection settings
+        const mqttOptions = {
+          clientId: foundUser._id, // Replace with your MQTT client ID
+          // username: 'your_username', // Replace with your MQTT username
+          // password: 'your_password', // Replace with your MQTT password
+          clean: true,
+        };
 
-  //       const mqttClient = mqtt.connect(
-  //         "ws://test.mosquitto.org:8080/mqtt",
-  //         mqttOptions
-  //       ); // Replace with your MQTT broker URL
+        const mqttClient = mqtt.connect(
+          "ws://test.mosquitto.org:8080/mqtt",
+          mqttOptions
+        ); // Replace with your MQTT broker URL
 
-  //       mqttClient.on("connect", () => {
-  //         // Publish a message on a specific topic when the MQTT client is connected
-  //         mqttClient.publish("Pera_Ride/unlock", JSON.stringify(1));
-  //         mqttClient.end(); // Close the MQTT connection
-  //       });
+        console.log("MQTT client connected");
+        mqttClient.on("connect", () => {
+          // Publish a message on a specific topic when the MQTT client is connected
+          mqttClient.publish("Pera_Ride/unlock", JSON.stringify(1));
+          mqttClient.end(); // Close the MQTT connection
+        });
 
-  //       ///////////////////////////
-  //       res
-  //         .status(200)
-  //         .json({ balance: true, qr: qrValue, message: "Unlocked" });
+        console.log("MQTT client disconnected");
 
-  //       ////////////////////////////////
-  //     } catch (err) {
-  //       res.status(500).json(err);
-  //     }
-  //   } else {
-  //     res.status(400).json({ error: "Insufficient balance!" });
-  //   }
-  // } catch (err) {
-  //   console.log(err);
-  //   res.status(500).json(err);
-  // }
+        await foundStation.save();
+        await foundUser.save();
+
+        ///////////////////////////
+        res
+          .status(200)
+          .json({ balance: true, qr: fullQrValueWithStationID, message: "Unlocked" });
+
+        ////////////////////////////////
+    } else {
+      res.status(400).json({ error: "Insufficient balance!" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 // update bike when parked(bikeId) in qr inside station
-router.patch("/park/bicycle", async (req, res) => {
+router.post("/park/bicycle", async (req, res) => {
+  console.log('====================================');
+  console.log(req.body);
+  console.log('====================================');
   // const stationId = req.params.stationId;
   const bikeId = req.body.bikeId;
   const fullQrValueWithStationID = req.body.qrValue;
   const stationId = fullQrValueWithStationID.split(" ")[0];
-  const qrValue = fullQrValueWithStationID.split(" ")[1];
+  // const qrValue = fullQrValueWithStationID.split(" ")[1];
 
-  if (!stationId || !bikeId || !qrValue) {
+  if (!stationId || !fullQrValueWithStationID) {
     return res
       .status(400)
       .json("Station ID and Bicycle ID and QR value required!");
@@ -188,7 +191,7 @@ router.patch("/park/bicycle", async (req, res) => {
       return res.status(404).json("Station with provided ID not found!");
     }
 
-    const qrObject = foundStation.qrValues.find((item) => item.qr === qrValue);
+    const qrObject = foundStation.qrValues.find((item) => item.qr === fullQrValueWithStationID);
 
     if (!qrObject) {
       return res
@@ -199,6 +202,9 @@ router.patch("/park/bicycle", async (req, res) => {
     const savedStation = await foundStation.save();
     res.status(200).json(savedStation);
   } catch (err) {
+    console.log('====================================');
+    console.log(err.message);
+    console.log('====================================');
     res.status(500).json(err);
   }
 });
