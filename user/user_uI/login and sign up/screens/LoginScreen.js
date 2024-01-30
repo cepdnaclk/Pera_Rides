@@ -22,6 +22,8 @@ import {
   loginSuccess,
   loginFailure,
 } from "../Redux/features/user/userSlice";
+import { getStationsStats } from "../Redux/features/stations/stationSlice";
+import { getMapData } from "../Redux/features/mapdata/mapSlice";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -38,6 +40,8 @@ export default function LoginScreen() {
       });
       console.log(response.data);
       dispatch(loginSuccess(response.data));
+      dispatch(getStationsStats());
+      dispatch(getMapData());
       Alert.alert("Details", "login successfull", [
         {
           text: "OK",
