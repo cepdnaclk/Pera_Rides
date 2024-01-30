@@ -51,68 +51,68 @@ router.patch("/new/qr/:stationId", async (req, res) => {
   }
 });
 
-// update bike when parked(bikeId) in qr inside station
-router.patch("/available/bike/:stationId", async (req, res) => {
-  const stationId = req.params.stationId;
-  const bikeId = req.body.bikeId;
-  const qrValue = req.body.qrValue;
+// update bike when parked(bikeId) in qr inside station ===> added to user routes
+// router.patch("/available/bike/:stationId", async (req, res) => {
+//   const stationId = req.params.stationId;
+//   const bikeId = req.body.bikeId;
+//   const qrValue = req.body.qrValue;
 
-  if (!stationId || !bikeId) {
-    return res.status(400).json("Station ID and Bicycle ID required!");
-  }
+//   if (!stationId || !bikeId) {
+//     return res.status(400).json("Station ID and Bicycle ID required!");
+//   }
 
-  try {
-    const foundStation = await Station.findById(stationId);
-    if (!foundStation) {
-      return res.status(404).json("Station with provided ID not found!");
-    }
+//   try {
+//     const foundStation = await Station.findById(stationId);
+//     if (!foundStation) {
+//       return res.status(404).json("Station with provided ID not found!");
+//     }
 
-    const qrObject = foundStation.qrValues.find((item) => item.qr === qrValue);
+//     const qrObject = foundStation.qrValues.find((item) => item.qr === qrValue);
 
-    if (!qrObject) {
-      return res
-        .status(404)
-        .json("Provided QR value not found in the station!");
-    }
-    qrObject.bike = bikeId;
-    const savedStation = await foundStation.save();
-    res.status(200).json(savedStation);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+//     if (!qrObject) {
+//       return res
+//         .status(404)
+//         .json("Provided QR value not found in the station!");
+//     }
+//     qrObject.bike = bikeId;
+//     const savedStation = await foundStation.save();
+//     res.status(200).json(savedStation);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
-// update when no bike (null) in qr inside station
-router.patch("/empty/bike/:stationId", async (req, res) => {
-  const stationId = req.params.stationId;
-  //   const bikeId = req.body.bikeId;
-  const qrValue = req.body.qrValue;
+// update when no bike (null) in qr inside station ===> added to user router
+// router.patch("/empty/bike/:stationId", async (req, res) => {
+//   const stationId = req.params.stationId;
+//   //   const bikeId = req.body.bikeId;
+//   const qrValue = req.body.qrValue;
 
-  if (!stationId) {
-    return res.status(400).json("Station ID and Bicycle ID required!");
-  }
+//   if (!stationId) {
+//     return res.status(400).json("Station ID and Bicycle ID required!");
+//   }
 
-  try {
-    const foundStation = await Station.findById(stationId);
-    if (!foundStation) {
-      return res.status(404).json("Station with provided ID not found!");
-    }
+//   try {
+//     const foundStation = await Station.findById(stationId);
+//     if (!foundStation) {
+//       return res.status(404).json("Station with provided ID not found!");
+//     }
 
-    const qrObject = foundStation.qrValues.find((item) => item.qr === qrValue);
+//     const qrObject = foundStation.qrValues.find((item) => item.qr === qrValue);
 
-    if (!qrObject) {
-      return res
-        .status(404)
-        .json("Provided QR value not found in the station!");
-    }
-    qrObject.bike = null;
-    const savedStation = await foundStation.save();
+//     if (!qrObject) {
+//       return res
+//         .status(404)
+//         .json("Provided QR value not found in the station!");
+//     }
+//     qrObject.bike = null;
+//     const savedStation = await foundStation.save();
 
-    res.status(200).json(savedStation);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+//     res.status(200).json(savedStation);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 // get number of bikes parked in a station (all bikes)
 router.get("/info/all/bikes", async (req, res) => {
